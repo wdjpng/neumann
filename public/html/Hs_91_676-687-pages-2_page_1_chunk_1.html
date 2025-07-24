@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Brief-Replik</title>
+
+<!-- Google-Font für eine handschriftähnliche Optik -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap" rel="stylesheet">
+
+<style>
+    :root{
+        --paper:#efe7d1;
+        --ink:#5d646d;
+    }
+
+    body{
+        margin:0;
+        padding:2rem 0;
+        background:var(--paper);
+        font-family:'Caveat', cursive;
+        color:var(--ink);
+        font-size:1.35rem;
+        line-height:1.5;
+        display:flex;
+        justify-content:center;
+    }
+
+    .letter{
+        width:650px;
+        position:relative;
+    }
+
+    /* zarte Längslinien – wie bei klassischem, leicht kariertem Papier */
+    .letter::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        background-image:
+            repeating-linear-gradient(
+                to bottom,
+                transparent 0 24px,
+                rgba(0,0,0,.06) 25px
+            );
+        mix-blend-mode:multiply;
+        pointer-events:none;
+    }
+
+    .meta{
+        font-size:1rem;
+    }
+
+    .date{
+        float:right;
+        white-space:nowrap;
+    }
+
+    p{
+        margin:0 0 1.1rem 0;
+    }
+</style>
+
+<!-- MathJax (nur geladen, falls im Text Formeln stehen) -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="letter">
+    <p class="meta">· Hs&nbsp;91 : 677<span class="date">Budapest, den&nbsp;25.&nbsp;VII.&nbsp;1925.</span></p>
+
+    <p>Sehr geehrter Herr Professor!</p>
+
+    <p>Die Widerspruchsfreiheits-Arbeit</p>
+
+    <p>schicke ich beiliegend.</p>
+</div>
+
+</body>
+</html>

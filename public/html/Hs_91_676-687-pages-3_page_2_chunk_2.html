@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<title>Transcribed Letter</title>
+
+<!-- Hand-written looking font -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet" />
+
+<!-- MathJax for possible equations -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+    :root{
+        --ink:#1f3f7b;
+        --paper:#f5f2d8;
+    }
+    *{box-sizing:border-box;}
+    body{
+        background:var(--paper);
+        margin:0;
+        display:flex;
+        justify-content:center;
+        padding:3rem 1rem;
+        font-size:1.25rem;
+        line-height:1.4;
+    }
+    .page{
+        width:60ch;
+        padding:2.5rem 3rem;
+        background:rgba(255,255,255,0.15);  /* faint texture */
+        box-shadow:0 0 6px rgba(0,0,0,.25);
+        backdrop-filter:blur(2px);
+    }
+    .line{
+        font-family:'Dancing Script','Brush Script MT',cursive;
+        color:var(--ink);
+        margin:.4rem 0;
+        white-space:pre-wrap;   /* preserve wraps & hyphens */
+    }
+</style>
+</head>
+<body>
+    <div class="page">
+        <p class="line">Prof. Schrödinger jetzt gar</p>
+        <p class="line">und ich wäre dann Herrn Professor</p>
+        <p class="line">sehr dankbar, wenn Sie die Bitte hätten,</p>
+        <p class="line">mich mit ihm einmal über den Gegen-</p>
+        <p class="line">stand in diesem Sinne auszusprechen;</p>
+        <p class="line">um so mehr, als Sie ja über meine wis-</p>
+        <p class="line">senschaftliche Tätigkeit und Interessen</p>
+        <p class="line">orientirt sind. Ich hoffe, dass ich Herrn</p>
+        <p class="line">Professor durch diese Bitte keine beson-</p>
+        <p class="line">dere Umstände verursache, und danke</p>
+    </div>
+</body>
+</html>

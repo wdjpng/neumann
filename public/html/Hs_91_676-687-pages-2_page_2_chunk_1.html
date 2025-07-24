@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Hand-written Letter (facsimile)</title>
+
+<!-- Google handwriting-style font -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- MathJax (kept, even though this fragment contains no equations) -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+    /* Paper-like background */
+    body{
+        margin:0;
+        padding:3rem 5rem;
+        background:#f3f0e6;             /* warm, lightly yellowed paper */
+        font-family:'Caveat',cursive;   /* gentle hand-writing look   */
+        font-size:1.8rem;
+        line-height:2.6rem;
+        color:#8ca2b0;                 /* soft pencil/ink tone       */
+    }
+
+    /* Optional subtle linen texture (pure CSS) */
+    body:before{
+        content:"";
+        position:fixed;
+        top:0;left:0;right:0;bottom:0;
+        pointer-events:none;
+        background-image:
+           linear-gradient( 90deg,rgba(0,0,0,.03) 1px,transparent 1px),
+           linear-gradient(180deg,rgba(0,0,0,.03) 1px,transparent 1px);
+        background-size:4px 4px;
+        mix-blend-mode:multiply;
+    }
+
+    .letter{
+        max-width:780px;
+        margin:0 auto;
+    }
+
+    /* Slightly smaller for the parenthetical address block */
+    .address{
+        font-size:1.4rem;
+        line-height:2rem;
+        margin-top:2rem;
+    }
+</style>
+</head>
+<body>
+
+<div class="letter">
+    <p>danke, verbleibe ich hochachtungsvoll</p>
+
+    <p>Ihr ganz ergebener</p>
+
+    <p>Hans&nbsp;v.&nbsp;Weimann,</p>
+
+    <p class="address">(Bis&nbsp;20.&nbsp;viii.: Selwyn&nbsp;College, Cambridge,</p>
+</div>
+
+</body>
+</html>

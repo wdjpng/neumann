@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hotel-Bristol Letter (fac-simile)</title>
+
+<!-- Google-fonts -->
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Libre+Franklin:wght@300;600&family=Homemade+Apple&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --paper:#f5f1e6;
+    --ink:#173c5c;
+    --type:#555;
+    --rule:#b9b6a8;
+    --maxw:820px;
+}
+
+html,body{
+    height:100%;
+    margin:0;
+}
+body{
+    background:var(--paper);
+    font-family:'EB Garamond',serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.4;
+}
+
+/* white sheet in the centre */
+.letter{
+    max-width:var(--maxw);
+    margin:2rem auto;
+    padding:3rem 3.5rem 4rem;
+    background:var(--paper);
+    box-shadow:0 3px 8px rgba(0,0,0,.08);
+    position:relative;
+    overflow:hidden;
+}
+
+/* faint back-side handwriting just for flavour */
+.letter::before{
+    content:"";
+    position:absolute;
+    inset:1rem;
+    background:url('data:image/svg+xml,\
+        <svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22512%22 height=%22256%22>\
+        <text x=%228%22 y=%2234%22 font-family=%22Homemade Apple%22 font-size=%2252%22 fill=%22%23b5bed4%22 fill-opacity=%220.26%22>\
+        lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet</text></svg>') repeat;
+    mix-blend-mode:multiply;
+    opacity:.17;
+    pointer-events:none;
+}
+
+/* letterhead */
+.head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+/* left telegram block */
+.telegram{
+    font-family:'Libre Franklin',sans-serif;
+    text-transform:uppercase;
+    font-size:.7rem;
+    letter-spacing:.05em;
+    color:var(--type);
+    line-height:1.25;
+}
+.telegram hr{
+    width:2.5rem;
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:.3rem 0;
+}
+
+/* centre title */
+.hotel{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+}
+.hotel h1{
+    margin:0;
+    font-family:'Libre Franklin',sans-serif;
+    font-weight:600;
+    font-size:2.35rem;
+    letter-spacing:.04em;
+}
+.hotel small{
+    display:block;
+    margin-top:.15rem;
+    font-size:.85rem;
+    letter-spacing:.12em;
+    color:var(--type);
+}
+
+/* handwritten corner notes */
+.corner{
+    font-family:'Homemade Apple',cursive;
+    font-size:1.35rem;
+    color:var(--ink);
+    opacity:.8;
+}
+.number{
+    position:absolute;
+    top:1rem;
+    right:1.2rem;
+}
+
+/* body of the letter */
+.content{
+    margin-top:6.5rem;
+    font-size:1.15rem;
+    color:var(--ink);
+    font-family:'Homemade Apple',cursive;
+    white-space:pre-wrap;      /* preserve manual line breaks */
+}
+
+/* emphasise visually the math inline block */
+mjx-container{
+    font-size:1.1em;
+    color:#000;
+}
+</style>
+
+<!-- MathJax (v3) -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="letter">
+
+    <!-- corner handwritten catalogue mark -->
+    <div class="corner">Hs 91: 678</div>
+    <div class="corner number">1.</div>
+
+    <div class="head">
+        <div class="telegram">
+            TELEGRAMM-ADRESSE:<br>
+            BRISTOL, KARLSBAD.<br>
+            <hr>
+            TELEPHON Nr. 86.
+        </div>
+
+        <div class="hotel">
+            <h1>HÔTEL BRISTOL</h1>
+            <small>KARLSBAD, den&nbsp;27.&nbsp;6.&nbsp;1927</small>
+        </div>
+    </div>
+
+    <div class="content">
+Sehr geehrter Herr Professor!
+
+Ich wende mich mit einer Bitte an Sie, in der Hoffnung, Ihnen
+dadurch keine wesentlichen Mühen zu verursachen.
+
+Es handelt sich um die Assistentenstelle am theoretisch-physikalischen Lehrstuhl.
+Der gegenwärtige Arbeitsplan betrifft insbesondere die
+quantentheoretische Auswertung der Formel
+
+$$ E = h \, \nu $$
+
+sowie die Anwendung auf Systeme mit mehreren Freiheitsgraden,
+wo bekanntlich
+
+$$ [q_i, p_j] = i\hbar\,\delta_{ij}. $$
+
+Sollte Ihre Zustimmung vorliegen, erlaube ich mir,
+nähere Unterlagen nachzureichen und in
+Karlsbad persönlich vorzusprechen.
+
+Mit vorzüglicher Hochachtung
+
+<i>(Unterschrift)</i>
+    </div>
+
+</div>
+
+</body>
+</html>

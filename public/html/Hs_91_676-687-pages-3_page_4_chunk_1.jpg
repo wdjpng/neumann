@@ -1,0 +1,17 @@
+```html
+<pre>
+4.)
+
+Q(f^{*}) wegelassen — so dass stets
+\(Q(f,g)=\int_{-\infty}^{\infty}\lambda\,dQ(f,E(\lambda)g)\)
+ist.
+
+Der „für den \(E(\lambda)\) gehörige Operator \(T^{*}\)“ ist
+nun für diese (mir diese) \(f\) definiert,
+d. w. \(T^{*}f=f^{*}\). (dann kann symbolisch
+    \(T^{*}=\int_{-\infty}^{\infty}\lambda\,dE(\lambda)\)
+schreiben.)
+
+(Das ist wieder, nur die Hilbertsche De-
+</pre>
+```

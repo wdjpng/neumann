@@ -1,0 +1,82 @@
+{
+    "Hs_957_3327-3329_3": {
+        "page_count": 2,
+        "metadata": {
+            "author": "John von Neumann",
+            "recipient": "Paul Bernays",
+            "date": "June 12th, 1933",
+            "summary": "Von Neumann sends Bernays the formal proof of the well-ordering theorem, outlining key definitions, intermediate formulas, and the overall inductive structure without using bound variables. He apologizes for his delayed communication due to additional research visits, requests the return of his original notes since he has no copies, and provides his Budapest address.",
+            "title": "John von Neumann's Well-Ordering Proof to Bernays"
+        }
+    },
+    "Hs_91_676-687-pages-12": {
+        "page_count": 3,
+        "metadata": {
+            "author": "Johann (John) von Neumann",
+            "recipient": "Hermann Weyl",
+            "date": "December 11th, 1932",
+            "summary": "Von Neumann writes from Princeton to report on his mathematical progress, detailing his proof of the quasi-ergodic theorem following Koopman and A. Weil and noting the stimulating physics environment. He comments on the economic downturn in Europe, announces his return to Europe in February with plans to reach Berlin by late April, and sends Christmas and New Year\u2019s greetings along with regards to the professor\u2019s wife.",
+            "title": "Quasi-Ergodic Proof and Holiday Greetings"
+        }
+    },
+    "Hs_91_676-687-pages-11": {
+        "page_count": 2,
+        "metadata": {
+            "author": "John von Neumann",
+            "recipient": "Hermann Weyl",
+            "date": "August 5th, 1930",
+            "summary": "Neumann outlines a concise method for proving the uniqueness of irreducible solutions to the one-dimensional canonical commutation relations using integral kernels and group characters. He notes that the same approach extends to multi-dimensional operator groups and expresses his hope to meet in K\u00f6nigsberg to discuss the results.",
+            "title": "Uniqueness Proof for Canonical Commutation Relations"
+        }
+    },
+    "Hs_91_676-687-pages-7": {
+        "page_count": 4,
+        "metadata": {
+            "author": "John von Neumann",
+            "recipient": "Hermann Weyl",
+            "date": "May 15th, 1929",
+            "summary": "Neumann thanks Weyl for his recent letter, provides his summer address in Hamburg, and expresses keen interest in Weyl\u2019s work on the spinning electron and its relativistic formulation. He also mentions his hesitation to leave Berlin under current conditions, hopes to meet again soon, and sends his manuscript via Mrs. Weyl.",
+            "title": "Neumann on Dirac Equation and Hamburg Summer"
+        }
+    },
+    "Hs_91_676-687-pages-13": {
+        "page_count": 2,
+        "metadata": {
+            "author": "John von Neumann",
+            "recipient": "Hermann Weyl",
+            "date": "unknown",
+            "summary": "He informs his professor that he has forwarded Kaufmann\u2019s paper with his remarks and apologizes for the delay while striving to frame his critiques as politely as possible. He thanks the professor for his support in the prize submission process and mentions he will collect the printing proofs in Zurich at the end of September.",
+            "title": "Sending Kaufmann\u2019s Manuscript and Collecting Proofs"
+        }
+    },
+    "Hs_957_3327-3329_1": {
+        "page_count": 2,
+        "metadata": {
+            "author": "John von Neumann",
+            "recipient": "Paul Bernays",
+            "date": "June 5th, 1926",
+            "summary": "Neumann outlines a general approach to defining large ordinals in the second number class, particularly the first critical \u03b5-number using types up to \u03c9\u00b2 and suggests analogous constructions for higher critical \u03b5-numbers. He refers to an attached sheet for the formal definition and proof, then inquires about recent developments in proof theory, including Ackermann\u2019s consistency proof and Bernays\u2019s own progress on the second number class.",
+            "title": "Defining Critical \u03b5-Numbers in the Second Number Class"
+        }
+    },
+    "Hs_91_676-687-pages-10": {
+        "page_count": 2,
+        "metadata": {
+            "author": "John von Neumann",
+            "recipient": "Hermann Weyl",
+            "date": "November 24th, 1929",
+            "summary": "Neumann thanks Weyl for the information in his last letter, declines a Baltimore offer, and reports receiving a four-month invitation from Princeton to lecture on quantum mechanics at $4,000 including travel. He accepts the appointment as a professional honor, mentions his engagement to Dr. Mariette K\u00f6ssi, and asks Weyl\u2019s opinion on Reichenb\u00e4cker\u2019s comments regarding Einstein\u2019s latest theoretical formulation.",
+            "title": "Neumann Accepts Princeton Invitation, Notes Engagement"
+        }
+    },
+    "Hs_957_3327-3329_2": {
+        "page_count": 2,
+        "metadata": {
+            "author": "John von Neumann",
+            "recipient": "Paul Bernays",
+            "date": "May 10th, 1931",
+            "summary": "Von Neumann presents an illustrative example of a modified Ackermann-style proof, detailing critical formulas and the stepwise substitution procedure required to ensure termination. He highlights the issue of bounding the proof\u2019s length independently of the size of numerical substitutions and notes that the argument for finite termination at the next degree remains incomplete.",
+            "title": "Termination analysis of modified Ackermann procedure"
+        }
+    }
+}

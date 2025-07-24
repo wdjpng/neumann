@@ -1,0 +1,30 @@
+
+"Create a high-resolution scanned image (at least 4096 × 4096 px) of a single aged beige paper sheet in portrait orientation. The paper shows light horizontal creases, slight discoloration, and two neat binder holes along the left margin. Reproduce the faint pencil notation at the upper-left corner exactly as:
+
+H 273-3278
+John Neumann
+
+Center the line “Zurich, 5.VI.1926.” in marginally larger handwriting, then leave one blank line.
+
+Render the following English text in realistic early-20th-century fountain-pen cursive, brown-black ink, closely matching the stroke thickness, slant, spacing, and line breaks of the original German letter. Preserve natural irregularities, minor ink blots, and crossed-out words where indicated; imitate the original’s approximate 55 mm left margin and 20–22 lines of text. Mid-page, include the large left curly brace and formulas exactly as formatted.
+
+Text to render (maintain line breaks):
+
+Dear Professor!
+
+The question of defining large numbers of the second number class, which we discussed repeatedly over Pentecost, now seems accessible by a reasonably general method. I can define the first critical β-ordinal we talked about at that time, and for this I need all types up to n = ω (exclusive). The method appears fairly universal, since one can, for example, set up the first critical among the critical β-numbers analogously, with the aid of all types up to the ω-th, exclusive. My definition may perhaps be simplified; but I do not believe that one could manage with fewer types.
+
+The point of “catching up,” the first “critical” type, has thus been reduced once more; one might conjecture roughly the following number:
+
+{ f(1, α, x) = α
+ f(β₁ + 1, α, x) = critical between f(β₁) (i.e., the x-th critical point of the function originating from f(β₁))
+ f(λ, α, x) = linear f(1, α, x)
+}
+
+Let g(α, x₁) be given, and x₂ be the n-th critical point of g(α, x₁). However, the mechanism of this “catching up” is still not completely clear to me.
+
+My definition follows on the enclosed sheet, which …
+
+Add a small but noticeable watermark reading “AI generated” in light gray sans-serif at the lower-right corner, positioned so it does not obscure any original text.
+
+Keep the page’s slight edge fraying, subtle stains, and fold shadows for authenticity."

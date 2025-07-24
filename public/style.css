@@ -1,0 +1,111 @@
+body {
+    font-family: 'Georgia', serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 3rem 0;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+#neumann-portrait {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#neumann-video {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: normal;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #777;
+    margin-top: 0.5rem;
+}
+
+main {
+    padding: 3rem 2rem;
+}
+
+#letter-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.letter-item {
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.letter-item h3 {
+    font-size: 1.1em;
+    margin-top: 35px;
+    margin-bottom: 10px;
+}
+
+.letter-date {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.letter-person {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.letter-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.letter-item a {
+    text-decoration: none;
+    color: #0077cc;
+    font-weight: bold;
+    margin: 0 0.5rem;
+    transition: color 0.3s;
+}
+
+.letter-item a:hover {
+    color: #0055aa;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #888;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+} 

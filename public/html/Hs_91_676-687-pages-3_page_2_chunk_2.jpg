@@ -1,0 +1,38 @@
+```html
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Letter Transcription</title>
+  <style>
+    body{
+      background:#fdfdf7;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+    pre{
+      font-family:"Courier New",monospace;
+      font-size:1.05rem;
+      line-height:1.45;
+      color:#1e1e1e;
+      white-space:pre-wrap;
+      margin:0;
+    }
+  </style>
+</head>
+<body>
+<pre>
+ant j ich wäre dann Herrn Professor
+sehr dankbar, wenn Sie die Bitte hätten,
+mich mit ihm einmal über den Gegen-
+stand in diesem Sinne auszusprechen;
+um so mehr als Sie ja über meine wis-
+senschaftliche Tätigkeit und Interessen
+orientiert sind. Ich hoffe, dass ich Herrn
+Professor durch diese Bitte keine beson-
+</pre>
+</body>
+</html>
+```

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transcribed letter fragment</title>
+
+    <!-- Google-font for a gentle handwritten look -->
+    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
+
+    <!-- MathJax (kept even though the fragment has no visible equations) -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* page background */
+        html,body{
+            margin:0;
+            padding:0;
+            background:#e8e8e8;
+            display:flex;
+            justify-content:center;
+            align-items:flex-start;
+            min-height:100vh;
+        }
+
+        /* “paper” */
+        .sheet{
+            width:700px;
+            height:500px;
+            padding:40px 60px;
+            box-shadow:0 8px 18px rgba(0,0,0,.25);
+            position:relative;
+
+            /* light cream colour + linen-like cross-hatch */
+            background:#efe9d2;
+            background-image:
+                repeating-linear-gradient(  0deg,rgba(0,0,0,.025) 0 1px,transparent 1px 8px),
+                repeating-linear-gradient( 90deg,rgba(0,0,0,.025) 0 1px,transparent 1px 8px);
+        }
+
+        /* handwriting */
+        .content{
+            font-family:'Cedarville Cursive',cursive;
+            font-size:20px;
+            line-height:1.6;
+            color:rgba(96,125,139,.75); /* soft pencil look */
+            white-space:pre-wrap;        /* keep line breaks if any */
+        }
+
+        /* single punch-hole on the right */
+        .hole{
+            width:24px;
+            height:24px;
+            border-radius:50%;
+            background:#fafafa;
+            position:absolute;
+            right:80px;
+            top:250px;
+            box-shadow:inset 0 1px 3px rgba(0,0,0,.18);
+        }
+    </style>
+</head>
+<body>
+<div class="sheet">
+    <div class="content">
+dann: Budapest (Svilheg?) Dr.&nbsp;Törösi&nbsp;u.&nbsp;45.)
+    </div>
+
+    <!-- decorative hole -->
+    <div class="hole"></div>
+</div>
+</body>
+</html>
