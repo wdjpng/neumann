@@ -188,12 +188,19 @@ class ChunkExtractor:
         if not visualize:
             output_dir = Path("public/chunks")
             output_dir.mkdir(exist_ok=True)
-        
-        for pdf_file in pdf_files:
-            if visualize:
-                self.visualize_pdf_pages(pdf_file, parallelize=parallelize)
-            else:
-                self.extract_chunks_from_pdf(pdf_file, output_dir, parallelize=parallelize)
+        if parallelize:
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                if visualize:
+                    executor.map(lambda pdf_file: self.visualize_pdf_pages(pdf_file, parallelize=parallelize), pdf_files)
+                else:
+                    executor.map(lambda pdf_file: self.extract_chunks_from_pdf(pdf_file, output_dir, parallelize=parallelize), pdf_files)
+        else:
+            for pdf_file in pdf_files:
+                if visualize:
+                    self.visualize_pdf_pages(pdf_file, parallelize=parallelize)
+                else:
+                    self.extract_chunks_from_pdf(pdf_file, output_dir, parallelize=parallelize)
 
     def _process_page_for_visualization(self, page_image_data: bytes, pdf_stem: str, page_num: int, num_pages: int):
         """Helper to process a single page for chunk visualization."""

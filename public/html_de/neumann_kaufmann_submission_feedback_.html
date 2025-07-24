@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Hs 91; 687 – Brieftranskription</title>
+
+    <!--  Google-Fonts: Katalog / Initiale / Fließtext  -->
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Zeyada&family=Homemade+Apple&display=swap" rel="stylesheet">
+
+    <!--  MathJax – für die einzige verwendete Bruchschreibweise  -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+
+    <style>
+        /* -------- Grundlayout & Hintergrund -------- */
+        html,body{
+            margin:0;
+            padding:0;
+            height:100%;
+            display:flex;
+            justify-content:center;
+            align-items:flex-start;
+            background:#e9e0cf;                          /* warmes Papierbeige   */
+            font-size:18px;
+            line-height:1.45;
+        }
+
+        /* einzelnes „Papierblatt“ */
+        .sheet{
+            width:90%;
+            max-width:900px;
+            padding:60px 55px 90px;
+            background:rgba(255,255,255,.55);
+            box-shadow:0 0 9px rgba(0,0,0,.12),
+                       0 4px 24px rgba(0,0,0,.08);
+            position:relative;
+            overflow:hidden;
+        }
+
+        /* dezente Papierfasern */
+        .sheet::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 10 10'%3E%3Cg fill='%239c8b71' fill-opacity='.15'%3E%3Ccircle r='.35' cx='1' cy='2'/%3E%3Ccircle r='.25' cx='5' cy='8'/%3E%3Ccircle r='.3' cx='9' cy='1'/%3E%3Ccircle r='.2' cx='7' cy='5'/%3E%3C/g%3E%3C/svg%3E");
+            opacity:.35;
+            mix-blend-mode:multiply;
+            pointer-events:none;
+        }
+
+        /* Katalog­nummer in Schreibmaschinen-Optik */
+        .catalog{
+            font-family:'Special Elite','Courier New',monospace;
+            font-size:1rem;
+            color:#3d352d;
+        }
+
+        /* große Initiale */
+        .initial{
+            display:block;
+            font-family:'Zeyada',cursive;
+            font-size:4.2rem;
+            line-height:0.9;
+            margin:22px 0 28px;
+            color:#3a1d0e;
+        }
+
+        /* eigentlicher Brieftext */
+        .text{
+            font-family:'Homemade Apple',cursive;
+            font-size:1.7rem;
+            line-height:2.6rem;
+            color:#333;
+            margin:0 0 1.2rem 0;
+        }
+
+        /* Zierschwung oberhalb der Signatur */
+        .swirl{
+            display:block;
+            width:150px;
+            height:28px;
+            margin:.6rem 0 -.3rem 0;
+            background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 30"><path d="M5 15q40-25 85 0t80 0" fill="none" stroke="%23333" stroke-width="3" stroke-linecap="round"/></svg>') no-repeat center/100% 100%;
+        }
+    </style>
+</head>
+<body>
+<main class="sheet">
+
+    <!--   Kopf   -->
+    <div class="catalog">Hs&nbsp;91;&nbsp;687</div>
+    <span class="initial">N.&nbsp;G.</span>
+
+    <!--   Textteil   -->
+    <p class="text">Sehr geehrter Herr Professor&nbsp;!</p>
+
+    <p class="text">
+        Ich habe Ihren Brief soeben erhalten, und die Kaufmannsche Arbeit&nbsp;nebst&nbsp;meinen
+        Bemerkungen an&nbsp;Herrn&nbsp;Kaufmann abgeschickt.  
+        Ich hoffe damit im Sinne Ihrer Intention gehandelt zu haben; entschuldigen&nbsp;Sie bitte,
+        dass dies erst jetzt geschehen ist.
+    </p>
+
+    <p class="text">
+        jetzt gestorben ist.
+    </p>
+
+    <p class="text">
+        Ich habe mich redlich bemüht, meine Einwände so wenig brutal wie möglich zu formulieren;
+        es war nicht leicht, da Herr&nbsp;Kaufmann Kleinigkeiten wie das Prinzip der vollständigen
+        Induction vergisst und das Continuum-Problem auf \(7\tfrac{1}{2}\) Seiten <u>löst!</u>
+    </p>
+
+    <p class="text">
+        Ich möchte diese Gelegenheit nicht vorbeigehen lassen, ohne Herrn&nbsp;Professor
+        meinen aufrichtigen Dank für das grosse Wohlwollen auszudrücken, das Sie im Laufe der
+        Preisaufgaben-Angelegenheit für mich bekundet haben.
+        Da ich Herrn&nbsp;Professor mit den Druckbögen möglichst wenig belästigen will, werde ich sie
+        vielleicht Ende&nbsp;September in Zürich abholen.
+    </p>
+
+    <p class="text">Ich&nbsp;verbleibe&nbsp;hochachtungsvoll<br>
+        Ihr&nbsp;ganz&nbsp;ergebener
+    </p>
+
+    <span class="swirl"></span>
+    <p class="text" style="margin-top:.2rem;">H.&nbsp;v.&nbsp;Neumann&nbsp;&nbsp;</p>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Transkription eines Briefes (Hamburg 15. 5. 1929)</title>
+
+  <!--   Google-Fonts   -->
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Homemade+Apple&display=swap" rel="stylesheet">
+
+  <!--   MathJax   -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script async id="MathJax-script"
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  <style>
+    /* ——— general page ——— */
+    html,body{
+      height:100%;
+      margin:0;
+      background:#ece7db;                      /* leichtes Papier-Beige um das Blatt  */
+    }
+
+    /* ——— sheet of “paper” ——— */
+    .sheet{
+      max-width:750px;
+      margin:40px auto 80px;
+      padding:65px 70px 90px;
+      background:#faf5e7;                      /* etwas wärmer als Hintergrund        */
+      border-radius:4px;
+      box-shadow:0 15px 35px rgba(0,0,0,.15);
+      position:relative;
+      font-size:1.45rem;                       /* ≈ 22 px, gut lesbare Handschrift     */
+      line-height:2.25rem;
+    }
+
+    /* Archiv-Signatur oben links */
+    .catalogue{
+      position:absolute;
+      top:28px; left:32px;
+      font-family:'Architects Daughter',sans-serif;
+      font-size:1.1rem;
+      color:#4f4f4f;
+      letter-spacing:.04em;
+      white-space:pre;
+    }
+
+    /* Haupttext */
+    .handwritten{
+      font-family:'Homemade Apple',cursive;
+      color:#2e2e2e;
+      white-space:pre-line;                    /* erhält Zeilenumbrüche               */
+    }
+
+    /* rechtsbündiger Briefkopf */
+    .handwritten.header{
+      text-align:right;
+      margin:0 0 2rem 0;
+    }
+
+    /* dezentes Einrücken für Display-Math */
+    .math-block{
+      margin:0 0 1.8rem 2.5rem;
+    }
+
+    /* Streichung im Original */
+    .strike{
+      text-decoration:line-through;
+    }
+
+    /* Unterstreichung im Original */
+    .underline{
+      text-decoration:underline;
+    }
+
+    /* Fußnoten */
+    .footnotes{
+      font-size:.9rem;
+      margin-top:2.5rem;
+      line-height:1.4;
+    }
+    .footnotes sup{vertical-align:top;}
+  </style>
+</head>
+<body>
+
+  <div class="sheet">
+    <div class="catalogue">Hs 91: 682</div>
+
+    <!-- Briefkopf -->
+    <div class="handwritten header">
+      Hamburg, den&nbsp;15.&nbsp;5.&nbsp;1929.<br>
+      Heinrichstraße&nbsp;18.
+    </div>
+
+    <!-- Brieftext -->
+    <div class="handwritten">
+Sehr geehrter Herr Professor!  
+
+Vielen Dank für Ihren Brief, ich  
+bin über den Sommer in Hamburg;  
+meine Adresse ist Heimhüdenstr.&nbsp;18.  
+
+Ihre Arbeit über das Drehelektron  
+wird mich sehr interessieren; ich  
+nehme an, daß sie mir von Scheel  
+zugeschickt werden soll, oder haben  
+sie anders verfügt?  
+
+Meine Tätigkeit an der fernparallelismus-  
+losen Behandlung der Dirac’schen  
+Gleichung führt dazu, daß man sie  
+allgemein-relativistisch so schreiben  
+sollte:
+    </div>
+
+    <div class="handwritten math-block">
+\[
+\Bigl( \sum_{\mu} \beta_{\mu}\!\left(p_{\mu} + \frac{e}{c}\,\varphi_{\mu}\right) + m\,c\,i \Bigr)\,\psi = 0,
+\]
+\[
+\gamma_{\mu}\gamma_{\nu} + \gamma_{\nu}\gamma_{\mu} \;=\; 2\,g_{\mu\nu},
+\]
+    </div>
+
+    <div class="handwritten">
+wo für die \(g_{\mu\nu}\) die rel.&nbsp;Feldgleichungen gelten —  
+so daß nun die Vertauschungsrelationen  
+der \(\gamma_{\mu}\) und \(p_{\mu}\) bekannt sind,  
+
+hingegen im Sinne der Fernparallelen-  
+Theorie&nbsp;\(j_n = h a_n \bar{J}_a\)&nbsp;( \(J_1,\dots ,J_4\) die  
+<u>konstanten</u> Dirac’schen Matrizen !), liefern die  
+Dirac-Feldgleichungen die gewünschten  
+Vertauschungsrelationen.  
+
+Übrigens ist die neue Einsteinsche  
+Theorie völlig unklar, da man die  
+Felder nicht kennt; im Moment kommt  
+die 4.&nbsp;Fassung (die die drei früheren  
+aufhebt) heraus, und es kann noch  
+beliebig viele weitere geben. Glauben  
+Sie daran, daß die Welt wirklich so  
+kompliziert ist — um so mehr, als nie  
+Elek­trodynamik in astronomischen und  
+Gravitation in atomaren Größenordnungen  
+wahrgenommen wurde? —  
+
+Das Resultat von Herrn Stoner ge­  
+fällt mir auch sehr. Ich habe übri­  
+gens inzwischen eine Arbeit <span class="strike">bewiesen</span> ge­  
+schrieben, in der ich u.&nbsp;a. beweise, daß  
+eine beliebige Menge miteinander ver­  
+tauschbarer hermitescher Operatoren  
+stets als Funktionen eines aufzufassen  
+ist, der seinerseits Funktion&nbsp;<sup>*1</sup> von  
+ihnen ist.  
+
+Kann ich die Theorie der Normalität  
+und Verständbarkeit in überschrankter  
+Form einfach durchführen. Ferner: wenn  
+es eine Menge von Hom.&nbsp;Operatoren ist,  
+die „alle Hom.&nbsp;Op.“ umfaßt, die mit jedem  
+Element von \(X\) vertauschbar sind — dann  
+besteht sie genau aus den Funktionen  
+der Elemente von \(X\). <sup>*2</sup>  
+
+Vor kurzem habe ich mir überlegt,  
+wie der Ergodensatz in der Quanten­  
+mechanik ohne „Anordnungsannahmen“  
+zu beweisen ist, und von welchen  
+Annahmen es abhängt, welche Funktionen  
+für seine Gültigkeit charakteristisch  
+sind.  Es gelingt uns ferner, das quan­  
+tenmechanische Analogon des Gibbs’schen  
+Phasenraumes (den Du „Unbestimmtheits­  
+relationen“ getauft hast) anzugeben. —  
+
+Ich habe mich für den Sommer nach  
+Hamburg beurlauben lassen, um im  
+Winter nach Berlin zurückzugehen.  
+Nach Schories Abgang nach Rostock  
+hätte ich mit dem Professorstitel  
+leichter kommen können, doch kann  
+ich mich unter diesen Umständen  
+endgültig nicht entschließen, Berlin  
+zu verlassen. —  
+
+Hoffentlich werde ich nicht allzu  
+lange ohne Gelegenheit bleiben, Sie  
+wiederzusehen.  Bis dahin bin ich  
+mit den besten Grüßen und der Bitte,  
+Ihrer Frau Gemahlin meine Handküsse  
+zu übergeben,  
+
+Ihr sehr ergebener  
+
+J.&nbsp;v.&nbsp;Neumann.
+    </div>
+
+    <!-- Fußnoten -->
+    <div class="footnotes handwritten">
+      <sup>*1</sup> Limes von Polynomen!<br>
+      <sup>*2</sup> In endlich vielen Dimensionen ist das der&nbsp;Burnside-Frobenius-sche&nbsp;Satz für hermitesche Operatoren.
+    </div>
+  </div>
+</body>
+</html>

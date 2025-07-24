@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Transkription · Brief vom 16.&nbsp;3.&nbsp;1928</title>
+
+<!--  One clean, legible handwriting font  -->
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+
+<!--  MathJax for all formulae  -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+/* ------- restrained “paper & ink” theme ---------------------------------- */
+:root{
+    --paper:#f4f2e9;
+    --ink:#4f5860;
+}
+html,body{
+    height:100%;
+    margin:0;
+    padding:0;
+}
+body{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    background:var(--paper);
+    font-family:'Kalam',cursive;
+    color:var(--ink);
+}
+
+/* ------- the sheet itself ------------------------------------------------- */
+.letter{
+    width:760px;                     /* ≈A4 on most screens                 */
+    padding:60px 70px 90px;
+    box-sizing:border-box;
+    background:var(--paper);
+    position:relative;
+    line-height:1.60;
+    font-size:1.55rem;
+}
+
+/* catalogue–number & date  */
+.catalogue{ position:absolute; top:35px; left:45px;  font-size:1.2rem;}
+.date     { position:absolute; top:35px; right:45px; font-size:1.2rem; white-space:nowrap; text-align:right; }
+
+/* some little helpers */
+p{ margin:.45em 0; text-align:justify; }
+.u{ text-decoration:underline; }
+.strike{
+    position:relative;
+}
+.strike::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; top:50%;
+    height:3px;
+    background:var(--ink);
+    transform:rotate(-3deg);
+}
+
+.signature{ text-align:right; margin-top:2.2rem; }
+
+/* keep MathJax in the same hand-written font */
+.MJX-TEX{ font-family:'Kalam',cursive !important; }
+</style>
+</head>
+<body>
+
+<main class="letter">
+
+    <!-- header -->
+    <div class="catalogue">· Hs 91; 680</div>
+    <div class="date">Berlin, den&nbsp;16.&nbsp;3.&nbsp;1928.</div>
+
+    <!-- -------------- letter text ---------------------------------------- -->
+    <p>Sehr geehrter Herr&nbsp;Professor!</p>
+
+    <p>Vielen Dank für Ihre Karte und die Korrekturfahnen Ihres schönen Buches.</p>
+
+    <p>Ohne mich erschöpfend mit demselben vertraut gemacht zu haben, möchte ich eine kurze Bemerkung zu Ihrer Behandlung der symmetrischen&nbsp;Gruppe machen.</p>
+
+    <p>Auf&nbsp;S.&nbsp;130, § 52, beweisen Sie den Frobenius’schen Hilfsatz über die Elemente von \( \Sigma P \), und dann auf&nbsp;S.&nbsp;131 den weiteren&nbsp;Hilfsatz</p>
+
+    \[
+        \Sigma(c\sigma g t) \;=\; c\sigma g\,\Sigma t .
+    \]
+
+    <p>Wenn auf&nbsp;S.&nbsp;131 nach Ihren Angaben</p>
+
+    \[
+        \sum_{p} c(cspt) \;\ge\; c(cs)\,\sum_{p} c(pt)
+    \]
+
+    <p>von dem alles Weitere abhängt und der&nbsp;&mdash; sowie seine spätere Ausnützung&nbsp;&mdash; ziemliche Rechnungen in die Überlegungen bringt, wäre es nicht durchsichtiger und einfacher, hier wie folgt vorzugehen:</p>
+
+    <p><span class="u">Hilfsatz&nbsp;1.</span>&nbsp; Wie bei Ihnen auf&nbsp;S.&nbsp;130.</p>
+
+    <p><span class="u">Hilfsatz&nbsp;2.</span>&nbsp; Den Bedingungen</p>
+
+    <p>\(x(S\,p)=x(S),\;&nbsp;\)<span class="strike">\(x(I_{95})=\delta_{9}\,x(S)\)</span></p>
+
+    <p>(\(p, q \in P\) bzw. \(\mathbb Z\)) genügen nur die <span class="u">Gruppenzahlen</span></p>
+
+    \[
+        \chi(S)=\text{konstans}\,\cdot c(S) .
+    \]
+
+    <p><span class="u">Beweis:</span> Die Notwendigkeit ist klar.</p>
+
+    <p>Die Hinreichendheit zeigt man so: genügt \(x^{I}(s)\) der Bedingung, dann sieht man für die von \(PQ\) sofort</p>
+
+    \[
+        x^{I}(s)=x^{I}(0)\,c(s)=\text{konstans}\,\cdot c(s).
+    \]
+
+    <p>Ist \(s\) nicht in \(PQ\), so seien \(p, q\) mit</p>
+
+    \[
+        sps^{-1}=q,\;\; \text{d.&nbsp;h. } qsp=s ,
+    \]
+
+    <p>gewählt (Hilfsatz&nbsp;1.), dann ist</p>
+
+    \[
+        x(s)=x(qsp)=-\,x(s1)\;\;\Longrightarrow\;\; x(s)=0,
+    \]
+
+    <p>w.&nbsp;z.&nbsp;b.&nbsp;w.</p>
+
+    <p><span class="u">Hilfsatz&nbsp;3.</span> Für jede&nbsp;Gruppenzahl&nbsp;x gilt</p>
+
+    \[
+        c \times c \;=\; \text{konstans}\, c .
+    \]
+
+    <p><span class="u">Beweis:</span> denn mit \(c\) genügt offenbar auch \(c \times c\) der Bedingung in&nbsp;Hilfsatz&nbsp;2.</p>
+
+    <p>Hieraus folgt nun</p>
+
+    <p>I.&nbsp;\(c^{2}=\gamma c\), dann \(\gamma>0\) (wie bei&nbsp;Ihnen), also ist \(\dfrac{1}{c}\) charakteristische&nbsp;Einheit.</p>
+
+    <p>II.&nbsp;<span class="strike">wäre&nbsp;c&nbsp;nicht&nbsp;primitiv,&nbsp;so&nbsp;wäre&nbsp;…</span></p>
+
+    <p>Ferner sei</p>
+
+    \[
+        jc = a + b,\quad a^{2}=a,\; b^{2}=b,\; ab=ba=0,
+    \]
+
+    <p>dann</p>
+
+    \[
+        a = (a + b)\,a\,(a + b)
+          = jc\,c\,a\,c
+          = \text{konstans}\; jc,
+    \]
+
+    <p>also wegen \(a^{2}=a\) kon­stans =\;0 oder 1, d.&nbsp;h.</p>
+
+    <p>entweder \(a = jc,\; b = 0,\) oder \(a = 0,\; b = jc\).</p>
+
+    <p>Daher ist \(jc\) primitiv.</p>
+
+    <p>… fünf inediti­bel.</p>
+
+    <p>Ich glaube, dass diese Methode der viel mehr rechnenden Probleme vorzüglich ist. Freilich erhalten Sie gleichzeitig die affine Gruppe, aber soweit ich sehe bedeutet diese Anordnung doch eine Abkürzung. Was halten Sie&nbsp;davon?</p>
+
+    <p>Ich verbleibe mit den besten Grüssen</p>
+    <p>Ihr ergebener</p>
+
+    <p class="signature">J.&nbsp;v.&nbsp;Neumann.</p>
+
+</main>
+</body>
+</html>

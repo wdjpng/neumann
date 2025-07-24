@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transcription of a Letter (Hamburg 15 May 1929)</title>
+
+  <!--   Google-Fonts   -->
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Homemade+Apple&display=swap" rel="stylesheet">
+
+  <!--   MathJax   -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script async id="MathJax-script"
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  <style>
+    /* ——— general page ——— */
+    html,body{
+      height:100%;
+      margin:0;
+      background:#ece7db;
+    }
+
+    /* ——— sheet of “paper” ——— */
+    .sheet{
+      max-width:750px;
+      margin:40px auto 80px;
+      padding:65px 70px 90px;
+      background:#faf5e7;
+      border-radius:4px;
+      box-shadow:0 15px 35px rgba(0,0,0,.15);
+      position:relative;
+      font-size:1.45rem;
+      line-height:2.25rem;
+    }
+
+    /* Archive signature upper left */
+    .catalogue{
+      position:absolute;
+      top:28px; left:32px;
+      font-family:'Architects Daughter',sans-serif;
+      font-size:1.1rem;
+      color:#4f4f4f;
+      letter-spacing:.04em;
+      white-space:pre;
+    }
+
+    /* Main text */
+    .handwritten{
+      font-family:'Homemade Apple',cursive;
+      color:#2e2e2e;
+      white-space:pre-line;
+    }
+
+    /* right-aligned heading */
+    .handwritten.header{
+      text-align:right;
+      margin:0 0 2rem 0;
+    }
+
+    /* slight indent for display math */
+    .math-block{
+      margin:0 0 1.8rem 2.5rem;
+    }
+
+    /* deletion in the original */
+    .strike{
+      text-decoration:line-through;
+    }
+
+    /* underline in the original */
+    .underline{
+      text-decoration:underline;
+    }
+
+    /* footnotes */
+    .footnotes{
+      font-size:.9rem;
+      margin-top:2.5rem;
+      line-height:1.4;
+    }
+    .footnotes sup{vertical-align:top;}
+  </style>
+</head>
+<body>
+
+  <div class="sheet">
+    <div class="catalogue">Hs&nbsp;91:&nbsp;682</div>
+
+    <!-- Letterhead -->
+    <div class="handwritten header">
+      Hamburg,&nbsp;15&nbsp;May&nbsp;1929.<br>
+      Heinrichstraße&nbsp;18.
+    </div>
+
+    <!-- Letter text -->
+    <div class="handwritten">
+Dear Professor,  
+
+Many thanks for your letter; I shall be in Hamburg over the summer.  
+My address is Heimhüdenstr.&nbsp;18.  
+
+Your paper on the spinning electron will interest me greatly;  
+I assume Scheel is to send it to me, or have you arranged otherwise?  
+
+My work on a treatment of Dirac’s equation without teleparallelism  
+leads to the conclusion that it should be written in a general-relativistic form: 
+    </div>
+
+    <div class="handwritten math-block">
+\[
+\Bigl( \sum_{\mu} \beta_{\mu}\!\left(p_{\mu} + \frac{e}{c}\,\varphi_{\mu}\right) + m\,c\,i \Bigr)\,\psi = 0,
+\]
+\[
+\gamma_{\mu}\gamma_{\nu} + \gamma_{\nu}\gamma_{\mu} \;=\; 2\,g_{\mu\nu},
+\]
+    </div>
+
+    <div class="handwritten">
+where the relativistic field equations hold for the \(g_{\mu\nu}\),  
+so that the commutation relations of \(\gamma_{\mu}\) and \(p_{\mu}\) are now known;  
+
+whereas, in the sense of the distant-parallel theory  
+\(j_n = h a_n \bar{J}_a\) (with \(J_1,\dots ,J_4\) the <u>constant</u> Dirac matrices!),  
+the Dirac field equations supply the desired commutation relations.  
+
+Incidentally, the new Einstein theory is completely obscure,  
+since one does not know the fields; the fourth version  
+(which annuls the previous three) is now appearing,  
+and there may be any number of further ones.  
+Do you really believe the world is that complicated—  
+all the more as electrodynamics has never been observed on astronomical scales  
+and gravitation on atomic scales? —  
+
+I like Mr Stoner’s result very much as well.  
+Meanwhile I have written a paper in which, among other things,  
+I prove that any set of mutually commuting Hermitian operators  
+can always be regarded as functions of a single one  
+which itself is a function*1 of them.  
+
+I can also carry through the theory of normality and intelligibility  
+in bounded form quite easily.  
+Furthermore, if there is a set of hom. operators comprising  
+“all hom. op.” commuting with every element of \(X\),  
+then it consists precisely of the functions of the elements of \(X\).*2  
+
+Quite recently I have been pondering how the ergodic theorem  
+in quantum mechanics can be proved without “ordering assumptions,”  
+and on which assumptions it depends which functions  
+are characteristic for its validity.  
+We also succeed in specifying the quantum-mechanical analogue  
+of Gibbs’ phase space (which you have christened “uncertainty relations”). —  
+
+I have taken leave to Hamburg for the summer  
+so that I may return to Berlin in the winter.  
+After Schorie’s move to Rostock I could have got the professorship more easily,  
+yet under these circumstances I definitely cannot resolve to leave Berlin. —  
+
+I hope it will not be too long before I have the opportunity to see you again.  
+Until then, with my best regards and with the request  
+that you convey my hand-kisses to your wife,  
+
+Yours most devoted  
+
+J.&nbsp;v.&nbsp;Neumann.
+    </div>
+
+    <!-- Footnotes -->
+    <div class="footnotes handwritten">
+      <sup>*1</sup> Limit of polynomials!<br>
+      <sup>*2</sup> In finitely many dimensions this is the&nbsp;Burnside–Frobenius theorem for Hermitian operators.
+    </div>
+  </div>
+</body>
+</html>
