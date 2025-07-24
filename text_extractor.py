@@ -70,22 +70,26 @@ def img_to_text(image_path):
 
 import os
 
-def extract_texts_from_folder(folder_path):
+# Goes through all images in folder and converts to html
+def convert_chunks_to_html(folder_path):
 
     for fname in os.listdir(folder_path):
         print("Extracting text from", fname)
         text = img_to_text(os.path.join(folder_path, fname))
         # check regex and extract
         lines = text.splitlines()
+        print(lines)
         assert lines and lines[0].strip() == "```html" and lines[-1].strip() == "```"
         text = "\n".join(lines[1:-1])
         
-        with open(f"public/html/{fname.replace('.jpg', '.html')}", 'w') as f:
+        with open(f"public/html_parts/{fname.replace('.jpg', '.html')}", 'w') as f:
             f.write(text)
         
         print("Extracted text to", fname.replace('.jpg', '.html'))
 
+# Unifies all html files of one letter into one html file
 def unite_html(text):
+    print(text)
     try:
         # Send request to OpenAI's vision model
         client = OpenAI()
@@ -97,7 +101,7 @@ def unite_html(text):
                     "content": [
                         {
                             "type": "text",
-                            "text": "You will be given multiple html files all attempting to transcribe different parts of one letter in order. Your task is to unite them into one html file. They already contain a lot of formatting, which you should synthesize to one single consistent formatting. Keep the formatting that seems the prettiest and most aesthethic while also being somewhat minimalistic. If it seems like text is duplicate, keep only one copy. Output in the usual format of ```html (actual code)``" + text
+                            "text": "You will be given multiple html files all attempting to transcribe different parts of one letter in order. Your task is to unite them into one html file. They already contain a lot of formatting, which you should synthesize to one single consistent formatting. Keep the formatting that seems the prettiest and most aesthethic while also being somewhat minimalistic. If it seems like text is duplicate, keep only one copy. Output in the usual format of ```html (actual code)```" + text
                         },
                     ]
                 }
@@ -106,37 +110,57 @@ def unite_html(text):
         
         # Extract and return the text
         extracted_text = response.choices[0].message.content
+        print(extracted_text)
         assert extracted_text.strip().startswith("```html") and extracted_text.strip().endswith("```")
         return extracted_text.strip()[7:-3].strip()
         
     except Exception as e:
         raise Exception(f"Error extracting text from image: {str(e)}")
-def unite_all_html_files(folder_path):
+
+# Unifies all html files of all letter into one per letter
+def unite_chunks(folder_path):  
     for file in os.listdir(folder_path):
         if not file.endswith('page_1_chunk_1.html'): continue
 
         i = 1
         text = ""
         base_name = file[:file.index("page_1_chunk_1")]
-        while os.path.exists(f"{folder_path}/page_{i}chuk_1.html"):
+        
+        while os.path.exists(f"{folder_path}/{base_name}page_{i}_chunk_1.html"):
+            print(f"{folder_path}/{base_name}page_{i}_chunk_1.html")
             j = 1
-            while os.path.exists(f"{folder_path}/page_{i}chuk_{j}.html"):
-                with open(f"{folder_path}/page_{i}chuk_{j}.html", 'r') as f:
+            while os.path.exists(f"{folder_path}/{base_name}page_{i}_chunk_{j}.html"):
+                with open(f"{folder_path}/{base_name}page_{i}_chunk_{j}.html", 'r') as f:
                     text += "Html file number " + str(i+j-1) + ":\n" + f.read() + "\n\n"
                 j+=1
 
             i += 1
         
-        with open(f"public/html/{base_name}.html", 'w') as f:
+        with open(f"public/html_en/{base_name}.html", 'w') as f:
             f.write(unite_html(text))
 
-unite_all_html_files("public/html_parts")
+def translate_html_to_english(html_file_path):
+    with open(html_file_path, 'r') as f:
+        text = f.read()
+    client = OpenAI()
+    response = client.chat.completions.create(
+        model="o3",  
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": "You will be given an html file. Your task is to translate it to english. Preserve the original's linguistic style. Output in the usual format of ```html (actual code)``" + text
+                    }
+                ]
+            }
+        ]
+    )
+    return response.choices[0].message.content.strip()[7:-3].strip()
 
 
-import sys
-if len(sys.argv) < 2:
-    print("Usage: python text_extractor.py <input_image_file>")
-    sys.exit(1)
+# convert_chunks_to_html("public/chunks")
+unite_chunks("public/html_parts")
 
-extract_texts_from_folder(sys.argv[1])
 
