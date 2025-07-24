@@ -2,6 +2,7 @@ import base64
 import os
 from openai import OpenAI
 import re
+from concurrent.futures import ThreadPoolExecutor
 
 def img_to_text(image_path, filename=None):
     """
@@ -137,31 +138,11 @@ def unite_html(text):
     except Exception as e:
         raise Exception(f"Error extracting text from image: {str(e)}")
 
-# Unifies all html files of all letter into one per letter
-def unite_chunks(folder_path):  
-    for file in os.listdir(folder_path):
-        if not file.endswith('page_1_chunk_1.html'): continue
-        i = 1
-        text = ""
-        base_name = file[:file.index("page_1_chunk_1")]
-        print("Unifying " + base_name)
-      
-        counter = 1
-        while os.path.exists(f"{folder_path}/{base_name}page_{i}_chunk_1.html"):
-            j = 1
-            while os.path.exists(f"{folder_path}/{base_name}page_{i}_chunk_{j}.html"):
-                with open(f"{folder_path}/{base_name}page_{i}_chunk_{j}.html", 'r') as f:
-                    text += "Html file number " + str(counter) + ":\n" + f.read() + "\n\n"
-                counter += 1
-                j+=1
 
-            i += 1
-        print("Loaded " + str(counter) + " chunks")
-        with open(f"public/html_de/{base_name}.html", 'w') as f:
-            f.write(unite_html(text))
+def translate_html_to_english(filename, input_folder, output_folder):
+    with open(f"{input_folder}/{filename}", 'r') as f:
+        text = f.read()
 
-def translate_html_to_english(text):
-  
     client = OpenAI()
     response = client.chat.completions.create(
         model="o3",  
@@ -171,24 +152,60 @@ def translate_html_to_english(text):
                 "content": [
                     {
                         "type": "text",
-                        "text": "You will be given an html file. Your task is to translate it to english. Preserve the original's linguistic style. Output in the usual format of ```html (actual code)``" + text
+                        "text": "You will be given an html file. Your task is to translate it to english. Preserve the original's linguistic style as well as formatting. But do remove needless linebreaks. Also there might be page numbers somewhere - remove those (but if present keep the document number on the top left). Output in the usual format of ```html (actual code)``` (attached to this prompt is the original html file)\n\n" + text
                     }
                 ]
             }
         ]
     )
-    return response.choices[0].message.content.strip()[7:-3].strip()
+    with open(f"{output_folder}/{filename}", 'w') as f:
+        f.write(response.choices[0].message.content.strip()[7:-3].strip())
+
+def translate_all_files(input_folder, output_folder, parallelize=False):
+    files = os.listdir(input_folder)
+    if parallelize:
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor() as executor:
+            executor.map(lambda file: translate_html_to_english(file, input_folder, output_folder), files)
+    else:
+        for file in files:
+            translate_html_to_english(file, input_folder, output_folder)
+
+def _process_letter(folder_path, base_name):
+    """Process a single letter's chunks."""
+    text = ""
+    counter = 1
+    i = 1
+    
+    while os.path.exists(f"{folder_path}/{base_name}page_{i}_chunk_1.html"):
+        j = 1
+        while os.path.exists(f"{folder_path}/{base_name}page_{i}_chunk_{j}.html"):
+            with open(f"{folder_path}/{base_name}page_{i}_chunk_{j}.html", 'r') as f:
+                text += "Html file number " + str(counter) + ":\n" + f.read() + "\n\n"
+            counter += 1
+            j += 1
+        i += 1
+    
+    print(f"Loaded {counter} chunks for {base_name}")
+    with open(f"public/html_de/{base_name}.html", 'w') as f:
+        f.write(unite_html(text))
 
 
-convert_chunk_to_html("Hs_91_676-687-pages-3_page_1_chunk_1.jpg", "public/chunks")
-# convert_chunks_to_html("public/chunks")
-# unite_chunks("public/html_parts")
+def unite_chunks(folder_path, parallelize=False):
+    """Unifies all html files of all letter into one per letter."""
+    base_names = [file[:file.index("page_1_chunk_1")] 
+                  for file in os.listdir(folder_path) 
+                  if file.endswith('page_1_chunk_1.html')]
+    
+    if parallelize:
+        with ThreadPoolExecutor() as executor:
+            executor.map(lambda base_name: _process_letter(folder_path, base_name), base_names)
+    else:
+        for base_name in base_names:
+            print("Unifying " + base_name)
+            _process_letter(folder_path, base_name)
 
-# for file in os.listdir("public/html_de"):
-#     with open(f"public/html_de/{file}", 'r') as f:
-#         text = f.read()
-#     with open(f"public/html_en/{file}", 'w') as f:
-#         f.write(translate_html_to_english(text))
+
 
 
 
