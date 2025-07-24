@@ -10,6 +10,7 @@ import io
 import re
 from typing import List, Tuple
 import random
+import concurrent.futures
 
 from prompts import chunking as chunking_prompt
 
@@ -112,7 +113,32 @@ class ChunkExtractor:
         print(f"Saved visualized chunks to {output_path}")
         image.show()
 
-    def extract_chunks_from_pdf(self, pdf_path: Path, output_dir: Path):
+    def _process_page_for_extraction(self, page_image_data: bytes, pdf_stem: str, page_num: int, num_pages: int, output_dir: Path):
+        """Helper to process a single page for chunk extraction."""
+        page_image = Image.open(io.BytesIO(page_image_data))
+        print(f"  Processing page {page_num}/{num_pages}")
+        
+        try:
+            chunk_coords = self.get_chunks_from_image(page_image)
+        except Exception as e:
+            print(f"    Error getting chunks from OpenAI API for page {page_num}: {e}")
+            return
+
+        if not chunk_coords:
+            print(f"    No chunks found for page {page_num}.")
+            return
+        
+        print(f"    Found {len(chunk_coords)} chunks for page {page_num}.")
+
+        for j, (x1, y1, x2, y2) in enumerate(chunk_coords):
+            print(f"      Chunk {j+1} coordinates: ({x1}, {y1}) ({x2}, {y2})")
+            chunk_image = page_image.crop((x1, y1, x2, y2))
+            output_filename = f"{pdf_stem}_page_{page_num}_chunk_{j+1}.jpg"
+            output_path = output_dir / output_filename
+            chunk_image.save(output_path, "JPEG")
+            print(f"      Saved chunk {j+1} to {output_path}")
+
+    def extract_chunks_from_pdf(self, pdf_path: Path, output_dir: Path, parallelize: bool = False):
         """Extracts text chunks from a PDF and saves them as images."""
         try:
             import fitz  # PyMuPDF - only import when needed for PDF processing
@@ -123,42 +149,30 @@ class ChunkExtractor:
         print(f"Processing {pdf_path.name}...")
         try:
             doc = fitz.open(str(pdf_path))
+            pages_data = []
             for page_num in range(len(doc)):
                 page = doc.load_page(page_num)
-                # Render page to image at 300 DPI for high quality
                 mat = fitz.Matrix(300 / 72, 300 / 72)
                 pix = page.get_pixmap(matrix=mat)
-                img_data = pix.tobytes("png")
-                page_image = Image.open(io.BytesIO(img_data))
-                
-                print(f"  Processing page {page_num + 1}/{len(doc)}")
-                
-                try:
-                    chunk_coords = self.get_chunks_from_image(page_image)
-                except Exception as e:
-                    print(f"    Error getting chunks from OpenAI API for page {page_num+1}: {e}")
-                    continue
+                pages_data.append(pix.tobytes("png"))
+            
+            if parallelize:
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    futures = [
+                        executor.submit(self._process_page_for_extraction, page_data, pdf_path.stem, i + 1, len(doc), output_dir)
+                        for i, page_data in enumerate(pages_data)
+                    ]
+                    concurrent.futures.wait(futures)
+            else:
+                for i, page_data in enumerate(pages_data):
+                    self._process_page_for_extraction(page_data, pdf_path.stem, i + 1, len(doc), output_dir)
 
-                if not chunk_coords:
-                    print(f"    No chunks found for page {page_num + 1}.")
-                    continue
-                
-                print(f"    Found {len(chunk_coords)} chunks for page {page_num + 1}.")
-
-                for j, (x1, y1, x2, y2) in enumerate(chunk_coords):
-                    print(f"      Chunk {j+1} coordinates: ({x1}, {y1}) ({x2}, {y2})")
-                    chunk_image = page_image.crop((x1, y1, x2, y2))
-                    output_filename = f"{pdf_path.stem}_page_{page_num+1}_chunk_{j+1}.jpg"
-                    output_path = output_dir / output_filename
-                    chunk_image.save(output_path, "JPEG")
-                    print(f"      Saved chunk {j+1} to {output_path}")
-                    
             doc.close()
             
         except Exception as e:
             print(f"Error converting {pdf_path.name} to images: {e}")
 
-    def process_folder(self, folder_path: Path, visualize: bool = False):
+    def process_folder(self, folder_path: Path, visualize: bool = False, parallelize: bool = False):
         """Process all PDF files in a folder."""
         if not folder_path.is_dir():
             print(f"Error: {folder_path} is not a directory.", file=sys.stderr)
@@ -177,11 +191,32 @@ class ChunkExtractor:
         
         for pdf_file in pdf_files:
             if visualize:
-                self.visualize_pdf_pages(pdf_file)
+                self.visualize_pdf_pages(pdf_file, parallelize=parallelize)
             else:
-                self.extract_chunks_from_pdf(pdf_file, output_dir)
+                self.extract_chunks_from_pdf(pdf_file, output_dir, parallelize=parallelize)
 
-    def visualize_pdf_pages(self, pdf_path: Path):
+    def _process_page_for_visualization(self, page_image_data: bytes, pdf_stem: str, page_num: int, num_pages: int):
+        """Helper to process a single page for chunk visualization."""
+        page_image = Image.open(io.BytesIO(page_image_data))
+        print(f"  Processing page {page_num}/{num_pages}")
+        
+        chunk_coords = self.get_chunks_from_image(page_image)
+        if not chunk_coords:
+            print(f"    No chunks found for page {page_num}.")
+            return
+        
+        draw = ImageDraw.Draw(page_image)
+        for i, (x1, y1, x2, y2) in enumerate(chunk_coords):
+            color = self.colors[i % len(self.colors)]
+            draw.rectangle([x1, y1, x2, y2], outline=color, width=5)
+        
+        output_filename = f"{pdf_stem}_page_{page_num}_visualized.jpg"
+        output_path = Path(output_filename)
+        page_image.save(output_path)
+        print(f"    Saved visualized page to {output_path}")
+        page_image.show()
+
+    def visualize_pdf_pages(self, pdf_path: Path, parallelize: bool = False):
         """Convert PDF pages to images and visualize chunks for each page."""
         try:
             import fitz  # PyMuPDF - only import when needed for PDF processing
@@ -193,33 +228,23 @@ class ChunkExtractor:
         
         try:
             doc = fitz.open(str(pdf_path))
+            pages_data = []
             for page_num in range(len(doc)):
                 page = doc.load_page(page_num)
-                # Render page to image at 300 DPI for high quality
                 mat = fitz.Matrix(300 / 72, 300 / 72)
                 pix = page.get_pixmap(matrix=mat)
-                img_data = pix.tobytes("png")
-                page_image = Image.open(io.BytesIO(img_data))
-                
-                print(f"  Processing page {page_num + 1}/{len(doc)}")
-                
-                chunk_coords = self.get_chunks_from_image(page_image)
-                if not chunk_coords:
-                    print(f"    No chunks found for page {page_num + 1}.")
-                    continue
-                
-                draw = ImageDraw.Draw(page_image)
-                for i, (x1, y1, x2, y2) in enumerate(chunk_coords):
-                    # Use different color for each chunk
-                    color = self.colors[i % len(self.colors)]
-                    draw.rectangle([x1, y1, x2, y2], outline=color, width=5)
-                
-                # Save and show the visualized page
-                output_filename = f"{pdf_path.stem}_page_{page_num + 1}_visualized.jpg"
-                output_path = Path(output_filename)
-                page_image.save(output_path)
-                print(f"    Saved visualized page to {output_path}")
-                page_image.show()  # This will open a new window for each page
+                pages_data.append(pix.tobytes("png"))
+            
+            if parallelize:
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    futures = [
+                        executor.submit(self._process_page_for_visualization, page_data, pdf_path.stem, i + 1, len(doc))
+                        for i, page_data in enumerate(pages_data)
+                    ]
+                    concurrent.futures.wait(futures)
+            else:
+                for i, page_data in enumerate(pages_data):
+                    self._process_page_for_visualization(page_data, pdf_path.stem, i + 1, len(doc))
                 
             doc.close()
             
@@ -235,6 +260,7 @@ def main():
 
     parser = argparse.ArgumentParser(description="Extract and visualize chunks from PDFs or images.")
     parser.add_argument("--visualize", help="Visualize chunks instead of extracting.", action="store_true")
+    parser.add_argument("--parallelize", help="Run chunkification on all pages simultaneously for faster results.", action="store_true")
     parser.add_argument("input_path", help="Path to a PDF file, image file, or folder containing PDFs.", type=Path)
 
     args = parser.parse_args()
@@ -244,7 +270,7 @@ def main():
 
     if input_path.is_dir():
         # Handle folder input
-        extractor.process_folder(input_path, visualize=args.visualize)
+        extractor.process_folder(input_path, visualize=args.visualize, parallelize=args.parallelize)
     elif input_path.is_file():
         if args.visualize:
             if input_path.suffix.lower() in ['.jpg', '.jpeg', '.png']:
@@ -253,7 +279,7 @@ def main():
                 extractor.draw_chunks(input_path, output_path)
             elif input_path.suffix.lower() == '.pdf':
                 # Handle single PDF file
-                extractor.visualize_pdf_pages(input_path)
+                extractor.visualize_pdf_pages(input_path, parallelize=args.parallelize)
             else:
                 print("Error: Unsupported file format. Use JPG, PNG, or PDF files.", file=sys.stderr)
                 sys.exit(1)
@@ -262,7 +288,7 @@ def main():
             if input_path.suffix.lower() == '.pdf':
                 output_dir = Path("public/chunks")
                 output_dir.mkdir(exist_ok=True)
-                extractor.extract_chunks_from_pdf(input_path, output_dir)
+                extractor.extract_chunks_from_pdf(input_path, output_dir, parallelize=args.parallelize)
             else:
                 print("Error: Chunk extraction only supports PDF files.", file=sys.stderr)
                 sys.exit(1)
