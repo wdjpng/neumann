@@ -21,33 +21,19 @@ async def get_chunks_coords_from_image(image: Image.Image, output_file_path: Pat
             with open(output_file_path, "w") as f:
                 f.write(reasoning)
 
-        print("Model response:", content)
-
         pattern = re.compile(r'\(([0-9,\s]+)\)')
         matches = [[int(x.strip()) for x in match.split(',')] for match in pattern.findall(content)]
-
-        print(f"Image resolution: {image.width}x{image.height}")
-        print("Model perceived resolution:", matches[-1])
-        
         
         if not matches:
             print(f"Warning: Could not parse coordinates from response: {content}")
-        
+            return []
+            
         x_scale, y_scale = image.width / matches[-1][0], image.height / matches[-1][1]
-        print(f"x_scale: {x_scale}, y_scale: {y_scale}")
-        print("Original coordinates:")
-        for (x1, y1, x2, y2) in matches[:-1]:
-            print(f"({x1}, {y1}) ({x2}, {y2})")
-        
         coords = []
         for (x1, y1, x2, y2) in matches[:-1]:
             x_1, x_2 = round(x1 * x_scale), round(x2 * x_scale)
             y_1, y_2 = round(y1 * y_scale), round(y2 * y_scale)
             coords.append((x_1, y_1, x_2, y_2))
-
-        print("Scaled coordinates:")
-        for (x1, y1, x2, y2) in coords:
-            print(f"({x1}, {y1}) ({x2}, {y2})")
         
         # # The model's coordinates are relative to an image where the shorter side is 768px.
         # # We need to rescale them to the original image size.
