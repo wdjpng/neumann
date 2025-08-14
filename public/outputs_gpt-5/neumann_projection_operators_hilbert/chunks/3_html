@@ -1,0 +1,40 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Brief-Transkription</title>
+<style>
+  body {
+    margin: 0;
+    background: #eee6d8;
+    font-synthesis-weight: none;
+  }
+  .page {
+    max-width: 1200px;
+    margin: 5vh auto;
+    background: #fbf2de;
+    padding: 3rem 3.5rem;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.15);
+  }
+  .hand {
+    font-family: "Segoe Script","Lucida Handwriting","Brush Script MT","Snell Roundhand","URW Chancery L",cursive;
+    font-size: 1.55rem;
+    line-height: 1.85;
+    color: #1f2a3a;
+    font-style: italic;
+    white-space: pre-line;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="hand">
+mit einer ziemlich einfachen Methode bewiesen. Da dieselbe
+an Ihre Behandlung der kontinuierlichen geschlossenen Gruppen
+mit Hilfe der den "Impulszahlen" entsprechenden Integral-
+gleichungen anlehnt, wird es Sie vielleicht interessieren,
+    </div>
+  </div>
+</body>
+</ht

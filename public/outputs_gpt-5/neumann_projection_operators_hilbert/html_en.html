@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Johann von Neumann – Letter (Cortina d’Ampezzo, August 5, 1930)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --paper:#efe3c9;
+    --ink:#2e56a1;
+    --pencil:#6d6d6d;
+    --shadow:rgba(0,0,0,.08);
+    --ruled:rgba(20,40,80,.045);
+  }
+  html,body{margin:0;background:#e7ebf0;}
+  /* Paper */
+  .paper{
+    max-width:1200px;
+    margin:24px auto;
+    padding:28px 40px 48px;
+    background:var(--paper);
+    border:1px solid rgba(0,0,0,.06);
+    box-shadow:0 6px 20px var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  /* faint horizontal ruling like on the scan */
+  .paper::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0 24px,
+        var(--ruled) 24px 25px
+      );
+    pointer-events:none;
+  }
+  /* left punch holes (decorative) */
+  .holes{position:absolute; left:14px; top:90px; width:12px}
+  .hole{
+    width:12px; height:12px; border-radius:50%;
+    margin:90px 0;
+    background:#e6d8b9;
+    box-shadow:
+      inset 0 0 0 1px rgba(0,0,0,.06),
+      inset 0 2px 3px rgba(0,0,0,.12);
+  }
+  /* header line like first page */
+  .topline{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    position:relative; z-index:1;
+  }
+  .pencil{
+    color:var(--pencil);
+    font-style:italic;
+    font-size:18px;
+    letter-spacing:.4px;
+  }
+  .place-date{
+    text-align:right;
+    color:var(--ink);
+    font-family:"Segoe Script","Lucida Handwriting","Brush Script MT","Snell Roundhand","URW Chancery L",cursive;
+    font-size:28px;
+    line-height:1.1;
+  }
+  .watermark{
+    position:absolute;
+    left:110px; top:82px;
+    color:rgba(0,0,0,.15);
+    font-weight:700; letter-spacing:.8px;
+    user-select:none; pointer-events:none;
+    transform:translateY(-50%);
+  }
+  /* main handwriting */
+  .hand{
+    position:relative; z-index:1;
+    color:var(--ink);
+    font-family:"Segoe Script","Lucida Handwriting","Kalam","Patrick Hand","Bradley Hand",cursive;
+    font-size:22px; line-height:1.7;
+    white-space:pre-wrap;
+  }
+  /* math look */
+  .math{font-family:"Cambria Math","STIX Two Math","Times New Roman",serif; font-style:italic; color:#274a86}
+  sup, sub{font-size:.75em}
+  .frac{display:inline-block; vertical-align:middle; text-align:center; line-height:1; margin:0 .12em}
+  .frac .top{display:block; padding:0 .2em .1em; border-bottom:1px solid currentColor}
+  .frac .bottom{display:block; padding:.1em .2em 0}
+  .overline{text-decoration:overline}
+  .block{margin:.35em 0}
+  .tight{line-height:1.45}
+  .small{font-size:.88em}
+  .foot{
+    margin-top:10px; color:var(--pencil);
+    font-family:"Times New Roman", Georgia, serif;
+    font-size:14px; line-height:1.35; font-style:italic;
+  }
+  .rule{border:none; border-top:2px solid var(--ink); width:38%; margin:14px 0 10px 62%}
+  .illegible{color:#6e6e6e; font-style:italic}
+</style>
+</head>
+<body>
+  <div class="paper">
+    <div class="holes">
+      <div class="hole"></div>
+      <div class="hole"></div>
+    </div>
+
+    <div class="topline">
+      <div class="pencil">Hs. 91: 685</div>
+      <div class="place-date">Cortina d'Ampezzo, August 5<br>1930.</div>
+    </div>
+    <div class="watermark">NM</div>
+
+    <div class="hand">
+<span class="block">Dear Professor!</span>
+
+<span class="block">Lately I have been occupied with the question of uniqueness of the solutions of the commutation relation <span class="math">PQ − QP = <span class="frac"><span class="top">h</span><span class="bottom">2π i</span></span> · 1</span>, respectively with equations <span class="math">U(α) V(β) = e<sup>i αβ</sup> V(β) U(α)</span> (<span class="math">U(α) = e<sup>(2π i / h) · αP</sup>,&nbsp; V(β) = e<sup>i · βQ</sup></span>), and I have proved the uniqueness<span class="math">*</span>) by a rather simple method. Since it is modeled on your treatment of continuous closed groups by means of the integral equations corresponding to the “momentum quantum numbers,” it may interest you, and I think I shall sketch it in the following.</span>
+
+<span class="block">I introduce the unitary family <span class="math">S(α,β) = e<sup>iαβ/2</sup> U(α) V(β) = e<sup>iαβ/2</sup> V(β) U(α)</span>, for which the multiplication relations</span>
+
+<span class="block math tight">S(α,β) · S(γ,δ) = e<sup>(i/2)(αδ − βγ)</sup> · S(α+γ, β+δ)</span>
+
+<span class="block">hold, and consider operators</span>
+
+<span class="block math">A = ∬ a(α,β) · S(α,β) dα dβ,</span>
+
+<span class="block">with “kernel” <span class="math">a(α,β)</span> absolutely integrable over the entire <span class="math">(α,β)</span>-plane. It is easy to state the computational rules for these kernels; in particular,</span>
+
+<span class="block math small">*(a(α,β) S′(α,β)) = ∬ <span class="overline">a(−α,−β)</span> · S′(α,β) dα dβ.</span>
+
+<span class="block math small">(…) ∬ a(α,β) S<sup>*</sup>(α,β) dα dβ</span>
+
+<span class="block math small">S′(μ,ν) = ∬ e<sup> i(ν α − μ β) </sup> a(α − μ, β − ν) · S(α,β) dα dβ,</span>
+<span class="block math small">S(μ,ν) … = ∬ e<sup> − i(ν α − μ β) </sup> a(α − μ, β − ν) · S(α,β) dα dβ,</span>
+
+<span class="block math small">⊧ ∬ a(α,β) S<sup>*</sup>(α,β) dα dβ · ∬ b(α,β) S(α,β) dα dβ
+= ∬ C(α,β) S(α,β) dα dβ,</span>
+
+<span class="block math small">where (formally) also l(α,β) = ∬ e<sup>½ i (β − α)</sup> a(ξ,η) · b(α − ξ, β − η) dξ dη.</span>
+
+<span class="block">Moreover, from <span class="math">⟨ ∬ a(α,β) S(α,β) dα dβ ⟩ = 0</span> and <span class="math">S(u,v)…S′(u,v) = 0</span>, i.e. <span class="math">∬ e<sup>i(…)</sup> a(α,β) S(α,β) dα dβ = 0</span> for all <span class="math">u,v</span>, it follows that <span class="math">a(α,β) ≡ 0</span>. Thus the calculus with the “kernels” is equivalent to that with their operators.</span>
+
+<span class="block">Now I set</span>
+
+<span class="block math">A := ∬ e<sup>−¼ α² − ¼ β²</sup> · S<sup>1</sup>(α,β) dα dβ.</span>
+
+<div class="foot">*) The proof announced by Stone in Proc. Nat. Acad. seems, as Stone informed me, not yet to be gapless.</div>
+
+<span class="block">Then one sees by straightforward computations</span>
+
+<span class="block math">A ≠ 0,&nbsp;&nbsp; A = A<sup>*</sup>,&nbsp;&nbsp; Â(u,v) = 2π · e<sup>−¼ u² − ¼ v²</sup> · A.</span>
+
+<span class="block">Hence, in particular, <span class="math"><span class="frac"><span class="top">1</span><span class="bottom">2π</span></span> A</span> is a projection operator ≠ 0 (<span class="math">u=v=0</span>). Let <span class="math">f</span> be a solution of <span class="math"><span class="frac"><span class="top">1</span><span class="bottom">2π</span></span> Af = f</span>, <span class="math">‖f‖ = 1</span>. All <span class="math">f<sub>α,β</sub> = S(α,β) f</span> span a space invariant under all <span class="math">S(μ,ν)</span>, i.e. under all <span class="math">U(y), V(s)</span>, hence—triviality!—the whole Hilbert space.</span>
+
+<span class="block tight small math">( f<sub>α,β</sub>, f<sub>γ,δ</sub> ) = ( S(α,β) f, S(γ,δ) f ) =
+<span class="frac"><span class="top">1</span><span class="bottom">4π²</span></span> ( S(α,β) A f, S(γ,δ) A f )
+= 4π² · ( A S(α,β) A f, f ).</span>
+
+<span class="block small"><b>I./</b> <span class="illegible">[a detailed exponential Gaussian formula; the line is partly illegible in the original]</span></span>
+<span class="block small math"><b>II./</b> S(m, ν) · A<sub>α,β</sub> = e<sup>π i (mβ − ν α)</sup> · A<sub>α+m, β+ν</sub>.</span>
+
+<span class="block small">Here the set of all starting points of all lines <span class="illegible">[illegible]</span>, of some (finitely many) <span class="math">f<sub>α,β</sub></span>. But that the <span class="math">f<sub>α,β</sub></span> determined by I., II., with the properties of being one‑to‑one, length‑preserving, and <span class="math">S(α,β)</span>-isomorphic to one another, are <span class="illegible">[shiftable?]</span> is so evident; let the <span class="math">f<sub>α,β</sub></span> be dis‑ …</span>
+
+<hr class="rule">
+
+<span class="block">The same method is also applicable to the multidimensional commutation relations, respectively to their general theory <span class="illegible">[or …]</span>, up to a numerical factor <span class="illegible">[…]</span>, to the operator groups.</span>
+
+<span class="block">Will I have the opportunity to see you again in Königsberg? In the hope of seeing you again I remain</span>
+
+<span class="block" style="margin-top:10px">Yours very devoted,</span>
+<span class="block" style="margin-top:2px">Johann v. Neumann.</span>
+<span class="block small" style="margin-top:6px">Budapest, V. Vilmos császár út 62.</span>
+    </div>
+  </div>
+</body>
+</html>

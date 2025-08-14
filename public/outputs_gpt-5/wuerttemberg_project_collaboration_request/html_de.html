@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brief-Transkription – Hs 91: 677</title>
+<style>
+  :root{
+    --desk:#e6eaee;
+    --paper:#f3eddc;
+    --paper-edge:#e1d8c3;
+    --ink:#5f7183;
+    --rule:rgba(0,0,0,.05);
+  }
+  html,body{margin:0}
+  body{
+    background:var(--desk);
+    display:flex;
+    justify-content:center;
+    padding:3rem 1.25rem;
+    color:var(--ink);
+    font-family: "Caveat","Cedarville Cursive","Bradley Hand","Segoe Print","Lucida Handwriting",cursive;
+  }
+
+  .sheet{
+    position:relative;
+    width:min(1000px,96vw);
+    background:
+      /* light laid-paper lines */
+      repeating-linear-gradient(0deg, var(--rule) 0 2px, transparent 2px 28px),
+      var(--paper);
+    border:1px solid var(--paper-edge);
+    box-shadow:0 14px 40px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.65);
+    border-radius:4px;
+    padding:80px 84px 96px 96px;
+  }
+
+  /* two punch holes on the left, as on the scan */
+  .hole{
+    position:absolute;
+    left:22px;
+    width:18px;height:18px;
+    background:#fff;border-radius:50%;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.06);
+  }
+  .hole.top{ top:92px; }
+  .hole.mid{ top:300px; }
+
+  .header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:18px;
+    font-size:1.2rem;
+    letter-spacing:.2px;
+    opacity:.9;
+  }
+  .archive, .place-date{white-space:nowrap}
+  .salutation{
+    font-size:2.1rem;
+    margin:.4rem 0 1.2rem 0;
+  }
+  .body{
+    font-size:1.65rem;
+    line-height:1.9;
+    white-space:pre-wrap;
+    letter-spacing:.4px;
+  }
+</style>
+</head>
+<body>
+  <section class="sheet" aria-label="Briefseite">
+    <div class="hole top" aria-hidden="true"></div>
+    <div class="hole mid" aria-hidden="true"></div>
+
+    <header class="header">
+      <div class="archive">· Hs 91: 677</div>
+      <div class="place-date">Budapest, den 25. VII. 1925.</div>
+    </header>
+
+    <div class="salutation">Sehr geehrter Herr Professor!</div>
+
+    <div class="body">
+Die Widerspruchsfreiheits-Arbeit
+schicke ich beiliegend. 3 Litteratur-
+Angaben, die ich nicht einwandfrei
+feststellen konnte, habe ich mit einem
+? bezeichnet; wenn sie Herr Professor
+richtigstellen wollten, wäre ich sehr
+dankbar.
+
+Ich wäre Ihnen auch sehr ver-
+bunden, wenn Sie, Ihrer bei unserer
+letzten Aussprache geäußerten Absicht
+entsprechend, die Arbeit durchsehen
+würden.
+
+Indem ich Ihnen im vorhinein
+danke, verbleibe ich hochachtungsvoll
+
+Hans v. Wiemann,
+
+(bis 26. VIII.: Selwyn College, Cambridge,
+dann: Budapest ([unleserlich]) Dr. Eötvös ut 45.)
+    </div>
+  </section>
+</body>
+</html>

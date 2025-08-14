@@ -1,0 +1,45 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription</title>
+<style>
+  body{
+    background:#f2efe9;
+    margin:0;
+    padding:2rem;
+    display:flex;
+    justify-content:center;
+    color:#2a2a2a;
+    font-family: "Georgia","Times New Roman",serif;
+  }
+  .sheet{
+    background:#fbf8f1;
+    border:1px solid #e6dfcf;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+    padding:1.5rem 2rem;
+    max-width:1200px;
+    width:100%;
+    line-height:1.9;
+    font-size:1.25rem;
+  }
+  .math{font-family:"Times New Roman",serif}
+  .math sup{font-size:.75em}
+  pre{
+    white-space:pre-wrap;
+    margin:0;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <pre>
+und ich glaube mir sie im folgenden zu skizzieren.
+
+Ich führe die unitäre Schar
+<span class="math">S(α, β) = e<sup>i/2 αβ</sup> U(α) V(β) = e<sup>i/2 αβ</sup> V(β) U(α)</span>
+ein, für die Multiplikations‑Relationen
+    </pre>
+  </div>
+</body>
+</ht

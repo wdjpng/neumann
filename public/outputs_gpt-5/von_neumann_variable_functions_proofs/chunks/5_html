@@ -1,0 +1,37 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Brieftranskription</title>
+<style>
+  body{
+    margin:0;
+    background:#e8ecf1;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .sheet{
+    max-width:1200px;
+    margin:3rem auto;
+    background:#f6efe3;
+    padding:2.2rem 3rem;
+    border:1px solid #e0d8c8;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  }
+  .hand{
+    font-family: "Lucida Handwriting","Segoe Script","Brush Script MT",cursive;
+    font-size: 1.55rem;
+    line-height: 2.1rem;
+    color:#3a372f;
+    white-space: pre;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="hand">ten, sind es Mitteilungs-Variablen, die bloß zur
+Abkürzung dienen und vermieden werden könnten.
+(Es wäre hier möglich, das Definierte stets durch
+das Definierende zu ersetzen.) —</div>
+  </div>
+</body>
+</ht

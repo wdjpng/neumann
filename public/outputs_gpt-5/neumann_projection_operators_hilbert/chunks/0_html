@@ -1,0 +1,63 @@
+PE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Fragment</title>
+<style>
+  :root{
+    --paper:#efe6d3;
+    --ink:#2e56a1;
+    --graphite:#6d6d6d;
+  }
+  html,body{margin:0;background:#e7ebf0;font-family:"Times New Roman", Georgia, serif;}
+  .paper{
+    max-width:1200px;
+    margin:24px auto;
+    padding:26px 36px 40px;
+    background:var(--paper);
+    border:1px solid rgba(0,0,0,.08);
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+    position:relative;
+  }
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+  }
+  .pencil{
+    color:var(--graphite);
+    font-style:italic;
+    font-size:18px;
+    letter-spacing:.4px;
+  }
+  .place-date{
+    text-align:right;
+    color:var(--ink);
+    font-family:"Segoe Script","Lucida Handwriting","Brush Script MT",cursive;
+    font-size:28px;
+    line-height:1.1;
+  }
+  .watermark{
+    position:absolute;
+    left:120px;
+    top:78px;
+    color:rgba(0,0,0,.12);
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:.8px;
+    user-select:none;
+    pointer-events:none;
+    transform:translateY(-50%);
+  }
+</style>
+</head>
+<body>
+  <div class="paper">
+    <div class="topline">
+      <div class="pencil">Hs. 91: 685</div>
+      <div class="place-date">Cortina d'Ampezzo, den 5. August<br>1930.</div>
+    </div>
+    <div class="watermark">NM</div>
+  </div>
+</body>
+</ht

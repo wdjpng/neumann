@@ -1,0 +1,36 @@
+PE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Transcription</title>
+<style>
+  body{
+    margin:0;
+    padding:24px;
+    background:#e6e8eb;
+    font-family: "Times New Roman", Georgia, serif;
+  }
+  .sheet{
+    max-width:1200px;
+    margin:0 auto;
+    background:#f6f0df;
+    border:1px solid #e4dbc4;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.08);
+    padding:36px 44px;
+  }
+  .hand{
+    font-family: "Dancing Script","Snell Roundhand","Segoe Script","Brush Script MT",cursive;
+    color:#3b4968;
+    font-size:2rem;
+    line-height:1.6;
+    white-space:pre-wrap;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="hand">Johann v. Neumann.
+Budapest, V. Vilmos császár út 62.</div>
+  </div>
+</body>
+</ht

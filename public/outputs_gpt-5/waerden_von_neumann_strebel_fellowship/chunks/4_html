@@ -1,0 +1,35 @@
+PE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Transcription</title>
+<style>
+  body {
+    margin: 0;
+    background: #f6f1e7;
+    font-family: "Times New Roman", Georgia, serif;
+    color: #2b2b2b;
+  }
+  .page {
+    max-width: 960px;
+    margin: 48px auto;
+    background: #fffdf7;
+    border: 1px solid #e8e1d6;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    padding: 56px 60px;
+    min-height: 160px;
+  }
+  pre {
+    white-space: pre-wrap;
+    font-size: 18px;
+    line-height: 1.8;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <pre></pre>
+  </div>
+</body>
+</ht

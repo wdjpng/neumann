@@ -1,0 +1,23 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transcription</title>
+<style>
+  body { font-family: "Times New Roman", Georgia, serif; color:#222; background:#fff; }
+  .page { max-width: 820px; margin: 24px auto; padding: 0 12px; }
+  .line { margin: .4em 0; }
+  .equation { font-size: 1.25rem; letter-spacing: .3px; }
+  sup { font-size: .7em; vertical-align: super; }
+  sub { font-size: .7em; vertical-align: sub; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="line">wird</div>
+    <div class="line equation">
+      ds<sup>2</sup> = − f(√(x<sub>1</sub><sup>2</sup> + x<sub>2</sub><sup>2</sup> + x<sub>3</sub><sup>2</sup>)) (dx<sub>1</sub><sup>2</sup> + dx<sub>2</sub><sup>2</sup> + dx<sub>3</sub><sup>2</sup>) −
+    </div>
+  </div>
+</body>
+</ht

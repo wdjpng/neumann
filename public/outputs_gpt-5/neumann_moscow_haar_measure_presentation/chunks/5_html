@@ -1,0 +1,66 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Brief-Transkription</title>
+<style>
+  body { background:#ecebea; margin:0; padding:2rem; }
+  .page {
+    max-width: 1000px;
+    margin: 0 auto;
+    background:#f8f7f5;
+    border:1px solid #d8d6d2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    position: relative;
+    padding: 2.8rem 4.2rem 4.2rem 4.2rem;
+  }
+  .text {
+    font-family: "Times New Roman", Georgia, serif;
+    font-style: italic;
+    font-size: 1.35rem;
+    line-height: 2.2rem;
+    color:#1c1b1a;
+    white-space: pre-line;
+  }
+  .signature {
+    margin-top: .5rem;
+    font-family: "Brush Script MT", "Segoe Script", "Apple Chancery", cursive;
+    font-size: 2.2rem;
+    letter-spacing: .02em;
+    color:#161514;
+  }
+  .margin-note {
+    position: absolute;
+    right: .35rem;
+    top: .9rem;
+    color:#6e6b68;
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 1.1rem;
+    transform: rotate(90deg);
+    transform-origin: right top;
+  }
+  .margin-number {
+    position: absolute;
+    right: .7rem;
+    bottom: .6rem;
+    color:#2a2a2a;
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 1.15rem;
+    transform: rotate(90deg);
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="text">
+Gastfreundschaft verdanken.
+Mit den besten Gr&uuml;ssen
+bin ich Ihr ergebener
+    </div>
+    <div class="signature">J. v. Neumann</div>
+
+    <div class="margin-note">Hs 160:</div>
+    <div class="margin-number">164</div>
+  </div>
+</body>
+</ht

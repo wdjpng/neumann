@@ -1,0 +1,40 @@
+PE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Excerpt</title>
+<style>
+  body {
+    margin: 0;
+    background: #e6e6e6;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+  }
+  .page {
+    width: min(950px, 92vw);
+    height: min(580px, 90vh);
+    background: #efe6d8;
+    border: 1px solid #d8cec0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    position: relative;
+    font-family: "Courier New", Courier, monospace;
+    color: #4a4a4a;
+  }
+  .line {
+    position: absolute;
+    top: 38%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: clamp(14px, 2.1vw, 22px);
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="line">(B. L. van der Waerden)</div>
+  </div>
+</body>
+</ht

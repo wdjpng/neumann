@@ -1,0 +1,37 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription</title>
+<style>
+  body{
+    margin:0;
+    background:#e9e2d3;
+    font-family:"Garamond","Times New Roman",serif;
+    color:#1f1f1f;
+  }
+  .page{
+    max-width:1400px;
+    margin:2rem auto;
+    background:#f6f0e6;
+    border:1px solid #d9d0c2;
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+    padding:2.2rem 2.6rem;
+    line-height:1.9;
+    font-size:1.25rem;
+  }
+  .math{
+    font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;
+    font-style:italic;
+  }
+  .line{ white-space:pre-wrap; }
+  sup{ font-size:.8em; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="line">bzw. über Gleichungen <span class="math">U(&alpha;) V(&beta;) = e<sup>i&alpha;&beta;</sup> V(&beta;) U(&alpha;)</span></div>
+    <div class="line">(<span class="math">U(&alpha;) = e<sup>2&pi;i/&hairsp;h · &alpha;P</sup>, V(&beta;) = e<sup>i · &beta;Q</sup></span>) beschäftigt, und die Eindeutigkeit <sup>*</sup>)</div>
+  </div>
+</body>
+</ht

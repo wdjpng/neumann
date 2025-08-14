@@ -1,0 +1,42 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Brief-Transkription</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #e9ece6;
+    color: #2e2a25;
+    font-family: "Georgia", "Times New Roman", serif;
+  }
+  .page {
+    max-width: 900px;
+    margin: 4rem auto;
+    background: #f7f3e9;
+    padding: 3rem 3.5rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .ink {
+    font-size: 1.35rem;
+    line-height: 1.9;
+    letter-spacing: 0.2px;
+    font-style: italic;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <div class="ink">s Zukunfts liegt. Zwischen Welt-
+linien mit entgegengesetzten Zeitrichtungen
+gibt es also keine Signale.
+Für jede Weltlinie umfaßt sowohl Vergangen-
+heit wie Zukunft die ganze Hyperbelwelt, so-
+daß von jeder anderen Weltlinie ein Teil
+gleich gerichtete, der andere aber entge-</div>
+  </main>
+</body>
+</ht

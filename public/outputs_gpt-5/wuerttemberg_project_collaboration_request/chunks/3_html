@@ -1,0 +1,40 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Briefabschrift</title>
+<style>
+  body{
+    margin:0;
+    background:#e9e3d1;
+    font-family: Georgia, serif;
+  }
+  .paper{
+    max-width:1100px;
+    margin:5vh auto;
+    padding:8vh 6vw;
+    background:#f7f1e6;
+    border:1px solid #dcd1bd;
+    box-shadow:0 10px 28px rgba(0,0,0,.08);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0, rgba(0,0,0,0.03) 2px, transparent 2px, transparent 26px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.025) 0, rgba(0,0,0,0.025) 2px, transparent 2px, transparent 26px);
+  }
+  .hand{
+    font-family: "Dancing Script","Lucida Handwriting","Bradley Hand","Segoe Script",cursive;
+    font-size:2rem;
+    color:#6f889e;
+    line-height:1.9;
+    letter-spacing:.5px;
+    word-spacing:.15em;
+  }
+</style>
+</head>
+<body>
+  <div class="paper">
+    <div class="hand">
+      danke, verbleibe ich hochachtungsvoll
+    </div>
+  </div>
+</body>
+</ht

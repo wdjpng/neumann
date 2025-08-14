@@ -1,0 +1,26 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription</title>
+<style>
+  body { background:#f5efe2; color:#1a1a1a; margin:0; font-family: "Times New Roman", Georgia, serif; }
+  .page { max-width:1200px; margin:24px auto; padding:24px 32px; background:#fbf7ee; box-shadow:0 2px 8px rgba(0,0,0,.06); }
+  .hand { font-size:22px; line-height:1.7; white-space:pre-line; }
+  .math { font-variant-numeric: oldstyle-nums; }
+  .frac{display:inline-block; vertical-align:middle; text-align:center; line-height:1; padding:0 .1em;}
+  .frac .top{display:block; font-size:.8em;}
+  .frac .bar{display:block; border-top:1px solid currentColor; font-size:.8em;}
+</style>
+</head>
+<body>
+  <div class="page hand math">
+dann erkennt man durch leichte Rechnungen
+
+A ≠ 0,  A = A*,  Â(u,v) = 2π · e<sup>−¼u² − ¼v²</sup> · A
+
+Also ist insbesondere <span class="frac"><span class="top">1</span><span class="bar">2π</span></span> A ein Projektions‑Operator ≠ 0 (u = v = 0),
+sei f eine Lösung von <span class="frac"><span class="top">1</span><span class="bar">2π</span></span> Af = f, ‖f‖ = 1.  Alle f<sub>α,β</sub> = S(α,β) f
+  </div>
+</body>
+</ht

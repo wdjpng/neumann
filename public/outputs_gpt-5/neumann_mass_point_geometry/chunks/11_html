@@ -1,0 +1,38 @@
+pe html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription</title>
+<style>
+  body {
+    background:#f5f2ea;
+    margin:0;
+    font-family: "Caveat","Patrick Hand","Segoe Script","Lucida Handwriting",serif;
+    color:#2f2e2b;
+  }
+  .sheet{
+    max-width:1200px;
+    margin:24px auto;
+    padding:28px 36px;
+    background:#fbfaf6;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+    border:1px solid #e6e1d5;
+    line-height:1.85;
+    font-size:1.3rem;
+    white-space:pre-wrap;
+  }
+  .underline{ text-decoration: underline; }
+  .math{ font-family: "Times New Roman", Georgia, serif; font-style: italic; }
+</style>
+</head>
+<body>
+  <div class="sheet">
+wird <span class="underline">seiner Antipode</span> regulär.
+
+<span class="math">Da für x → ∞</span>  <span class="math">f(x) → x</span><sup class="math">2</sup>, <span class="math">g(x) → 0</span>, <span class="math">h(x) → 4/q</span><sup class="math">2</sup><span class="math">(1) = 1/(1 − m/x)</span><sup class="math">2</sup>
+
+verschwindet die Wirkung des Massenpunktes
+selbst in unendlich fernen, außerhalb der Achse
+  </div>
+</body>
+</ht

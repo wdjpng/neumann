@@ -1,0 +1,46 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription des Briefausschnitts</title>
+<style>
+  body{
+    background:#f3efe7;
+    margin:0;
+    padding:24px;
+    font-family:Georgia, "Times New Roman", serif;
+  }
+  .page{
+    max-width:1200px;
+    margin:0 auto;
+    background:#fbf7ef;
+    border:1px solid #e0d7c6;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    padding:34px 38px 44px;
+  }
+  .ink{
+    color:#3a548a;
+    font-family:"Segoe Script","Lucida Handwriting","Brush Script MT","Dancing Script",cursive;
+    font-size:22px;
+    line-height:1.6;
+    white-space:pre-wrap;
+  }
+  hr.penline{
+    border:none;
+    border-top:2px solid #3a548a;
+    width:38%;
+    margin:14px 0 12px 52%;
+  }
+  .faint{opacity:.75;}
+  .unclear{opacity:.7; font-style:italic;}
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="ink faint">… sprechen, und invertier[bar] linear‑stetig auf ganz <span class="unclear">[unleserlich]</span>).</div>
+    <hr class="penline">
+    <div class="ink">Dieselbe Methode ist auch auf die mehrdimensionalen</div>
+    <div class="ink">Vertauschungsrelationen, bzw. ihre allgemeine Theorie <span class="unclear">oder …</span></div>
+  </div>
+</body>
+</ht

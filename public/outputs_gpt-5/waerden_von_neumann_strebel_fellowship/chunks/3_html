@@ -1,0 +1,59 @@
+PE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Excerpt</title>
+<style>
+  body{
+    margin:0;
+    background:#efe8dc;
+  }
+  .paper{
+    max-width:1100px;
+    margin:24px auto;
+    padding:48px 64px 96px;
+    background:#f7f0e4;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+    font-family:"Courier New", Courier, monospace;
+    color:#333;
+    line-height:1.6;
+  }
+  .closing{
+    text-align:right;
+  }
+  .closing .line{
+    font-size:20px;
+    letter-spacing:.3px;
+  }
+  .closing .sig{
+    font-family:"Brush Script MT","Lucida Handwriting","Segoe Script",cursive;
+    font-size:36px;
+    margin:18px 0 12px;
+    display:inline-block;
+  }
+  .closing .name{
+    font-size:20px;
+  }
+  .enclosure{
+    margin-top:64px;
+    font-size:18px;
+    text-align:left;
+  }
+  .enclosure u{
+    text-decoration-thickness:2px;
+    text-underline-offset:3px;
+  }
+</style>
+</head>
+<body>
+  <div class="paper">
+    <div class="closing">
+      <div class="line">Yours most cordially</div>
+      <div class="sig">B</div><br>
+      <div class="name">(Prof.Dr.B.L.van der Waerden)</div>
+    </div>
+
+    <div class="enclosure"><u>enclosure.</u></div>
+  </div>
+</body>
+</ht

@@ -1,0 +1,28 @@
+ang="de">
+<head>
+<meta charset="utf-8">
+<title>Brief-Auszug – Transkription</title>
+<style>
+  body{background:#e8eef2;margin:0;padding:2rem;font-smooth:always;-webkit-font-smoothing:antialiased;}
+  .paper{
+    max-width:1400px;margin:0 auto;background:#f6f0de;border:1px solid #e0d7b8;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);padding:26px 34px;color:#36608a;
+    white-space:pre-wrap;line-height:1.6;
+    font-family:"Segoe Script","Lucida Handwriting","Bradley Hand","Comic Sans MS",cursive;
+    font-size:24px;
+  }
+  .greeting{font-size:1.4em;font-weight:600;}
+  .equation{font-family:"Times New Roman", Georgia, serif;color:#2a4a6a;font-size:1em;}
+  .frac{display:inline-block;vertical-align:middle;text-align:center;line-height:1;}
+  .frac .top{display:block;border-bottom:1px solid currentColor;padding:0 .2em;}
+  .frac .bottom{display:block;font-size:.9em;}
+</style>
+</head>
+<body>
+<div class="paper">
+<span class="greeting">Sehr geehrter Herr Professor!</span><br>
+In der letzten Zeit habe ich mich mit der Ein-<br>
+deutigkeitsfrage der Lösungen der Vertauschungsrelation <span class="equation">PQ − QP = <span class="frac"><span class="top">h</span><span class="bottom">2π i</span></span> 1,</span>
+</div>
+</body>
+</ht

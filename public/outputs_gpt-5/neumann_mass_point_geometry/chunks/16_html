@@ -1,0 +1,45 @@
+PE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Transkription</title>
+  <style>
+    body {
+      background: #e9edf2;
+      margin: 0;
+      padding: 24px;
+      font-synthesis-weight: none;
+    }
+    .paper {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #f6f1e7;
+      border: 1px solid #dcd5c8;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      padding: 36px 44px;
+    }
+    .text {
+      white-space: pre-wrap;
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 22px;
+      line-height: 1.7;
+      color: #333;
+    }
+    .text u {
+      text-decoration-thickness: .1em;
+      text-underline-offset: .15em;
+    }
+  </style>
+</head>
+<body>
+  <div class="paper">
+    <div class="text">
+gon ja in der Einsteinschen Zylinderwelt
+auch betrachtet wird) hätte aber die Wirkung
+daß man keine eindeutige Zeitrichtung Vergan.
+genheit → Zukunft (für <u>alle Weltlinien</u>)
+festlegen  könnte
+    </div>
+  </div>
+</body>
+</ht

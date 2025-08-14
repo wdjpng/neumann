@@ -1,0 +1,35 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription – Briefausschnitt</title>
+<style>
+  body {
+    margin: 0;
+    padding: 2rem;
+    background: #f6f1e6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .sheet {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #f9f3e8;
+    border: 1px solid #e6dccb;
+    box-shadow: 0 6px 24px rgba(0,0,0,.08);
+    padding: 1.25rem 1.5rem;
+  }
+  .lines {
+    font-family: "Lucida Handwriting","Segoe Script","Bradley Hand",cursive;
+    color: #27405e;
+    font-size: 1.35rem;
+    line-height: 2.1;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="lines">bestimmen einen Raum so, der gegenüber allen S(i,d1), d. h. allen U(y), V(s), invariant ist, also (Trivialität!) der volle Hilbertsche Raum.</div>
+  </div>
+</body>
+</ht

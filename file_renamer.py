@@ -16,7 +16,7 @@ import argparse
 from pathlib import Path
 import base64
 from io import BytesIO
-from typing import List, Set, Optional, Tuple, Dict
+from typing import List, Optional, Tuple, Dict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 import time

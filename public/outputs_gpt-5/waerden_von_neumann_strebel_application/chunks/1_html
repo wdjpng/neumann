@@ -1,0 +1,45 @@
+PE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Transcribed Letter</title>
+<style>
+  body {
+    background: #f6f3ee;
+    margin: 0;
+    padding: 48px 24px;
+    font-family: "Courier New", Courier, monospace;
+    color: #4a4a4a;
+  }
+  .address {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .address blockquote {
+    margin: 0;
+    padding: 0 6vw 0 0;
+    font-size: 22px;
+    line-height: 1.6;
+  }
+  .spaced {
+    display: inline-block;
+    letter-spacing: 0.45em;
+    padding-bottom: 6px;
+    border-bottom: 3px solid #555;
+    width: 17ch; /* 9 letters + 8 gaps as in the original */
+  }
+</style>
+</head>
+<body>
+  <div class="address">
+    <blockquote>
+      <div>Prof. Dr. John von Neumann</div>
+      <div>Institute for advanced study</div>
+      <div class="spaced">Princeton</div>
+      <div>New Jersey</div>
+    </blockquote>
+  </div>
+</body>
+</ht

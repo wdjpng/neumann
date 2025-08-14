@@ -1,0 +1,32 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription des Briefausschnitts</title>
+<style>
+  body {
+    margin: 0;
+    padding: 2rem;
+    background: #e9eaed;
+    font-family: "Lucida Handwriting","Segoe Script","Snell Roundhand","Brush Script MT", Georgia, serif;
+  }
+  .paper {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #f7f3e8;
+    border: 1px solid #d8d2c6;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 1.2rem 1.5rem;
+    line-height: 1.7;
+    font-size: 1.15rem;
+    color: #222;
+    white-space: pre-wrap; /* preserve linebreaks as in the original */
+  }
+</style>
+</head>
+<body>
+  <div class="paper">verfolgbar sein. Auf dem Sterne geschieht natür-
+lich nichts, der Beobachter wird erklären daß zunächst Stehenbleiben, sodann Umkehr
+der Zeit erfolgte. Hochachtungsvoll H. v. Neumann.</div>
+</body>
+</ht

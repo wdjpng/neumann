@@ -1,0 +1,27 @@
+<head>
+<meta charset="UTF-8">
+<title>Letter Transcription</title>
+<style>
+  body { background:#f2efe9; margin:0; padding:2rem; }
+  .sheet {
+    max-width:1200px; margin:0 auto; padding:2rem 2.5rem;
+    background:#fbf7ee; border:1px solid #e1d9c8;
+    box-shadow:0 6px 24px rgba(0,0,0,.08);
+    font-family:"Times New Roman", Georgia, serif;
+    color:#2a2721; font-size:22px; line-height:1.5;
+  }
+  .header .u { text-decoration: underline; }
+  .line { white-space: pre; }
+  .dots { letter-spacing:.2em; }
+</style>
+</head>
+<body>
+<div class="sheet" role="document" aria-label="Transcribed letter fragment">
+  <div class="line header"><span class="u">I.</span> - <span class="u">XI.</span>) Die Idee ist diese: V(x) hat für ≺ ein</div>
+  <div class="line">erstes Element, falls dies für eine Folge anderer For-</div>
+  <div class="line">meln bei ≤<sub>v-1</sub> gilt, diese haben es wiederum, falls</div>
+  <div class="line">es für eine weitere Folge anderer Formeln bei ≤<sub>v-2</sub> gilt,</div>
+  <div class="line"><span class="dots">...</span> Alle diese Formeln bilden eine Folge, die</div>
+</div>
+</body>
+</ht

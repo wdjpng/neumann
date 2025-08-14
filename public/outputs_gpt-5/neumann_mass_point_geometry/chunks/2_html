@@ -1,0 +1,42 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brief-Transkription</title>
+<style>
+  body {
+    background:#efefe9;
+    margin:0;
+    padding:2rem;
+    font-family: "Bradley Hand", "Segoe Script", "Patrick Hand", cursive;
+  }
+  .paper {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #f9f6ee;
+    padding: 36px 40px 44px;
+    border: 1px solid #e2dac6;
+    box-shadow: 0 8px 26px rgba(0,0,0,.08);
+    color: #3e3a31;
+  }
+  .script {
+    font-size: 28px;
+    line-height: 1.8;
+    letter-spacing: .3px;
+  }
+  .gap { height: 10px; }
+</style>
+</head>
+<body>
+  <section class="paper">
+    <div class="script">
+      Hyperbelwelt zu erledigen.<br>
+      <span class="gap"></span>
+      Das Resultat ist das folgende:<br>
+      Darzustellen ist der Raum der r, θ, φ, t mit dem<br>
+      Streckenelement
+    </div>
+  </section>
+</body>
+</ht

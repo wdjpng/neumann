@@ -1,0 +1,40 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription des Briefausschnitts</title>
+<style>
+  body{
+    margin:0;
+    background:#ece9e4;
+    padding:3rem;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .sheet{
+    max-width:1000px;
+    margin:0 auto;
+    background:#fff;
+    box-shadow: 0 12px 36px rgba(0,0,0,.22);
+    border:1px solid #d7d2cc;
+    padding:3.2rem 4rem;
+  }
+  .hand{
+    font-family: "Caveat", "Lucida Handwriting", "Segoe Script", "Brush Script MT", cursive;
+    font-size:1.6rem;
+    line-height:1.75;
+    color:#222;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="hand">
+      in den "Annals of Mathematics" publizieren wollte. Seine Länge ist<br>
+      das von Ihnen angegebene<br>
+      Maximum: ca. 15 normale.<br>
+      Druckseiten.<br>
+      Ich möchte daher Ihnen
+    </div>
+  </div>
+</body>
+</ht

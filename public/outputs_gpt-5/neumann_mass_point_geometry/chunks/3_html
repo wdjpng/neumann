@@ -1,0 +1,32 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription</title>
+<style>
+  body{font-family: "Times New Roman", Georgia, serif; background:#f6f3ee; color:#2b2b2b; margin:0; padding:24px;}
+  .page{max-width:1100px; margin:0 auto;}
+  .eq{font-size:1.35rem; line-height:1.9;}
+  .math{white-space:pre-wrap;}
+  .frac{display:inline-block; vertical-align:middle;}
+  .frac .top{display:block; text-align:center; border-bottom:1px solid #222; padding:0 .15em;}
+  .frac .bot{display:block; text-align:center; padding:0 .15em;}
+  .note{margin-top:.6rem; font-size:1.1rem;}
+  .faint{opacity:.7;}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="eq math">
+    ds<sup>2</sup> = − (1 − <span class="frac"><span class="top">2m</span><span class="bot">r</span></span> − r<sup>2</sup>)<sup>−1</sup> dr<sup>2</sup> − r<sup>2</sup> dθ<sup>2</sup> − r<sup>2</sup> sin<sup>2</sup>θ dφ<sup>2</sup> +
+    <br>
+    + (1 − <span class="frac"><span class="top">2m</span><span class="bot">r</span></span> − r<sup>2</sup>) dt<sup>2</sup>.
+  </div>
+
+  <div class="note">
+    <span class="faint">Wenn 0 &lt; m &lt;</span>
+    <span class="frac"><span class="top">1</span><span class="bot">2<span class="faint">[…]</span></span></span>
+  </div>
+</div>
+</body>
+</ht

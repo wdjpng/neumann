@@ -1,0 +1,42 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Briefabschrift</title>
+<style>
+  body {
+    background:#e9edf0;
+    margin:0;
+    padding:2rem;
+    font-family: "Times New Roman", Garamond, serif;
+  }
+  .page {
+    background:#fbfaf6;
+    box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    margin:auto;
+    max-width: 1100px;
+    padding: 2.5rem 3rem;
+    border: 1px solid #e6e2d9;
+  }
+  .hand {
+    font-size: 1.25rem;
+    line-height: 2.1rem;
+    color:#2b2b2b;
+    font-style: italic;
+    white-space: pre-line;
+  }
+</style>
+</head>
+<body>
+  <section class="page" aria-label="Transkription des Briefausschnitts">
+    <div class="hand">
+Während meiner Reise und nach mei-
+ner Ankunft in Budapest ist es mir gelun-
+gen die in Lenzerheide berührte Frage von
+der Wirkung eines Massenpunktes auf die
+de Sitter ...
+    </div>
+  </section>
+</body>
+</ht

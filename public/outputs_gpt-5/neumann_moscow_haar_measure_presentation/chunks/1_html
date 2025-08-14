@@ -1,0 +1,54 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brief-Transkription</title>
+<style>
+  body{
+    margin:0;
+    background:#e9e9e7;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  }
+  .sheet{
+    max-width: 860px;
+    margin: 4vh auto;
+    padding: 60px 70px 70px;
+    background: #f7f7f5;
+    box-shadow: 0 20px 60px rgba(0,0,0,.20), inset 0 0 120px rgba(0,0,0,.08);
+    border-radius: 6px;
+    position: relative;
+  }
+  .hand{
+    white-space: pre-wrap;
+    font-size: 22px;
+    line-height: 1.7;
+    letter-spacing: .2px;
+    font-family: "Bradley Hand", "Segoe Script", "Lucida Handwriting", "Comic Sans MS", cursive;
+    color:#1e1e1e;
+  }
+  .salutation{
+    font-size: 28px;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="hand">
+<span class="salutation">Lieber Herr Alexanderoff,</span>
+
+vielen Dank für die
+liebenswürdige Aufforderung,
+meine Moskauer Vorträge Ihnen in
+excerpte zuzuschicken. Es trifft
+sich, dass ich über meiner
+Kongressvortrag bereits im Mai 1935
+ein Manuskript abgeschlossen
+hatte, das ich mit dem Titel
+"The Unicity of Haar' Measure"
+in den "Annals of Mathematics"
+einschicke; die Länge ist
+    </div>
+  </div>
+</body>
+</ht

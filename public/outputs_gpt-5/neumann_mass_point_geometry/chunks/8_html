@@ -1,0 +1,55 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription</title>
+<style>
+  body {
+    font-family: "Times New Roman", Georgia, serif;
+    background:#f6f6f4;
+    color:#222;
+    padding:20px 30px;
+  }
+  .sheet {
+    background:#fff;
+    border:1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    padding:28px 34px;
+    max-width:980px;
+    margin:0 auto;
+    line-height:1.5;
+  }
+  .math {
+    font-family: "Times New Roman", Georgia, serif;
+    white-space: pre-wrap;
+  }
+  .center {
+    text-align:center;
+  }
+  .italic {
+    font-style: italic;
+  }
+  .indent {
+    margin-left: 1.8em;
+  }
+  sup { font-size:.85em; }
+  sub { font-size:.85em; vertical-align: sub; }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="math">
+− g r √(x<sub>1</sub><sup>2</sup> + x<sub>2</sub><sup>2</sup> + x<sub>3</sub><sup>2</sup>) (x<sub>1</sub> d x<sub>1</sub> + x<sub>2</sub> d x<sub>2</sub> + x<sub>3</sub> d x<sub>3</sub>)<sup>2</sup> −
+− h(√(x<sub>1</sub><sup>2</sup> + x<sub>2</sub><sup>2</sup> + x<sub>3</sub><sup>2</sup>)) (d x<sub>4</sub><sup>2</sup> − d x<sub>5</sub><sup>2</sup>)
+    </div>
+
+    <p class="italic indent">wobei f, g, h folgendermassen definiert sind:</p>
+
+    <div class="math indent">
+f(x)  =  r<sub>1</sub><sup>2</sup>
+g(x)  =  1 / ( Q(x) · x (1 − x) )
+h(x)  =  4 Q(x)
+    </div>
+  </div>
+</body>
+</ht

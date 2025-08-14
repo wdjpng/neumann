@@ -1,0 +1,68 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Brief – Transkription</title>
+<style>
+  body{
+    margin:0;
+    background:#ece7dd;
+    font-family: "Segoe Script","Lucida Handwriting","Brush Script MT",cursive;
+  }
+  .page{
+    width:820px;
+    margin:40px auto;
+    background:#fbf6ea;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    padding:70px 80px 100px;
+    line-height:1.55;
+    color:#2c2c2c;
+  }
+  .text{
+    font-size:24px;
+    white-space:pre-line;
+  }
+  .closing{
+    margin-top:22px;
+  }
+  .swash{
+    margin:8px 0 -2px;
+    height:22px;
+  }
+  .signature{
+    font-size:28px;
+  }
+  .label{
+    font-size:22px;
+    border-bottom:2px solid #5c4f40;
+    padding-bottom:2px;
+  }
+  .address{
+    font-size:22px;
+    margin-top:10px;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="text">
+Entschuldigen Sie bitte, dass ich mich am Sonnabend nicht mehr gemeldet habe,
+ich musste aber noch 4 weitere Besuche machen.
+
+Ich wäre Ihnen sehr dankbar, wenn Sie meine <s>eigenen</s> Noten gelegentlich
+zurückschicken würden, da ich keine Kopie besitze.
+
+Mit den besten Grüßen Ihr
+    </div>
+    <svg class="swash" viewBox="0 0 200 30" preserveAspectRatio="none">
+      <path d="M3,22 C60,-10 140,50 197,8" stroke="#5c4f40" stroke-width="2.2" fill="none"/>
+    </svg>
+    <div class="signature">J. v. Neumann.</div>
+
+    <div class="address">
+      <span class="label">Adresse:</span><br>
+      Budapest, V., Arany János ucca 16.
+    </div>
+  </div>
+</body>
+</ht

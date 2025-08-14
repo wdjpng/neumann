@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brief-Transkription</title>
+<style>
+  /* Page background to match the warm paper tone of the first scan */
+  body {
+    margin: 0;
+    background: #f5f3f0;
+    color: #111;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  /* Generic page block styled like the scanned sheet */
+  .page {
+    position: relative;
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 70px 80px 130px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06), 0 16px 38px rgba(0,0,0,0.10);
+  }
+
+  /* Small penciled page marks in the margin */
+  .margin-note {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    font-family: "Lucida Console", Monaco, monospace;
+    color: #3a3a3a;
+    font-size: 14px;
+  }
+
+  /* Archive pencil notes on last page (rotated, as in the scan) */
+  .margin-archive-top {
+    position: absolute;
+    right: .5rem;
+    top: .9rem;
+    color:#6e6b68;
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 1rem;
+    transform: rotate(90deg);
+    transform-origin: right top;
+  }
+  .margin-archive-bottom {
+    position: absolute;
+    right: .9rem;
+    bottom: .6rem;
+    color:#2a2a2a;
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 1.05rem;
+    transform: rotate(90deg);
+  }
+
+  /* Letterhead, as on the first page scan */
+  .letterhead {
+    text-align: center;
+    margin: 90px auto 16px auto;
+    line-height: 1.35;
+  }
+  .letterhead .title {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .letterhead .subtitle {
+    font-weight: 700;
+    font-size: 0.95em;
+    letter-spacing: 0.10em;
+    margin-top: 4px;
+  }
+
+  .date {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.05em;
+    margin-top: 6px;
+  }
+
+  /* Body set to a hand-like script with generous line height */
+  .handwritten {
+    margin-top: 60px;
+    white-space: pre-wrap;
+    font-size: 1.15em;
+    line-height: 1.75;
+    color: #1e1e1e;
+    font-family: "Segoe Script", "Lucida Handwriting", "Brush Script MT", "Apple Chancery", cursive;
+  }
+
+  .salutation {
+    font-size: 1.6em;
+  }
+
+  .closing {
+    margin-top: 18px;
+    font-style: italic;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.05em;
+    line-height: 1.9;
+    color:#1c1b1a;
+    white-space: pre-line;
+  }
+
+  .signature {
+    margin-top: .3rem;
+    font-family: "Brush Script MT", "Segoe Script", "Apple Chancery", cursive;
+    font-size: 2.0rem;
+    letter-spacing: .02em;
+    color:#161514;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Page 1 -->
+  <div class="page">
+    <div class="margin-note">1/</div>
+
+    <div class="letterhead" aria-hidden="true">
+      <div class="title">THE INSTITUTE FOR ADVANCED STUDY</div>
+      <div class="subtitle">PRINCETON, NEW JERSEY</div>
+    </div>
+
+    <div class="date">Dec. 5.</div>
+
+    <div class="handwritten">
+<span class="salutation">Lieber Herr Alexanderoff,</span>
+
+vielen Dank für die
+liebenswürdige Aufforderung,
+meine Moskauer Vorträge Ihnen in
+excerpte zuzuschicken. Es trifft
+sich, dass ich über meinen
+Kongressvortrag bereits im Mai 1935
+ein Manuskript abgeschlossen
+hatte, das ich mit dem Titel
+“The Unicity of Haar’ Measure”
+in den “Annals of Mathematics”
+publizieren wollte. Seine Länge ist
+das von Ihnen angegebene
+Maximum: ca. 15 normale
+Druckseiten.
+Ich möchte daher Ihnen
+    </div>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="page">
+    <div class="margin-note">3/</div>
+
+    <div class="letterhead" aria-hidden="true">
+      <div class="title">THE INSTITUTE FOR ADVANCED STUDY</div>
+      <div class="subtitle">PRINCETON, NEW JERSEY</div>
+    </div>
+
+    <div class="handwritten">
+versprochen, die in 1–2 Wochen
+fertig sein werden. —
+
+Ich hoffe, daß Sie sich
+von den Mühen des Kongresses
+— er war ja für Sie gewiß
+ebenso mühevoll, als er für
+uns genußreich war — bereits
+gut erholt haben. Wir alle
+denken mit dem größten
+Vergnügen an die entzückenden
+Tage zurück, die wir Ihrer
+Gastfreundschaft verdanken.
+    </div>
+
+    <div class="closing">
+Mit den besten Grüßen
+bin ich Ihr ergebener
+    </div>
+    <div class="signature">J. v. Neumann</div>
+
+    <div class="margin-archive-top">Hs 160:</div>
+    <div class="margin-archive-bottom">164</div>
+  </div>
+
+</body>
+</html>

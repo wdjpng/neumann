@@ -1,0 +1,40 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription – handschriftlicher Briefauszug</title>
+<style>
+  body{
+    margin:0;
+    background:#efe8dc;
+    font-family: "Caveat","Patrick Hand","Kalam","Bradley Hand",cursive;
+    color:#2a4a86;
+  }
+  .page{
+    max-width:1100px;
+    margin:30px auto;
+    background:#f7f1e6;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    border:1px solid rgba(0,0,0,.08);
+    padding:28px 36px;
+    line-height:1.8;
+  }
+  .ink{
+    white-space:pre-wrap;
+    font-size:22px;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="ink">
+… mit l(α,β) … ∬ e^{½ i(β−α)} a(ξ,η) b(α−ξ, β−η) dξ dη.
+
+Ferner folgt aus        ∬ a(α,β) S(α,β) dα dβ = 0
+                         S(u,v) … S′(u,v) = 0,
+
+d. h. ∬ e^{i(…)} · a(α,β) S(α,β) dα dβ = 0   für alle u, v — und …
+    </div>
+  </div>
+</body>
+</ht

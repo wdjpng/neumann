@@ -1,0 +1,44 @@
+PE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Transcription</title>
+<style>
+  body {
+    margin: 0;
+    padding: 2rem;
+    background: #f4eddc;
+    color: #2a2a2a;
+    font-family: "Times New Roman", Georgia, serif;
+  }
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #f8f1de;
+    border: 1px solid #e2d7bd;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    padding: 2rem 2.5rem;
+  }
+  .ink {
+    color: #2e4a7a;
+    font-style: italic;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    font-size: 1.05rem;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="ink">
+( … ) ∬ a(α, β) S*(α, β) dα dβ )
+
+…    S′(m, v) = ∬ e^{ i ( vα − mβ ) } a(α − m, β − v) S(α, β) dα dβ,
+
+S(m, v) … = ∬ e^{ − i ( vα − mβ ) } a(α − m, β − v) S(α, β) dα dβ,
+
+∬ a(α, β) S*(α, β) dα dβ · ∬ S(α, β) S*(α, β) dα dβ = ∬ C(α, β) S(α, β) dα dβ
+  </div>
+</div>
+</body>
+</ht

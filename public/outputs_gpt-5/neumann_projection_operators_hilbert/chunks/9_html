@@ -1,0 +1,25 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription des Briefausschnitts</title>
+<style>
+  body{background:#e8edf2;margin:0;padding:24px;font-family:"Times New Roman",Georgia,serif}
+  .sheet{
+    background:#fbf6e9;border:1px solid #e6ddc7;box-shadow:0 4px 18px rgba(0,0,0,.08);
+    max-width:1150px;margin:0 auto;padding:28px 34px;color:#1f1f1f;line-height:1.7;font-size:20px
+  }
+  .line{margin:0 0 10px 0}
+  .math{font-size:22px;letter-spacing:.2px;margin:6px 0 18px 0}
+  .foot{font-size:14px;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="line">… a(&alpha;,&beta;) &equiv; 0. Der Kalk&uuml;l mit den &bdquo;Kernen&ldquo; ist also demjenigen mit ihren Operatoren gleichwertig.</div>
+  <div class="line">Nun setze ich</div>
+  <div class="math">A: = ∬ e<sup>−&frac14;&nbsp;&alpha;&sup2;&nbsp;−&nbsp;&frac14;&nbsp;&beta;&sup2;</sup> S<sup>1</sup>(&alpha;,&nbsp;&beta;) d&alpha; d&beta;.</div>
+  <div class="foot">*) Der von Stone <em>Proc. Nat. Acad.</em> angek&uuml;ndigte Beweis scheint, wie mir Stone mitteilte, noch nicht l&uuml;ckenlos zu sein.</div>
+</div>
+</body>
+</ht

@@ -1,0 +1,41 @@
+PE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Brief – Transkription</title>
+<style>
+  body {
+    background: #ecebea;
+    margin: 0;
+  }
+  .sheet {
+    max-width: 980px;
+    margin: 48px auto;
+    background: #fbfaf7;
+    border: 1px solid #d9d6d2;
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    padding: 56px 68px;
+  }
+  .script {
+    font-family: "Dancing Script", "Segoe Script", "Lucida Handwriting", "Apple Chancery", "Snell Roundhand", cursive;
+    font-size: 1.55rem;
+    line-height: 2.25rem;
+    color: #2a2a2a;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="script">
+Hrn Professor und seiner w. Familie meinen
+Dank für die angenehmen Tage auszusprechen,
+die ich in ihrem Kreise in Lenzerheide
+verbrachte. Indem ich Herrn Professor bitte
+Ihrer Frau Gemahlin meinen Handkuß
+übergeben zu wollen
+verbleibe ich hochachtungsvoll
+    </div>
+  </div>
+</body>
+</ht

@@ -5,7 +5,6 @@ client = OpenAI()
 
 prompt = "Create a 1:1 replica of this letter in English. Copy the handwriting as close as possible. Copy details like a stamp, borders, or holes in the page. The only modification which I would like to make is a small but noticable watermark with the words \"AI generated\" written at some prominent point where it does not disturb the rest of the replica. As part of your text reponse after the image generation is finished, please include the full prompt with which you queried the image mode"
 
-prompt2 = ".\n\nAfter you have generated what the tool call should be, don't actually call the tool! Instead print the full call including all context / text you inteded to send to the tool"
 response = client.responses.create(
     model="o3",
     reasoning={"effort": "high"},
