@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>QC Interface</title>
+	<link rel="stylesheet" href="/style.css" />
+	<style>
+		:root{ --muted:#666; --panel:#f6f6f6; --border:#ddd; --bg:#fff; }
+		.qc-row { display: flex; gap: 12px; padding: 10px; }
+		.qc-split { display: flex; gap: 12px; height: 68vh; padding: 10px; }
+		.qc-pane { flex: 1; overflow: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; }
+		.qc-toolbar { position: relative; display: flex; align-items: center; gap: 8px; padding: 10px; background: var(--panel); border-bottom: 1px solid var(--border); border-radius: 6px 6px 0 0; }
+		.qc-thumb { max-width: 100%; height: auto; display: block; border-radius: 4px; }
+		.qc-editor { width: 100%; height: 62vh; padding:8px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; border: none; outline: none; }
+		.qc-render { width: 100%; height: 62vh; border: none; background: #fafafa; }
+		.qc-hidden { display: none; }
+		.qc-badge { font-size: 11px; padding: 2px 6px; background: #eef; border-radius: 10px; }
+		.small-btn { font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); background: var(--bg); border-radius: 6px; cursor: pointer; }
+		.small-btn:hover{ background:#fafafa; }
+		#qc-reasoning-bottom { margin: 10px; padding: 10px; max-height: 22vh; overflow: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; }
+		#page-wrap { position: relative; }
+		#page-canvas { position: absolute; left: 0; top: 0; }
+		#tasks-button { margin-left: 6px; }
+		#tasks-panel { position: absolute; right: 8px; top: 44px; z-index: 10; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 8px; font-size: 12px; min-width: 320px; max-height: 40vh; overflow: auto; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+		#tasks-panel h4 { margin: 0 0 6px 0; font-size: 12px; font-weight: 600; color: #333; }
+		#tasks-list { list-style: none; margin: 0; padding: 0; }
+		#tasks-list li { margin: 4px 0; display: flex; align-items: center; gap: 8px; justify-content: space-between; padding: 4px 2px; border-radius: 4px; }
+		#tasks-list li:hover{ background:#fafafa; }
+		.task-meta { color: var(--muted); font-size: 11px; }
+		.task-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+		.dot-queued { background: #bbb; }
+		.dot-running { background: #0af; }
+		.dot-done { background: #2a2; }
+		.dot-error { background: #e33; }
+		#page-list { list-style: none; margin: 8px 12px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 6px; }
+		#page-list li { padding: 6px 8px; background: #fafafa; border:1px solid var(--border); border-radius: 6px; cursor: pointer; text-align: center; }
+		#page-list li:hover{ background:#f0f0f0; }
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Quality Control</h1>
+		<p class="subtitle">Use keyboard: [ / ] navigate within PDF, b/n prev/next unfinished PDF, f toggle finished, Ctrl+Enter approve/save, r retry, | feedback+retry, m edit, Ctrl+M exit edit, d deep reload, v Boxes, c Chunks, p Full</p>
+	</header>
+	<main>
+		<div class="qc-toolbar">
+			<label>Letter:</label>
+			<select id="qc-letters"></select>
+			<button id="qc-rebuild" class="small-btn">Rebuild all changed HTMLs</button>
+			<button id="qc-translate" class="small-btn">Translate to EN</button>
+			<span id="qc-status" class="qc-badge"></span>
+			<span style="margin-left:auto"></span>
+			<label for="qc-bases" style="font-size:12px;color:#555">Folder:</label>
+			<select id="qc-bases"></select>
+			<button id="tasks-button" class="small-btn">Tasks <span id="tasks-count" class="qc-badge">0</span></button>
+			<div id="tasks-panel" class="qc-hidden">
+				<h4>Background tasks</h4>
+				<ul id="tasks-list"></ul>
+			</div>
+			<button id="view-btn-1" class="small-btn">Boxes (v)</button>
+			<button id="view-btn-2" class="small-btn">Chunks (c)</button>
+			<button id="view-btn-3" class="small-btn">Full (p)</button>
+			<button id="view-btn-4" class="small-btn">Translate</button>
+		</div>
+
+		<div id="qc-views">
+			<div id="view-1" class="qc-split qc-hidden">
+				<div class="qc-pane" style="padding:10px">
+					<div id="page-wrap">
+						<img id="page-image" class="qc-thumb" />
+						<canvas id="page-canvas"></canvas>
+					</div>
+				</div>
+				<div class="qc-pane" style="padding:10px">
+					<h3>Pages</h3>
+					<ul id="page-list"></ul>
+					<p style="font-size:12px;color:#666">Click a box to open its chunk. Click-drag to redefine boxes; Ctrl+Enter to apply changes. Press 'r' to regenerate boxes using AI.</p>
+				</div>
+			</div>
+
+			<div id="view-2" class="qc-split">
+				<div class="qc-pane" style="padding:10px">
+					<img id="chunk-image" class="qc-thumb" />
+				</div>
+				<div class="qc-pane">
+					<div class="qc-toolbar">
+						<button id="btn-prev" class="small-btn">Prev ([)</button>
+						<button id="btn-next" class="small-btn">Next (])</button>
+						<button id="btn-approve" class="small-btn">Approve (Ctrl+Enter)</button>
+						<button id="btn-retry" class="small-btn">Retry (r)</button>
+						<button id="btn-feedback" class="small-btn">Feedback (|)</button>
+						<button id="btn-edit" class="small-btn">Edit (m)</button>
+						<button id="btn-render" class="small-btn">Render (Ctrl+M)</button>
+						<span id="chunk-approved" class="qc-badge"></span>
+					</div>
+					<textarea id="chunk-editor" class="qc-editor qc-hidden"></textarea>
+					<iframe id="chunk-render" class="qc-render"></iframe>
+				</div>
+			</div>
+
+			<div id="view-3" class="qc-split qc-hidden">
+				<div class="qc-pane">
+					<iframe id="full-pdf" class="qc-render"></iframe>
+				</div>
+				<div class="qc-pane">
+					<div class="qc-toolbar">
+						<button id="btn-full-edit" class="small-btn">Edit DE (m)</button>
+						<button id="btn-full-render" class="small-btn">Render (Ctrl+M)</button>
+						<button id="btn-full-reload" class="small-btn">Reload</button>
+						<button id="btn-full-reload-comment" class="small-btn">Reload + Comment</button>
+						<button id="btn-approve-pdf" class="small-btn">Toggle Finished (f)</button>
+					</div>
+					<textarea id="full-de-editor" class="qc-editor qc-hidden"></textarea>
+					<iframe id="full-html-de" class="qc-render"></iframe>
+				</div>
+			</div>
+
+			<div id="view-4" class="qc-split qc-hidden">
+				<div class="qc-pane">
+					<div class="qc-toolbar">
+						<button id="btn-edit-de" class="small-btn">Edit DE (m)</button>
+						<button id="btn-retry-de" class="small-btn">Retry DE (r)</button>
+						<button id="btn-feedback-de" class="small-btn">Feedback DE (|)</button>
+					</div>
+					<textarea id="de-editor" class="qc-editor qc-hidden"></textarea>
+					<iframe id="de-render" class="qc-render"></iframe>
+				</div>
+				<div class="qc-pane">
+					<div class="qc-toolbar">
+						<button id="btn-edit-en" class="small-btn">Edit EN (m)</button>
+					</div>
+					<textarea id="en-editor" class="qc-editor qc-hidden"></textarea>
+					<iframe id="en-render" class="qc-render"></iframe>
+				</div>
+			</div>
+		</div>
+
+		<div id="qc-reasoning-bottom"></div>
+	</main>
+	<script src="/qc.js"></script>
+</body>
+</html> 
