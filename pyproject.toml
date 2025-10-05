@@ -1,14 +1,12 @@
 [project]
-name = "neumann"
+name = "neumann4"
 version = "0.1.0"
 description = "Add your description here"
+readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "flask>=3.1.1",
-    "mypy>=1.17.1",
-    "openai>=1.99.9",
-    "pdf2image>=1.17.0",
-    "pillow>=10.0.0",
-    "pymupdf>=1.26.3",
-    "requests>=2.30.0",
+    "flask>=3.1.2",
+    "openai>=2.1.0",
+    "pillow>=11.3.0",
+    "pymupdf>=1.26.4",
 ]

@@ -13,7 +13,6 @@ from datetime import datetime
 import chunk_extractor
 import text_extractor
 import pymupdf
-import postprocessing
 
 app = Flask(__name__, static_folder='public')
 
@@ -820,37 +819,9 @@ def qc_page_coords(letter, page_index):
                 coords.append({'x1': parts[0], 'y1': parts[1], 'x2': parts[2], 'y2': parts[3]})
     return jsonify({'coords': coords})
 
-@app.route('/api/qc/<letter>/postprocess', methods=['POST'])
-def qc_postprocess(letter):
-    base_outputs, base_name = _resolve_base()
-    letter_dir = base_outputs / letter
-    html_path = letter_dir / 'html_de.html'
-    if not html_path.exists():
-        return ('html_de.html not found', 404)
-    # Ensure first page image exists
-    if not _ensure_pages_rendered(base_outputs, letter):
-        return ('First page image not available', 404)
-    page1_path = letter_dir / 'pages' / 'page_1.png'
-    if not page1_path.exists():
-        return ('First page image not found', 404)
-
-    def task():
-        async def run():
-            first_img = Image.open(page1_path)
-            result_img = await postprocessing.post_process(html_path.read_text(), first_img)
-            # Save output preview image
-            out_path = letter_dir / 'postprocessed_preview.png'
-            result_img.save(out_path)
-        asyncio.run(run())
-
-    task_id = _run_in_background(
-        name=f'Postprocess — {letter}',
-        target=task,
-        meta={'base': base_name, 'letter': letter}
-    )
-    return jsonify({'status': 'queued', 'task_id': task_id, 'output': f'/{base_name}/{letter}/postprocessed_preview.png'})
+ 
 
 if __name__ == '__main__':
     print('Starting server...')
-    app.run(debug=True, port=8001) 
+    app.run(debug=True, port=5000) 
 
