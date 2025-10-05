@@ -8,7 +8,7 @@ import os
 import shutil
 
 
-async def process_folder(folder_path : Path, output_path = Path("public/outputs_gpt-5") ):
+async def process_folder(folder_path : Path, output_path = Path("public/outputs_gpt-5_2") ):
     processed_files = []
     for file in os.listdir(folder_path):
         if file.endswith(".pdf"):
