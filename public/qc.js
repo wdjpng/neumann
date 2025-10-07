@@ -1,462 +1,1484 @@
-(function(){
-	const qs = sel => document.querySelector(sel);
-	const qsa = sel => Array.from(document.querySelectorAll(sel));
-	const state = {
-		letter: null,
-		chunks: [],
-		idx: 0,
-		modeEdit: false,
-		allowShortcuts: true,
-		view: 2,
-		editDE: false,
-		editEN: false,
-		fullEdit: false,
-		pages: [],
-		pageCoords: {},
-		originalPageCoords: {},
-		currentPage: null,
-		drawMode: false,
-		drawRects: [],
-		drawStart: null,
-		scale: 1,
-		base: null,
-		tasksTimer: null,
-		tasksOpen: false,
-		lettersStatus: {},
-		lastPositions: {}, // { [letter]: { pageIndex, chunkIndex, view } }
-		shiftNavRestore: false,
-		highlightBoxIndex: null
-	};
+(() => {
+  const palette = ['#ef4444', '#f97316', '#fbbf24', '#22c55e', '#0ea5e9', '#6366f1', '#a855f7', '#ec4899', '#14b8a6', '#f59e0b'];
 
-	function baseQS(){ return state.base ? `?base=${encodeURIComponent(state.base)}` : ''; }
+  const state = {
+    base: null,
+    letters: [],
+    letterSummaries: new Map(),
+    letter: null,
+    pages: [],
+    chunks: [],
+    chunkCache: new Map(),
+    pageReasonCache: new Map(),
+    htmlCache: { full: null, translateDe: null, translateEn: null },
+    finished: false,
+    pdfUrl: null,
+    currentPage: 0,
+    currentChunk: 0,
+    view: 'chunks',
+    editingChunk: false,
+    editingFull: false,
+    editingTranslate: { de: false, en: false },
+    translateFocus: 'de',
+    drawMode: false,
+    drawRects: [],
+    drawStart: null,
+    drawActiveEl: null,
+    tasksTimer: null,
+    tasksActive: false,
+    allowShortcuts: true,
+    lastPositions: {},
+    taskStatusMap: new Map(),
+  };
 
-	function setStatus(t){ qs('#qc-status').textContent = t || ''; }
-	function setReasoning(t){ qs('#qc-reasoning-bottom').textContent = t || ''; }
+  const el = {};
+  let statusTimer = null;
+  let hintTimer = null;
 
-	function rememberPosition(){
-		if(!state.letter) return;
-		state.lastPositions[state.letter] = {
-			pageIndex: state.currentPage,
-			chunkIndex: state.idx,
-			view: state.view
-		};
-	}
+  document.addEventListener('DOMContentLoaded', init);
 
-	function getUncompletedLetters(){
-		const sel = qs('#qc-letters');
-		const letters = Array.from(sel.options).map(o => o.value);
-		return letters.filter(l => !(state.lettersStatus && state.lettersStatus[l] && state.lettersStatus[l].approved_pdf));
-	}
+  function init() {
+    assignElements();
+    attachHandlers();
+    loadOverview();
+  }
 
-	async function gotoAdjacentUncompleted(forward){
-		await refreshLetterStatus();
-		const uncompleted = getUncompletedLetters();
-		if(!uncompleted.length){ showEndHint('all'); return; }
-		const sel = qs('#qc-letters');
-		const letters = Array.from(sel.options).map(o => o.value);
-		let i = letters.indexOf(state.letter);
-		let nextIdx = -1;
-		if(forward){
-			for(let k=i+1; k<letters.length; k++){
-				if(uncompleted.includes(letters[k])){ nextIdx = k; break; }
-			}
-			if(nextIdx === -1){ showEndHint('end'); return; }
-		}else{
-			for(let k=i-1; k>=0; k--){
-				if(uncompleted.includes(letters[k])){ nextIdx = k; break; }
-			}
-			if(nextIdx === -1){ showEndHint('start'); return; }
-		}
-		const nextLetter = letters[nextIdx];
-		rememberPosition();
-		state.shiftNavRestore = true;
-		sel.value = nextLetter;
-		await loadLetter(nextLetter, { restore: true });
-	}
+  function assignElements() {
+    el.baseSelect = qs('#base-select');
+    el.letterSelect = qs('#letter-select');
+    el.statusBadge = qs('#status-badge');
+    el.tasksButton = qs('#btn-tasks');
+    el.tasksPanel = qs('#tasks-panel');
+    el.tasksList = qs('#tasks-list');
+    el.tasksCount = qs('#tasks-count');
+    el.hintBanner = qs('#hint-banner');
+    el.reasoningPanel = qs('#reasoning-panel');
 
-	async function fetchJSON(url, opts){
-		const res = await fetch(url, opts);
-		if(!res.ok) throw new Error(await res.text());
-		return res.json();
-	}
+    el.btnBatchRebuild = qs('#btn-batch-rebuild');
+    el.btnTranslateCurrent = qs('#btn-translate-current');
+    el.btnTranslateAll = qs('#btn-translate-all');
 
-	async function pollTasks(){
-		try{
-			// aggregate over all letters in base
-			const params = new URLSearchParams();
-			if(state.base) params.set('base', state.base);
-			const data = await fetchJSON(`/api/qc/tasks?${params.toString()}`);
-			const tasks = data.tasks||[];
-			renderTasks(tasks);
-			const active = tasks.filter(t => t.status==='queued' || t.status==='running');
-			qs('#tasks-count').textContent = String(active.length);
-			const anyActive = active.length>0;
-			if(anyActive){ if(!state.tasksTimer){ state.tasksTimer = setInterval(pollTasks, 2000); } }
-			else { if(state.tasksTimer){ clearInterval(state.tasksTimer); state.tasksTimer = null; } }
-		}catch(e){ /* ignore */ }
-	}
+    el.btnViewBoxes = qs('#btn-view-boxes');
+    el.btnViewChunks = qs('#btn-view-chunks');
+    el.btnViewFull = qs('#btn-view-full');
+    el.btnViewTranslate = qs('#btn-view-translate');
 
-	function kickPoll(){ pollTasks(); setTimeout(pollTasks, 300); setTimeout(pollTasks, 1000); }
+    // boxes view
+    el.viewBoxes = qs('#view-boxes');
+    el.pageImage = qs('#page-image');
+    el.pageStage = qs('#page-stage');
+    el.boxesLayer = qs('#boxes-layer');
+    el.draftLayer = qs('#draft-layer');
+    el.pagesList = qs('#pages-list');
+    el.btnDrawToggle = qs('#btn-draw-toggle');
+    el.btnBoxesApply = qs('#btn-boxes-apply');
+    el.btnBoxesApplyRebuild = qs('#btn-boxes-apply-rebuild');
+    el.btnBoxesRegenerate = qs('#btn-boxes-regenerate');
 
-	function renderTasks(tasks){
-		const ul = qs('#tasks-list');
-		ul.innerHTML = '';
-		tasks.slice(0,20).forEach(t => {
-			const li = document.createElement('li');
-			const left = document.createElement('div'); left.style.display = 'flex'; left.style.alignItems = 'center'; left.style.gap = '8px';
-			const dot = document.createElement('span'); dot.className = 'task-dot ' + (t.status==='queued'?'dot-queued': t.status==='running'?'dot-running': t.status==='done'?'dot-done':'dot-error');
-			const label = document.createElement('span'); label.textContent = t.name;
-			left.appendChild(dot); left.appendChild(label);
-			const right = document.createElement('div'); right.className = 'task-meta';
-			const parts = [];
-			if(t.meta && t.meta.letter) parts.push(`letter: ${t.meta.letter}`);
-			if(t.meta && t.meta.page_index!=null) parts.push(`page: ${t.meta.page_index+1}`);
-			if(t.meta && t.meta.chunk_index!=null) parts.push(`chunk: ${t.meta.chunk_index+1}`);
-			right.textContent = parts.join(' · ');
-			li.appendChild(left); li.appendChild(right);
-			ul.appendChild(li);
-		});
-		qs('#tasks-panel').classList.toggle('qc-hidden', !state.tasksOpen);
-	}
+    // chunk view
+    el.viewChunks = qs('#view-chunks');
+    el.chunkImage = qs('#chunk-image');
+    el.chunkEditor = qs('#chunk-editor');
+    el.chunkPreview = qs('#chunk-preview');
+    el.btnPrev = qs('#btn-prev');
+    el.btnNext = qs('#btn-next');
+    el.btnApprove = qs('#btn-approve');
+    el.btnRetry = qs('#btn-retry');
+    el.btnFeedback = qs('#btn-feedback');
+    el.btnEdit = qs('#btn-edit');
+    el.btnRender = qs('#btn-render');
+    el.chunkMeta = qs('#chunk-meta');
 
-	function toggleTasksPanel(){ state.tasksOpen = !state.tasksOpen; qs('#tasks-panel').classList.toggle('qc-hidden', !state.tasksOpen); }
+    // full view
+    el.viewFull = qs('#view-full');
+    el.pdfFrame = qs('#pdf-frame');
+    el.fullEditor = qs('#full-editor');
+    el.fullPreview = qs('#full-preview');
+    el.btnFullEdit = qs('#btn-full-edit');
+    el.btnFullRender = qs('#btn-full-render');
+    el.btnFullReload = qs('#btn-full-reload');
+    el.btnFullReloadFeedback = qs('#btn-full-reload-feedback');
+    el.btnFullFinished = qs('#btn-full-finished');
+    el.btnFullDeep = qs('#btn-full-deep');
 
-	function switchView(v){
-		// preserve relative position when switching
-		if(v===1 && state.view===2){
-			const c = state.chunks[state.idx];
-			if(c){ state.currentPage = c.page_index; state.highlightBoxIndex = c.chunk_index; }
-		}
-		
-		rememberPosition();
-		state.view = v;
-		qsa('#qc-views > div').forEach(d => d.classList.add('qc-hidden'));
-		qs(`#view-${v}`).classList.remove('qc-hidden');
-		if(v===1){ if(state.currentPage==null && state.pages.length){ selectPage(state.pages[0].index); } else if(state.currentPage!=null){ selectPage(state.currentPage); } renderBoxesView(); }
-		if(v===2) renderChunkView();
-		if(v===3) renderFullView();
-		if(v===4) renderTranslateView();
-	}
+    // translate view
+    el.viewTranslate = qs('#view-translate');
+    el.btnTranslateRetry = qs('#btn-translate-retry');
+    el.btnTranslateFeedback = qs('#btn-translate-feedback');
+    el.btnTranslateEditDe = qs('#btn-translate-edit-de');
+    el.btnTranslateRenderDe = qs('#btn-translate-render-de');
+    el.btnTranslateEditEn = qs('#btn-translate-edit-en');
+    el.btnTranslateRenderEn = qs('#btn-translate-render-en');
+    el.translateEditorDe = qs('#translate-editor-de');
+    el.translatePreviewDe = qs('#translate-preview-de');
+    el.translateEditorEn = qs('#translate-editor-en');
+    el.translatePreviewEn = qs('#translate-preview-en');
 
-	function renderChunkView(){
-		const c = state.chunks[state.idx]; if(!c) return;
-		qs('#chunk-image').src = c.image_url;
-		qs('#chunk-approved').textContent = c.approved ? 'Approved' : '';
-		fetchJSON(`/api/qc/${state.letter}/chunk/${c.page_index}/${c.chunk_index}${baseQS()}`).then(d => {
-			const iframe = qs('#chunk-render'); const editor = qs('#chunk-editor');
-			if(state.modeEdit){ editor.classList.remove('qc-hidden'); iframe.classList.add('qc-hidden'); editor.value = d.html || ''; editor.focus(); }
-			else { editor.classList.add('qc-hidden'); iframe.classList.remove('qc-hidden'); iframe.srcdoc = d.html || ''; }
-			setReasoning(d.reasoning || ''); qs('#chunk-approved').textContent = d.approved ? 'Approved' : '';
-			rememberPosition();
-		}).catch(e => setStatus(e.message));
-	}
+    updateDrawButtonLabel();
+  }
 
-	function bindChunkNav(){
-		qs('#btn-prev').onclick = ()=> goPrev();
-		qs('#btn-next').onclick = ()=> goNext();
-		qs('#btn-approve').onclick = approveChunk;
-		qs('#btn-retry').onclick = retryChunk;
-		qs('#btn-feedback').onclick = feedbackChunk;
-		qs('#btn-edit').onclick = toggleEdit;
-		qs('#btn-render').onclick = ()=>{ state.modeEdit=false; renderChunkView(); };
-	}
+  function attachHandlers() {
+    el.baseSelect.addEventListener('change', () => {
+      rememberPosition();
+      loadOverview(el.baseSelect.value);
+    });
 
-	function showEndHint(type){
-		let el = qs('#end-hint');
-		if(!el){
-			el = document.createElement('div');
-			el.id = 'end-hint';
-			el.style.position = 'fixed';
-			el.style.left = '50%';
-			el.style.top = '12%';
-			el.style.transform = 'translateX(-50%)';
-			el.style.padding = '10px 14px';
-			el.style.background = 'rgba(0,0,0,0.75)';
-			el.style.color = '#fff';
-			el.style.borderRadius = '12px';
-			el.style.fontSize = '14px';
-			el.style.boxShadow = '0 8px 24px rgba(0,0,0,0.2)';
-			el.style.zIndex = '9999';
-			document.body.appendChild(el);
-		}
-		el.textContent = type==='end' ? 'End reached ✨ — Press Ctrl+Enter to save/approve' : (type==='all' ? 'All PDFs are finished ✅' : 'At beginning ⏪');
-		el.style.opacity = '0';
-		el.style.transition = 'opacity 150ms ease, transform 250ms ease';
-		requestAnimationFrame(()=>{
-			el.style.opacity = '1';
-			el.style.transform = 'translateX(-50%) scale(1.02)';
-			setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateX(-50%) scale(1)'; }, 1600);
-		});
-	}
+    el.letterSelect.addEventListener('change', () => {
+      rememberPosition();
+      loadLetter(el.letterSelect.value, { restore: true });
+    });
 
-	function goPrev(){
-		if(state.view===1){
-			if(state.pages.length && state.currentPage!=null){
-				const idx = state.pages.findIndex(p=>p.index===state.currentPage);
-				if(idx>0){ selectPage(state.pages[idx-1].index); }
-				else { showEndHint('start'); }
-			}
-			return;
-		}
-		if(state.view===2){
-			if(state.idx>0){ state.idx--; renderChunkView(); }
-			else {
-				// at beginning of chunks → go to last page in boxing view
-				if(state.pages.length>0){ 
-					state.idx = state.chunks.length - 1;
-					switchView(1); 
-				}
-				else { showEndHint('start'); }
-			}
-			return;
-		}
-		if(state.view===3){
-			// at beginning of full → go to last chunk if available
-			if(state.chunks.length>0){ state.idx = state.chunks.length - 1; switchView(2); }
-			else if(state.pages.length>0){ state.currentPage = state.pages[state.pages.length-1].index; switchView(1); }
-			else { showEndHint('start'); }
-			return;
-		}
-		if(state.view===4){ showEndHint('start'); return; }
-	}
-	function goNext(){
-		if(state.view===1){
-			if(state.pages.length && state.currentPage!=null){
-				const idx = state.pages.findIndex(p=>p.index===state.currentPage);
-				console.log(`In view 1: currentPage=${state.currentPage}, pageIdx=${idx}, totalPages=${state.pages.length}`);
-				if(idx>=0 && idx<state.pages.length-1){ 
-					console.log(`Going to next page`);
-					selectPage(state.pages[idx+1].index); 
-				}
-				else {
-					console.log(`At end of pages, switching to chunks`);
-					// at end of pages → go to 0_chunk_1.png (page 0, chunk 0)
-					if(state.chunks.length>0) {
-						// Find chunk with page_index=0 and chunk_index=0
-						let targetIdx = -1;
-						for(let i = 0; i < state.chunks.length; i++) {
-							const chunk = state.chunks[i];
-							if(chunk.page_index === 0 && chunk.chunk_index === 0) {
-								targetIdx = i;
-								break;
-							}
-						}
-						
-						// If not found, just use the first chunk in the array
-						if(targetIdx === -1) {
-							targetIdx = 0;
-							console.log(`0_chunk_1.png not found, using first chunk in array: page ${state.chunks[0].page_index}, chunk ${state.chunks[0].chunk_index}`);
-						} else {
-							console.log(`Found 0_chunk_1.png at array index ${targetIdx}`);
-						}
-						
-						state.idx = targetIdx;
-						switchView(2);
-					}
-				}
-			}
-			return;
-		}
-		if(state.view===2){
-			if(state.chunks.length===0){ switchView(3); return; }
-			if(state.idx<state.chunks.length-1){ state.idx++; renderChunkView(); }
-			else { switchView(3); }
-			return;
-		}
-		if(state.view===3){ showEndHint('end'); return; }
-		if(state.view===4){ showEndHint('end'); return; }
-	}
+    el.tasksButton.addEventListener('click', () => {
+      el.tasksPanel.classList.toggle('visible');
+      if (el.tasksPanel.classList.contains('visible')) {
+        fetchTasks();
+      }
+    });
 
-	function approvePDF(){ fetch(`/api/qc/${state.letter}/approve_pdf${baseQS()}`, {method:'POST'}).then(refreshLetterStatus).then(renderLetterTitle).catch(()=>{}); }
+    document.addEventListener('click', (evt) => {
+      if (!el.tasksPanel.contains(evt.target) && evt.target !== el.tasksButton) {
+        el.tasksPanel.classList.remove('visible');
+      }
+    });
 
-	async function refreshLetterStatus(){ const status = await fetchJSON(`/api/qc/letters_status${baseQS()}`); state.lettersStatus = status || {}; }
+    el.btnBatchRebuild.addEventListener('click', () => enqueueBatchRebuild());
+    el.btnTranslateCurrent.addEventListener('click', () => translateCurrent());
+    el.btnTranslateAll.addEventListener('click', () => enqueueTranslateAll());
 
-	function renderLetterTitle(){ const sel = qs('#qc-letters'); const letter = state.letter; const approved = !!(state.lettersStatus && state.lettersStatus[letter] && state.lettersStatus[letter].approved_pdf); const opt = Array.from(sel.options).find(o => o.value===letter); if(opt){ opt.textContent = approved ? `${letter} ✅` : letter; } }
+    el.btnViewBoxes.addEventListener('click', () => setView('boxes'));
+    el.btnViewChunks.addEventListener('click', () => setView('chunks'));
+    el.btnViewFull.addEventListener('click', () => setView('full'));
+    el.btnViewTranslate.addEventListener('click', () => setView('translate'));
 
-	function approveChunk(){ const c = state.chunks[state.idx]; if(!c) return; c.approved = true; renderChunkView(); fetch(`/api/qc/${state.letter}/chunk/${c.page_index}/${c.chunk_index}/approve${baseQS()}`, {method:'POST'}).catch(()=>{}); }
+    el.btnDrawToggle.addEventListener('click', toggleDrawMode);
+    el.btnBoxesApply.addEventListener('click', () => applyDrawnBoxes(false));
+    el.btnBoxesApplyRebuild.addEventListener('click', () => applyDrawnBoxes(true));
+    el.btnBoxesRegenerate.addEventListener('click', () => regenerateBoxes());
 
-	function retryChunk(){ if(state.view===1){ // retry drawing chunks for current page
-		if(state.currentPage==null) return; 
-		
-		const pageIndex = state.currentPage; setStatus('Regenerating chunks on page...'); fetch(`/api/qc/${state.letter}/page/${pageIndex}/regenerate_chunks${baseQS()}`, {method:'POST'}).then(()=>{ kickPoll(); }).catch(()=>{}); setStatus('Queued'); return; }
+    el.btnPrev.addEventListener('click', () => navigatePrev());
+    el.btnNext.addEventListener('click', () => navigateNext());
+    el.btnApprove.addEventListener('click', () => approveChunk());
+    el.btnRetry.addEventListener('click', () => retryCurrentChunk());
+    el.btnFeedback.addEventListener('click', () => feedbackChunk());
+    el.btnEdit.addEventListener('click', () => toggleChunkEdit(true));
+    el.btnRender.addEventListener('click', () => exitChunkEdit());
 
-		if(state.view===3){ // retry uniting all HTML chunks in full document view
-			rebuildUnified(); return; }
-			
-		const c = state.chunks[state.idx]; setStatus('Retrying...'); fetch(`/api/qc/${state.letter}/chunk/${c.page_index}/${c.chunk_index}/retry${baseQS()}`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({feedback:''})}).then(()=>{ kickPoll(); }).catch(()=>{}); setStatus('Queued'); state.modeEdit = false; renderChunkView(); }
+    el.btnFullEdit.addEventListener('click', () => toggleFullEdit(true));
+    el.btnFullRender.addEventListener('click', () => exitFullEdit());
+    el.fullEditor.addEventListener('blur', () => saveFullHtml());
+    el.btnFullReload.addEventListener('click', () => rebuildUnified());
+    el.btnFullReloadFeedback.addEventListener('click', () => rebuildUnified(true));
+    el.btnFullFinished.addEventListener('click', () => toggleFinished());
+    el.btnFullDeep.addEventListener('click', () => deepReload());
 
-	function feedbackChunk(){ const fb = prompt('Feedback for retry:'); if(fb==null) return; const c = state.chunks[state.idx]; setStatus('Retrying with feedback...'); fetch(`/api/qc/${state.letter}/chunk/${c.page_index}/${c.chunk_index}/retry${baseQS()}`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({feedback: fb})}).then(()=>{ kickPoll(); }).catch(()=>{}); setStatus('Queued'); state.modeEdit = false; renderChunkView(); }
+    el.btnTranslateRetry.addEventListener('click', () => translateCurrent());
+    el.btnTranslateFeedback.addEventListener('click', () => translateWithFeedback());
+    el.btnTranslateEditDe.addEventListener('click', () => toggleTranslateEdit('de', true));
+    el.btnTranslateRenderDe.addEventListener('click', () => exitTranslateEdit('de'));
+    el.btnTranslateEditEn.addEventListener('click', () => toggleTranslateEdit('en', true));
+    el.btnTranslateRenderEn.addEventListener('click', () => exitTranslateEdit('en'));
+    el.translateEditorDe.addEventListener('blur', () => saveTranslate('de'));
+    el.translateEditorEn.addEventListener('blur', () => saveTranslate('en'));
 
-	function saveEdit(){ const c = state.chunks[state.idx]; const html = qs('#chunk-editor').value; fetch(`/api/qc/${state.letter}/chunk/${c.page_index}/${c.chunk_index}/save${baseQS()}`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({html})}).then(()=>approveChunk()).catch(()=>{}); }
+    [el.chunkEditor, el.fullEditor, el.translateEditorDe, el.translateEditorEn].forEach((textarea) => {
+      textarea.addEventListener('focus', () => { state.allowShortcuts = false; });
+      textarea.addEventListener('blur', () => { state.allowShortcuts = true; });
+    });
 
-	function exitChunkEditAndSave(){
-		if(state.view===2 && state.modeEdit){
-			saveEdit();
-			state.modeEdit = false;
-			renderChunkView();
-		}
-	}
+    el.chunkEditor.addEventListener('blur', () => saveChunkHtml());
 
-	function exitFullEditAndSave(){
-		if(state.view===3 && state.fullEdit){
-			saveFullDE();
-			state.fullEdit = false;
-			renderFullView();
-		}
-	}
+    el.translatePreviewDe.addEventListener('mouseenter', () => { state.translateFocus = 'de'; });
+    el.translatePreviewEn.addEventListener('mouseenter', () => { state.translateFocus = 'en'; });
+    el.translateEditorDe.addEventListener('focus', () => { state.translateFocus = 'de'; });
+    el.translateEditorEn.addEventListener('focus', () => { state.translateFocus = 'en'; });
 
-	function exitTranslateEditAndSave(){
-		if(state.view===4 && (state.editDE || state.editEN)){
-			if(state.editDE) saveDE();
-			if(state.editEN) saveEN();
-			state.editDE = false;
-			state.editEN = false;
-			renderTranslateView();
-		}
-	}
+    el.pagesList.addEventListener('click', (evt) => {
+      const li = evt.target.closest('li[data-index]');
+      if (!li) return;
+      const idx = Number(li.dataset.index);
+      selectPage(idx);
+      setView('boxes');
+    });
 
-	function toggleEdit(){ state.modeEdit ? (()=>{ saveEdit(); state.modeEdit=false; renderChunkView(); })() : (state.modeEdit=true, renderChunkView()); }
+    el.boxesLayer.addEventListener('click', (evt) => {
+      const box = evt.target.closest('.qc-box');
+      if (!box) return;
+      const pageIdx = Number(box.dataset.page);
+      const chunkIdx = Number(box.dataset.chunk);
+      const globalIdx = state.chunks.findIndex((c) => c.page_index === pageIdx && c.chunk_index === chunkIdx);
+      if (globalIdx >= 0) {
+        state.currentChunk = globalIdx;
+        state.currentPage = pageIdx;
+        setView('chunks');
+        renderChunkView();
+      }
+    });
 
-	function bindGlobalKeys(){
-		document.addEventListener('keydown', async (e)=>{
-			if(!state.allowShortcuts) return;
-			const tag = (document.activeElement && document.activeElement.tagName || '').toLowerCase();
-			const typing = tag === 'textarea' || tag === 'input';
-			// Let browser search (Ctrl/Cmd+F) always pass through
-			if((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 'f')){ return; }
-			// Do not intercept other Ctrl/Cmd shortcuts except Enter and M
-			if((e.ctrlKey || e.metaKey) && !(e.key === 'Enter' || e.key.toLowerCase() === 'm')){ return; }
-			if(typing && !(e.ctrlKey && (e.key === 'Enter' || e.key.toLowerCase() === 'm'))){ return; }
-			// Shift+]/[ for unfinished PDFs navigation (no wrap)
-			if(e.shiftKey && e.key===']'){ e.preventDefault(); await gotoAdjacentUncompleted(true); return; }
-			if(e.shiftKey && e.key==='['){ e.preventDefault(); await gotoAdjacentUncompleted(false); return; }
-			// Navigation between unfinished PDFs
-			if(e.key.toLowerCase()==='n'){ e.preventDefault(); await gotoAdjacentUncompleted(true); return; }
-			if(e.key.toLowerCase()==='b'){ e.preventDefault(); await gotoAdjacentUncompleted(false); return; }
-			// View switching
-			if(e.key.toLowerCase()==='v'){ e.preventDefault(); switchView(1); return; }
-			if(e.key.toLowerCase()==='c'){ e.preventDefault(); switchView(2); return; }
-			if(e.key.toLowerCase()==='p'){ e.preventDefault(); switchView(3); return; }
-			// Toggle PDF finished
-			if(e.key.toLowerCase()==='f'){ e.preventDefault(); approvePDF(); return; }
-			// Navigation with brackets
-			if(e.key===']'){ e.preventDefault(); goNext(); return; }
-			if(e.key==='['){ e.preventDefault(); goPrev(); return; }
-			if(e.key === 'Escape'){ if(state.view===1){ state.drawMode = false; state.drawRects = []; if(state.currentPage!=null){ state.pageCoords[state.currentPage] = JSON.parse(JSON.stringify(state.originalPageCoords[state.currentPage]||[])); renderBoxes(); } } return; }
-			if(e.key.toLowerCase()==='r' && !(e.ctrlKey && e.shiftKey)){ e.preventDefault(); retryChunk(); return; }
-			if(e.ctrlKey && e.key.toLowerCase()==='m'){
-				e.preventDefault();
-				await exitChunkEditAndSave();
-				await exitFullEditAndSave();
-				await exitTranslateEditAndSave();
-				return;
-			}
-			if(e.ctrlKey && e.key === 'Enter'){ e.preventDefault(); if(state.view===1 && state.drawMode){ applyDrawnBoxes(); } else if(state.view===2){ approveChunk(); } else if(state.view===3){ saveFullDE(); } else if(state.view===4){ saveDE(); } }
-			else if(!e.ctrlKey && e.key==='|'){ e.preventDefault(); if(state.view===2) feedbackChunk(); else if(state.view===4) feedbackDE(); }
-			else if(!e.ctrlKey && e.key==='m'){
-				e.preventDefault();
-				if(state.view===2) toggleEdit();
-				else if(state.view===3) toggleFullEdit();
-				else if(state.view===4) toggleEditDE();
-			}
-			else if(e.ctrlKey && (e.key==='m' || e.key==='M')){ e.preventDefault(); if(state.view===2){ state.fullEdit=false; const ed = qs('#chunk-editor'); ed && ed.focus(); } else if(state.view===3){ state.fullEdit=false; renderFullView(); const ed = qs('#full-de-editor'); ed && ed.focus(); } else if(state.view===4){ state.editDE=false; state.editEN=false; renderTranslateView(); const ed = qs('#de-editor'); ed && ed.focus(); } }
-			else if(!e.ctrlKey && e.key==='d'){ e.preventDefault(); deepReload(); }
-		});
-	}
+    if (el.pageStage) {
+      el.pageStage.addEventListener('mousedown', handlePageMouseDown);
+    }
 
-	function deepReload(){ if(!state.letter) return; setStatus('Deep reloading...'); fetch(`/api/qc/${state.letter}/deep_reload${baseQS()}`, {method:'POST'}).catch(()=>{}); setStatus('Queued'); pollTasks(); }
+    window.addEventListener('resize', () => {
+      if (state.view === 'boxes') {
+        renderBoxesOverlay();
+      }
+    });
 
-	function rebuildUnified(){ if(!state.letter) return; setStatus('Rebuilding unified html...'); fetch(`/api/qc/${state.letter}/rebuild_html${baseQS()}`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({feedback:''})}).catch(()=>{}); setStatus('Queued'); pollTasks(); }
+    document.addEventListener('keydown', handleKeyDown);
+  }
 
-	function rebuildUnifiedAll(){ setStatus('Rebuilding all pending...'); fetch(`/api/qc/all/rebuild_html${baseQS()}`, {method:'POST'}).catch(()=>{}); setStatus('Queued'); pollTasks(); }
+  function qs(sel) {
+    return document.querySelector(sel);
+  }
 
-	function translateEN(){ if(!state.letter) return; setStatus('Translating...'); fetch(`/api/qc/${state.letter}/translate${baseQS()}`, {method:'POST'}).catch(()=>{}); setStatus('Queued'); pollTasks(); }
-	function translateAll(){ setStatus('Translating all pending...'); fetch(`/api/qc/all/translate${baseQS()}`, {method:'POST'}).catch(()=>{}); setStatus('Queued'); pollTasks(); }
+  function withBase(path) {
+    if (!state.base) return path;
+    return path.includes('?')
+      ? `${path}&base=${encodeURIComponent(state.base)}`
+      : `${path}?base=${encodeURIComponent(state.base)}`;
+  }
 
-	async function loadLetter(letter, opts){
-		const restore = !!(opts && opts.restore);
-		state.letter = letter;
-		// reset page image to avoid showing previous PDF when switching
-		const img = qs('#page-image'); if(img){ img.src = ''; }
-		const canvas = qs('#page-canvas'); if(canvas){ canvas.width = 0; canvas.height = 0; }
-		const resp = await fetchJSON(`/api/qc/${letter}/chunks${baseQS()}`); state.chunks = resp.chunks || []; state.idx = 0; state.modeEdit = false;
-		state.pages = await fetchJSON(`/api/qc/${letter}/pages${baseQS()}`);
-		const list = qs('#page-list'); list.innerHTML = '';
-		state.pages.forEach(p => { const li = document.createElement('li'); li.textContent = `Page ${p.index+1}`; li.onclick = ()=> selectPage(p.index); list.appendChild(li); });
-		await refreshLetterStatus(); renderLetterTitle();
-		if(restore && state.lastPositions[letter]){
-			const lp = state.lastPositions[letter];
-			state.currentPage = (lp.pageIndex!=null ? lp.pageIndex : null);
-			state.idx = (lp.chunkIndex!=null ? lp.chunkIndex : 0);
-			if(state.view===1 && state.currentPage!=null) selectPage(state.currentPage); else if(state.view===2) renderChunkView();
-		}else{
-			state.currentPage = null;
-			if(state.view===2) renderChunkView();
-			if(state.view===1 && state.pages.length) selectPage(state.pages[0].index);
-		}
-		renderFullView(); renderTranslateView(); pollTasks();
-	}
+  async function fetchJSON(url, options) {
+    const res = await fetch(url, options);
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || res.statusText || 'Request failed');
+    }
+    return res.json();
+  }
 
-	async function selectPage(pageIndex){
-		state.currentPage = pageIndex; const img = qs('#page-image'); img.onload = ()=> setupCanvas(); img.src = `${state.pages.find(p=>p.index===pageIndex).image}`;
-		const coords = await fetchJSON(`/api/qc/${state.letter}/page/${pageIndex}/coords${baseQS()}`); state.pageCoords[pageIndex] = coords.coords || []; state.originalPageCoords[pageIndex] = JSON.parse(JSON.stringify(state.pageCoords[pageIndex])); state.drawMode = false; renderBoxes(); fetchJSON(`/api/qc/${state.letter}/page/${pageIndex}/reasoning${baseQS()}`).then(r => setReasoning(r.reasoning || ''));
-	}
+  async function fetchText(url) {
+    const res = await fetch(url);
+    if (!res.ok) return '';
+    return res.text();
+  }
 
-	function setupCanvas(){ const img = qs('#page-image'); const canvas = qs('#page-canvas'); canvas.width = img.clientWidth; canvas.height = img.clientHeight; canvas.style.width = img.clientWidth + 'px'; canvas.style.height = img.clientHeight + 'px'; state.scale = img.clientWidth / img.naturalWidth; bindCanvasEvents(); renderBoxes(); }
-	function getCoord(b, keyIndex){ const keys = ['x1','y1','x2','y2']; const k = keys[keyIndex]; return (b && (b[k] !== undefined)) ? b[k] : (Array.isArray(b) ? b[keyIndex] : undefined); }
-	function renderBoxes(){ const canvas = qs('#page-canvas'); const ctx = canvas.getContext('2d'); ctx.clearRect(0,0,canvas.width,canvas.height); const boxes = state.drawMode ? state.drawRects : (state.pageCoords[state.currentPage]||[]); const colors = ['red','blue','green','orange','purple','yellow','cyan','magenta','lime','pink','brown','gray','navy','olive','maroon','teal','silver','gold']; boxes.forEach((b, i)=>{ const color = colors[i % colors.length]; const x1 = Math.round(getCoord(b,0) * state.scale); const y1 = Math.round(getCoord(b,1) * state.scale); const x2 = Math.round(getCoord(b,2) * state.scale); const y2 = Math.round(getCoord(b,3) * state.scale); if([x1,y1,x2,y2].every(n => Number.isFinite(n))){ ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.strokeRect(x1, y1, x2 - x1, y2 - y1); if(state.highlightBoxIndex===i){ ctx.save(); ctx.strokeStyle = '#ff0'; ctx.lineWidth = 4; ctx.strokeRect(x1-2, y1-2, (x2 - x1)+4, (y2 - y1)+4); ctx.restore(); const pane = qs('#view-1 .qc-pane'); if(pane){ pane.scrollTop = Math.max(0, y1 - 40); } setTimeout(()=>{ state.highlightBoxIndex = null; }, 800); } } }); }
-	function bindCanvasEvents(){ const canvas = qs('#page-canvas'); canvas.onmousedown = (e)=>{ const rect = canvas.getBoundingClientRect(); const x = (e.clientX - rect.left) / state.scale; const y = (e.clientY - rect.top) / state.scale; if(!state.drawMode){ state.drawMode = true; state.drawRects = []; setStatus('Draw mode: hold mouse to drag a box; Ctrl+Enter to apply; ESC to cancel; Backspace to undo last'); } state.drawStart = {x, y}; state.drawRects.push({x1: x, y1: y, x2: x, y2: y, temp:true}); renderBoxes(); }; canvas.onmousemove = (e)=>{ if(!state.drawMode || !state.drawStart) return; const rect = canvas.getBoundingClientRect(); const x = (e.clientX - rect.left) / state.scale; const y = (e.clientY - rect.top) / state.scale; const x1 = Math.round(Math.min(state.drawStart.x, x)); const y1 = Math.round(Math.min(state.drawStart.y, y)); const x2 = Math.round(Math.max(state.drawStart.x, x)); const y2 = Math.round(Math.max(state.drawStart.y, y)); if(state.drawRects.length){ state.drawRects[state.drawRects.length-1] = {x1,y1,x2,y2, temp:true}; } renderBoxes(); }; canvas.onmouseup = (e)=>{ if(!state.drawMode || !state.drawStart) return; const rect = canvas.getBoundingClientRect(); const x = (e.clientX - rect.left) / state.scale; const y = (e.clientY - rect.top) / state.scale; const x1 = Math.round(Math.min(state.drawStart.x, x)); const y1 = Math.round(Math.min(state.drawStart.y, y)); const x2 = Math.round(Math.max(state.drawStart.x, x)); const y2 = Math.round(Math.max(state.drawStart.y, y)); state.drawStart = null; if(state.drawRects.length){ state.drawRects[state.drawRects.length-1] = {x1,y1,x2,y2}; } renderBoxes(); }; canvas.onclick = (e)=>{ if(state.drawMode) return; const rect = canvas.getBoundingClientRect(); const x = (e.clientX - rect.left) / state.scale; const y = (e.clientY - rect.top) / state.scale; const boxes = state.pageCoords[state.currentPage]||[]; for(let j=0;j<boxes.length;j++){ const bx1 = getCoord(boxes[j],0), by1 = getCoord(boxes[j],1), bx2 = getCoord(boxes[j],2), by2 = getCoord(boxes[j],3); if(x>=bx1 && x<=bx2 && y>=by1 && y<=by2){ const idx = state.chunks.findIndex(ch => ch.page_index===state.currentPage && ch.chunk_index===j); if(idx>=0){ state.idx = idx; switchView(2); } return; } } }; }
+  function setStatus(message, type = 'info', persist = false) {
+    if (!el.statusBadge) return;
+    el.statusBadge.textContent = message || 'Idle';
+    el.statusBadge.dataset.state = type;
+    if (statusTimer) {
+      clearTimeout(statusTimer);
+      statusTimer = null;
+    }
+    if (!persist && message) {
+      statusTimer = setTimeout(() => {
+        el.statusBadge.textContent = 'Idle';
+        el.statusBadge.dataset.state = '';
+      }, 3500);
+    }
+  }
 
-	function applyDrawnBoxes(){ if(state.currentPage==null || !state.drawMode || !state.drawRects.length) return; setStatus('Updating chunks for page...'); const coords = state.drawRects.map(b => [b.x1,b.y1,b.x2,b.y2]); fetch(`/api/qc/${state.letter}/page/${state.currentPage}/update_chunks${baseQS()}`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({coords})}).then(()=>{ kickPoll(); }).catch(()=>{}); setStatus('Queued'); state.drawMode = false; state.drawRects = []; }
+  function showHint(message) {
+    if (!el.hintBanner) return;
+    if (hintTimer) {
+      clearTimeout(hintTimer);
+    }
+    el.hintBanner.textContent = message;
+    el.hintBanner.classList.add('visible');
+    hintTimer = setTimeout(() => {
+      el.hintBanner.classList.remove('visible');
+    }, 3200);
+  }
 
-	function renderFullView(){ if(!state.letter) return; qs('#full-pdf').src = `/samples/${state.letter}.pdf`; const iframe = qs('#full-html-de'); const editor = qs('#full-de-editor'); fetchJSON(`/api/qc/${state.letter}/html_de${baseQS()}`).then(d => { if(state.fullEdit){ editor.classList.remove('qc-hidden'); iframe.classList.add('qc-hidden'); editor.value = d.html || ''; editor.focus(); } else { editor.classList.add('qc-hidden'); iframe.classList.remove('qc-hidden'); iframe.srcdoc = d.html || ''; } }); }
-	function toggleFullEdit(){ state.fullEdit = !state.fullEdit; renderFullView(); }
-	function saveFullDE(){ const html = qs('#full-de-editor').value; fetch(`/api/qc/${state.letter}/html_de/save${baseQS()}`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({html})}).then(()=>renderFullView()).catch(()=>{}); }
-	async function renderTranslateView(){ if(!state.letter) return; const de = await fetchJSON(`/api/qc/${state.letter}/html_de${baseQS()}`); const en = await fetchJSON(`/api/qc/${state.letter}/html_en${baseQS()}`); const deEditor = qs('#de-editor'); const deRender = qs('#de-render'); const enEditor = qs('#en-editor'); const enRender = qs('#en-render'); if(state.editDE){ deEditor.classList.remove('qc-hidden'); deRender.classList.add('qc-hidden'); deEditor.value = de.html || ''; deEditor.focus(); } else { deEditor.classList.add('qc-hidden'); deRender.classList.remove('qc-hidden'); deRender.srcdoc = de.html || ''; } if(state.editEN){ enEditor.classList.remove('qc-hidden'); enRender.classList.add('qc-hidden'); enEditor.value = en.html || ''; enEditor.focus(); } else { enEditor.classList.add('qc-hidden'); enRender.classList.remove('qc-hidden'); enRender.srcdoc = en.html || ''; } }
-	function saveDE(){ const html = qs('#de-editor').value; fetch(`/api/qc/${state.letter}/html_de/save${baseQS()}`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({html})}).then(()=>renderTranslateView()).catch(()=>{}); }
-	function saveEN(){ const html = qs('#en-editor').value; fetch(`/api/qc/${state.letter}/html_en/save${baseQS()}`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({html})}).then(()=>renderTranslateView()).catch(()=>{}); }
-	function toggleEditDE(){ state.editDE = !state.editDE; renderTranslateView(); }
-	function toggleEditEN(){ state.editEN = !state.editEN; renderTranslateView(); }
-	function retryDE(){ setStatus('Retranslating...'); fetch(`/api/qc/${state.letter}/translate${baseQS()}`, {method:'POST'}).catch(()=>{}); setStatus('Queued'); pollTasks(); renderTranslateView(); }
-	function feedbackDE(){ const fb = prompt('Feedback for translate:'); if(fb==null) return; setStatus('Retranslating with feedback...'); fetch(`/api/qc/${state.letter}/translate${baseQS()}`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({feedback: fb})}).catch(()=>{}); setStatus('Queued'); pollTasks(); renderTranslateView(); }
+  async function loadOverview(preferredBase = null) {
+    const baseParam = preferredBase ? `?base=${encodeURIComponent(preferredBase)}` : '';
+    try {
+      const data = await fetchJSON(`/api/qc/overview${baseParam}`);
+      populateBaseSelect(data.bases, data.base);
+      state.base = data.base;
+      state.letters = data.letters || [];
+      state.letterSummaries = new Map(state.letters.map((l) => [l.id, l]));
+      populateLetterSelect();
+      const targetLetter = determineInitialLetter();
+      if (targetLetter) {
+        loadLetter(targetLetter, { restore: true });
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus(`Failed to load overview: ${err.message}`, 'error', true);
+    }
+  }
 
-	function reloadFull(feedback){
-		setStatus(feedback ? 'Rebuilding with comment...' : 'Rebuilding...');
-		fetch(`/api/qc/${state.letter}/rebuild_html${baseQS()}`, {
-			method: 'POST',
-			headers: {'Content-Type':'application/json'},
-			body: JSON.stringify({feedback: feedback || ''})
-		}).catch(()=>{});
-		setStatus('Queued');
-		pollTasks();
-	}
+  function determineInitialLetter() {
+    const requested = el.letterSelect.value;
+    if (requested && state.letterSummaries.has(requested)) {
+      return requested;
+    }
+    if (state.letter && state.letterSummaries.has(state.letter)) {
+      return state.letter;
+    }
+    return state.letters.length ? state.letters[0].id : null;
+  }
 
-	async function init(){
-		qsa('[id^=view-btn-]').forEach(btn => { btn.onclick = ()=> switchView(parseInt(btn.id.split('-').pop(),10)); });
-		bindGlobalKeys(); bindChunkNav();
-		qs('#qc-rebuild').onclick = rebuildUnifiedAll; qs('#qc-translate').onclick = translateEN;
-		const translateAllBtn = document.createElement('button'); translateAllBtn.textContent = 'Translate ALL'; translateAllBtn.className = 'small-btn'; translateAllBtn.onclick = translateAll; qs('.qc-toolbar').insertBefore(translateAllBtn, qs('#qc-status'));
-		qs('#tasks-button').onclick = toggleTasksPanel;
-		document.addEventListener('click', (e)=>{ const btn = qs('#tasks-button'); const panel = qs('#tasks-panel'); if(!panel.contains(e.target) && e.target !== btn && !btn.contains(e.target)){ state.tasksOpen = false; panel.classList.add('qc-hidden'); } });
-		const baseSel = qs('#qc-bases'); const bases = await fetchJSON('/api/qc/bases'); baseSel.innerHTML = ''; bases.forEach(b => { const o = document.createElement('option'); o.value = b; o.textContent = b; baseSel.appendChild(o); }); state.base = (bases.includes('outputs_gpt-5') ? 'outputs_gpt-5' : (bases[0] || null)); if(state.base) baseSel.value = state.base; baseSel.onchange = async ()=>{ state.base = baseSel.value || null; await refreshLetters(); pollTasks(); };
-		await refreshLetters();
-		qs('#chunk-editor').addEventListener('blur', ()=>{ if(state.modeEdit) saveEdit(); });
-		qs('#de-editor').addEventListener('blur', ()=>{ if(state.editDE) saveDE(); });
-		qs('#en-editor').addEventListener('blur', ()=>{ if(state.editEN) saveEN(); });
-		qs('#btn-edit-de').onclick = toggleEditDE;
-		qs('#btn-retry-de').onclick = retryDE;
-		qs('#btn-feedback-de').onclick = feedbackDE;
-		qs('#btn-edit-en').onclick = toggleEditEN;
-		qs('#btn-full-edit').onclick = toggleFullEdit;
-		qs('#btn-full-render').onclick = ()=>{ state.fullEdit=false; renderFullView(); };
-		// Approve PDF button click
-		const approveBtn = qs('#btn-approve-pdf'); if(approveBtn){ approveBtn.onclick = approvePDF; }
-		const btnReload = qs('#btn-full-reload'); if(btnReload){ btnReload.onclick = ()=> reloadFull(''); }
-		const btnReloadComment = qs('#btn-full-reload-comment'); if(btnReloadComment){ btnReloadComment.onclick = ()=>{ const fb = prompt('Comment for rebuild:') || ''; reloadFull(fb); }; }
-		pollTasks();
-	}
+  function populateBaseSelect(bases, active) {
+    if (!el.baseSelect) return;
+    el.baseSelect.innerHTML = '';
+    (bases || []).forEach((name) => {
+      const option = document.createElement('option');
+      option.value = name;
+      option.textContent = name;
+      if (name === active) option.selected = true;
+      el.baseSelect.appendChild(option);
+    });
+  }
 
-	async function refreshLetters(){ const sel = qs('#qc-letters'); const letters = await fetchJSON(`/api/qc/letters${baseQS()}`); sel.innerHTML = ''; letters.forEach(l => { const o = document.createElement('option'); o.value = l; o.textContent = l; sel.appendChild(o); }); if(letters.length){ sel.value = letters[0]; await loadLetter(letters[0]); } sel.onchange = ()=> loadLetter(sel.value); }
-	function renderBoxesView(){ if(state.currentPage==null && state.pages.length){ selectPage(state.pages[0].index); } }
-	init();
-})(); 
+  function populateLetterSelect() {
+    if (!el.letterSelect) return;
+    const current = state.letter;
+    el.letterSelect.innerHTML = '';
+    state.letters.forEach((letter) => {
+      const option = document.createElement('option');
+      option.value = letter.id;
+      const flags = [];
+      if (letter.finished) flags.push('✅');
+      if (letter.needs_rebuild) flags.push('🧱');
+      if (letter.needs_translate) flags.push('🌐');
+      option.textContent = `${flags.join(' ')} ${letter.id}`.trim();
+      if (letter.id === current) option.selected = true;
+      el.letterSelect.appendChild(option);
+    });
+  }
+
+  async function loadLetter(letterId, { restore = false } = {}) {
+    if (!letterId) return;
+    try {
+      setStatus('Loading letter…', 'info', true);
+      state.letter = letterId;
+      if (el.letterSelect.value !== letterId) {
+        el.letterSelect.value = letterId;
+      }
+      setDrawMode(false, { silent: true });
+      state.chunkCache = new Map();
+      state.pageReasonCache = new Map();
+      state.htmlCache = { full: null, translateDe: null, translateEn: null };
+
+      const data = await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(letterId)}/context`));
+      state.pages = data.pages || [];
+      state.chunks = (data.chunks || []).sort((a, b) => (a.page_index - b.page_index) || (a.chunk_index - b.chunk_index));
+      state.finished = !!data.finished;
+      state.pdfUrl = data.pdf_url || null;
+      updateLetterSummary(letterId, data);
+
+      const saved = restore ? state.lastPositions[letterId] : null;
+      if (saved) {
+        state.view = saved.view || 'chunks';
+        state.currentPage = clampPage(saved.pageIndex ?? 0);
+        state.currentChunk = clampChunk(saved.chunkIndex ?? 0);
+      } else {
+        state.view = state.chunks.length ? 'chunks' : 'boxes';
+        state.currentChunk = 0;
+        state.currentPage = state.chunks.length ? state.chunks[0].page_index : (state.pages[0]?.index ?? 0);
+      }
+
+      reflectViewButtons();
+      renderLetterMeta();
+      renderCurrentView();
+      setStatus('Letter loaded', 'success');
+    } catch (err) {
+      console.error(err);
+      setStatus(`Failed to load letter: ${err.message}`, 'error', true);
+    }
+  }
+
+  function updateLetterSummary(letterId, context) {
+    const summary = state.letterSummaries.get(letterId) || { id: letterId };
+    if (Object.prototype.hasOwnProperty.call(context, 'finished')) {
+      summary.finished = !!context.finished;
+    }
+    if (Object.prototype.hasOwnProperty.call(context, 'pdf_url') && context.pdf_url) {
+      summary.pdf_url = context.pdf_url;
+    }
+    state.letterSummaries.set(letterId, summary);
+    const listIdx = state.letters.findIndex((entry) => entry.id === letterId);
+    if (listIdx >= 0) {
+      state.letters[listIdx] = { ...state.letters[listIdx], ...summary };
+    }
+    populateLetterSelect();
+  }
+
+  function updateDrawButtonLabel() {
+    if (!el.btnDrawToggle) return;
+    el.btnDrawToggle.textContent = state.drawMode ? 'Cancel Drawing (Esc)' : 'Draw Mode';
+  }
+
+  function renderLetterMeta() {
+    if (!el.btnFullFinished) return;
+    el.btnFullFinished.textContent = state.finished ? 'Unmark Reviewed (f)' : 'Mark Reviewed (f)';
+  }
+
+  function rememberPosition() {
+    if (!state.letter) return;
+    state.lastPositions[state.letter] = {
+      view: state.view,
+      pageIndex: state.currentPage,
+      chunkIndex: state.currentChunk,
+    };
+  }
+
+  function setView(view) {
+    if (view === state.view) {
+      renderCurrentView();
+      return;
+    }
+    rememberPosition();
+    if (state.view === 'boxes' && view !== 'boxes' && state.drawMode) {
+      setDrawMode(false, { silent: true });
+    }
+    state.view = view;
+    reflectViewButtons();
+    renderCurrentView();
+  }
+
+  function reflectViewButtons() {
+    const mapping = {
+      boxes: el.btnViewBoxes,
+      chunks: el.btnViewChunks,
+      full: el.btnViewFull,
+      translate: el.btnViewTranslate,
+    };
+    Object.entries(mapping).forEach(([key, btn]) => {
+      if (!btn) return;
+      if (key === state.view) {
+        btn.classList.add('primary');
+      } else {
+        btn.classList.remove('primary');
+      }
+    });
+  }
+
+  function renderCurrentView() {
+    document.querySelectorAll('.qc-view').forEach((v) => v.classList.remove('active'));
+    switch (state.view) {
+      case 'boxes':
+        el.viewBoxes?.classList.add('active');
+        renderBoxesView();
+        break;
+      case 'full':
+        el.viewFull?.classList.add('active');
+        renderFullView();
+        break;
+      case 'translate':
+        el.viewTranslate?.classList.add('active');
+        renderTranslateView();
+        break;
+      case 'chunks':
+      default:
+        el.viewChunks?.classList.add('active');
+        renderChunkView();
+        break;
+    }
+  }
+
+  function clampPage(idx) {
+    if (!state.pages.length) return 0;
+    return Math.min(Math.max(idx, 0), state.pages.length - 1);
+  }
+
+  function clampChunk(idx) {
+    if (!state.chunks.length) return 0;
+    return Math.min(Math.max(idx, 0), state.chunks.length - 1);
+  }
+
+  function renderBoxesView() {
+    const page = state.pages.find((p) => p.index === state.currentPage) || state.pages[0];
+    if (!page) {
+      el.pageImage.src = '';
+      el.boxesLayer.innerHTML = '';
+      updateReasoning('');
+      return;
+    }
+    state.currentPage = page.index;
+    el.pageImage.src = page.image_url || '';
+    el.pageImage.onload = () => renderBoxesOverlay();
+    renderBoxesOverlay();
+    renderPagesList();
+    loadPageReasoning(page.index);
+  }
+
+  function renderBoxesOverlay() {
+    const page = state.pages.find((p) => p.index === state.currentPage);
+    if (!page || !el.pageStage) return;
+    if (state.drawMode) {
+      el.boxesLayer.innerHTML = '';
+      return;
+    }
+    const { width: stageWidth, height: stageHeight } = el.pageStage.getBoundingClientRect();
+    if (!stageWidth || !stageHeight) return;
+    const scaleX = stageWidth / (page.size?.width || stageWidth);
+    const scaleY = stageHeight / (page.size?.height || stageHeight);
+
+    el.boxesLayer.innerHTML = '';
+    const coordByIndex = new Map((page.coords || []).map((c) => [c.chunk_index, c]));
+
+    state.chunks.forEach((chunk, globalIdx) => {
+      if (chunk.page_index !== page.index) return;
+      const coord = coordByIndex.get(chunk.chunk_index);
+      if (!coord) return;
+      const box = document.createElement('div');
+      box.className = 'qc-box';
+      const color = palette[globalIdx % palette.length];
+      box.style.borderColor = color;
+      box.style.backgroundColor = rgbaFromHex(color, 0.16);
+      box.style.left = `${coord.x1 * scaleX}px`;
+      box.style.top = `${coord.y1 * scaleY}px`;
+      box.style.width = `${Math.max(coord.x2 - coord.x1, 1) * scaleX}px`;
+      box.style.height = `${Math.max(coord.y2 - coord.y1, 1) * scaleY}px`;
+      box.textContent = `${chunk.chunk_index + 1}`;
+      box.dataset.page = String(chunk.page_index);
+      box.dataset.chunk = String(chunk.chunk_index);
+      if (state.chunks[state.currentChunk]?.page_index === chunk.page_index &&
+          state.chunks[state.currentChunk]?.chunk_index === chunk.chunk_index) {
+        box.classList.add('selected');
+      }
+      el.boxesLayer.appendChild(box);
+    });
+
+    if (state.drawMode) {
+      el.draftLayer.classList.add('drawing');
+    } else {
+      el.draftLayer.classList.remove('drawing');
+    }
+  }
+
+  function renderPagesList() {
+    if (!el.pagesList) return;
+    el.pagesList.innerHTML = '';
+    state.pages.forEach((page) => {
+      const li = document.createElement('li');
+      li.dataset.index = String(page.index);
+      li.innerHTML = `<strong>Page</strong><span>${page.index + 1}</span><span>${page.chunk_count || 0} chunks</span>`;
+      if (page.index === state.currentPage) {
+        li.classList.add('active');
+      }
+      el.pagesList.appendChild(li);
+    });
+  }
+
+  async function loadPageReasoning(pageIndex) {
+    const cacheKey = `${state.letter}:${pageIndex}`;
+    if (state.pageReasonCache.has(cacheKey)) {
+      updateReasoning(state.pageReasonCache.get(cacheKey));
+      return;
+    }
+    try {
+      const data = await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/page/${pageIndex}/reasoning`));
+      const text = data.reasoning || '';
+      state.pageReasonCache.set(cacheKey, text);
+      updateReasoning(text);
+    } catch (err) {
+      updateReasoning('');
+    }
+  }
+
+  function handlePageMouseDown(evt) {
+    if (state.view !== 'boxes') return;
+    if (evt.button !== 0) return;
+    if (state.drawMode) return;
+    if (evt.target.closest('.qc-box')) return;
+    evt.preventDefault();
+    evt.stopPropagation();
+    setDrawMode(true);
+    if (el.draftLayer) {
+      onDraftMouseDown(evt);
+    }
+  }
+
+  function setDrawMode(enabled, { silent = false } = {}) {
+    if (enabled) {
+      if (state.drawMode) return;
+      state.drawMode = true;
+      state.drawRects = [];
+      state.drawStart = null;
+      state.drawActiveEl = null;
+      if (el.draftLayer) {
+        el.draftLayer.innerHTML = '';
+      }
+      if (el.boxesLayer) {
+        el.boxesLayer.style.pointerEvents = 'none';
+      }
+      enableDraftEvents();
+      updateDrawButtonLabel();
+      renderBoxesOverlay();
+      if (!silent) {
+        setStatus('Draw mode enabled', 'info');
+      }
+    } else {
+      if (!state.drawMode) return;
+      state.drawMode = false;
+      state.drawRects = [];
+      state.drawStart = null;
+      state.drawActiveEl = null;
+      if (el.draftLayer) {
+        el.draftLayer.innerHTML = '';
+      }
+      disableDraftEvents();
+      if (el.boxesLayer) {
+        el.boxesLayer.style.pointerEvents = 'auto';
+      }
+      updateDrawButtonLabel();
+      renderBoxesOverlay();
+      if (!silent) {
+        setStatus('Draw mode disabled', 'info');
+      }
+    }
+  }
+
+  function toggleDrawMode() {
+    setDrawMode(!state.drawMode);
+  }
+
+  function enableDraftEvents() {
+    if (!el.draftLayer) return;
+    el.draftLayer.classList.add('drawing');
+    el.draftLayer.addEventListener('mousedown', onDraftMouseDown);
+  }
+
+  function disableDraftEvents() {
+    if (!el.draftLayer) return;
+    el.draftLayer.classList.remove('drawing');
+    el.draftLayer.removeEventListener('mousedown', onDraftMouseDown);
+    window.removeEventListener('mousemove', onDraftMouseMove);
+    window.removeEventListener('mouseup', onDraftMouseUp);
+  }
+
+  function onDraftMouseDown(evt) {
+    if (!state.drawMode || evt.button !== 0) return;
+    const rect = el.pageStage.getBoundingClientRect();
+    const x = evt.clientX - rect.left;
+    const y = evt.clientY - rect.top;
+    state.drawStart = { x, y };
+    const elRect = document.createElement('div');
+    elRect.className = 'draw-rect';
+    el.draftLayer.appendChild(elRect);
+    state.drawActiveEl = elRect;
+    window.addEventListener('mousemove', onDraftMouseMove);
+    window.addEventListener('mouseup', onDraftMouseUp);
+  }
+
+  function onDraftMouseMove(evt) {
+    if (!state.drawStart || !state.drawActiveEl) return;
+    const rect = el.pageStage.getBoundingClientRect();
+    const currentX = evt.clientX - rect.left;
+    const currentY = evt.clientY - rect.top;
+    const left = Math.min(state.drawStart.x, currentX);
+    const top = Math.min(state.drawStart.y, currentY);
+    const width = Math.abs(currentX - state.drawStart.x);
+    const height = Math.abs(currentY - state.drawStart.y);
+    state.drawActiveEl.style.left = `${left}px`;
+    state.drawActiveEl.style.top = `${top}px`;
+    state.drawActiveEl.style.width = `${width}px`;
+    state.drawActiveEl.style.height = `${height}px`;
+  }
+
+  function onDraftMouseUp() {
+    window.removeEventListener('mousemove', onDraftMouseMove);
+    window.removeEventListener('mouseup', onDraftMouseUp);
+    if (!state.drawStart || !state.drawActiveEl) return;
+    const rect = el.pageStage.getBoundingClientRect();
+    const width = parseFloat(state.drawActiveEl.style.width) || 0;
+    const height = parseFloat(state.drawActiveEl.style.height) || 0;
+    if (width < 8 || height < 8) {
+      state.drawActiveEl.remove();
+      state.drawActiveEl = null;
+      state.drawStart = null;
+      return;
+    }
+    const left = parseFloat(state.drawActiveEl.style.left) || 0;
+    const top = parseFloat(state.drawActiveEl.style.top) || 0;
+    const page = state.pages.find((p) => p.index === state.currentPage);
+    const scaleX = rect.width / (page?.size?.width || rect.width);
+    const scaleY = rect.height / (page?.size?.height || rect.height);
+    const x1 = Math.round(left / scaleX);
+    const y1 = Math.round(top / scaleY);
+    const x2 = Math.round((left + width) / scaleX);
+    const y2 = Math.round((top + height) / scaleY);
+    state.drawRects.push({ x1, y1, x2, y2 });
+    state.drawActiveEl = null;
+    state.drawStart = null;
+    setStatus(`${state.drawRects.length} box(es) drawn`, 'info');
+  }
+
+  async function applyDrawnBoxes(rebuild) {
+    if (!state.drawMode || !state.drawRects.length) {
+      setStatus('No boxes drawn', 'warning');
+      return;
+    }
+    const sorted = [...state.drawRects].sort((a, b) => {
+      if (a.y1 !== b.y1) return a.y1 - b.y1;
+      return a.x1 - b.x1;
+    });
+    const payload = sorted.map(({ x1, y1, x2, y2 }) => ({ x1, y1, x2, y2 }));
+    const body = {
+      coords: payload,
+      rebuild,
+    };
+    if (rebuild) {
+      const feedback = window.prompt('Optional feedback for rebuilding unified HTML:', '');
+      if (typeof feedback === 'string' && feedback.trim()) {
+        body.feedback = feedback.trim();
+      }
+    }
+    try {
+      setStatus('Applying boxes…', 'info', true);
+      await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/pages/${state.currentPage}/update`), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      setStatus('Boxes update queued', 'success');
+      setDrawMode(false, { silent: true });
+      kickTasksPoll();
+      await reloadLetterContext();
+    } catch (err) {
+      setStatus(`Failed to update boxes: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function regenerateBoxes() {
+    try {
+      setStatus('Regenerating boxes…', 'info', true);
+      await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/pages/${state.currentPage}/regenerate`), {
+        method: 'POST',
+      });
+      setStatus('Regeneration queued', 'success');
+      kickTasksPoll();
+      await reloadLetterContext();
+    } catch (err) {
+      setStatus(`Failed to regenerate: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function reloadLetterContext() {
+    if (!state.letter) return;
+    const saved = {
+      view: state.view,
+      pageIndex: state.currentPage,
+      chunkIndex: state.currentChunk,
+    };
+    state.lastPositions[state.letter] = saved;
+    await loadLetter(state.letter, { restore: true });
+  }
+
+  function rgbaFromHex(hex, alpha) {
+    if (!hex || hex[0] !== '#') return `rgba(37, 99, 235, ${alpha})`;
+    const value = hex.slice(1);
+    const bigint = parseInt(value.length === 3 ? value.replace(/(.)/g, '$1$1') : value, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  async function renderChunkView() {
+    if (!state.chunks.length) {
+      el.chunkImage.src = '';
+      el.chunkPreview.srcdoc = '';
+      updateReasoning('');
+      return;
+    }
+    state.currentChunk = clampChunk(state.currentChunk);
+    const chunk = state.chunks[state.currentChunk];
+    state.currentPage = chunk.page_index;
+    el.chunkImage.src = chunk.image_url || '';
+    updateChunkMeta(chunk);
+    const detail = await getChunkDetail(chunk.page_index, chunk.chunk_index);
+    renderChunkContent(detail);
+    updateReasoning(detail.reasoning || '');
+    renderBoxesOverlay();
+    renderPagesList();
+  }
+
+  function updateChunkMeta(chunk) {
+    if (!el.chunkMeta) return;
+    const detail = state.chunkCache.get(`${chunk.page_index}_${chunk.chunk_index}`);
+    const approved = detail?.approved;
+    const parts = [`Page ${chunk.page_index + 1}`, `Chunk ${chunk.chunk_index + 1}`];
+    if (approved) parts.push('✅ Approved');
+    el.chunkMeta.textContent = parts.join(' · ');
+  }
+
+  async function getChunkDetail(pageIdx, chunkIdx) {
+    const key = `${pageIdx}_${chunkIdx}`;
+    if (state.chunkCache.has(key)) return state.chunkCache.get(key);
+    const detail = await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/chunk/${pageIdx}/${chunkIdx}`));
+    state.chunkCache.set(key, detail);
+    return detail;
+  }
+
+  function renderChunkContent(detail) {
+    if (state.editingChunk) {
+      el.chunkEditor.value = detail.html || '';
+      el.chunkEditor.style.display = 'block';
+      el.chunkPreview.style.display = 'none';
+      el.chunkEditor.focus();
+    } else {
+      el.chunkPreview.srcdoc = detail.html || '';
+      el.chunkPreview.style.display = 'block';
+      el.chunkEditor.style.display = 'none';
+    }
+    const chunk = state.chunks[state.currentChunk];
+    if (chunk) {
+      const key = `${chunk.page_index}_${chunk.chunk_index}`;
+      state.chunkCache.set(key, { ...detail });
+      updateChunkMeta(chunk);
+    }
+  }
+
+  function toggleChunkEdit(flag) {
+    if (flag) {
+      state.editingChunk = true;
+      renderChunkView();
+      return Promise.resolve();
+    }
+    return exitChunkEdit();
+  }
+
+  async function exitChunkEdit() {
+    if (!state.editingChunk) return;
+    await saveChunkHtml();
+    state.editingChunk = false;
+    if (el.chunkEditor) {
+      el.chunkEditor.blur();
+    }
+    renderChunkView();
+  }
+
+  async function saveChunkHtml() {
+    if (!state.editingChunk) return;
+    const chunk = state.chunks[state.currentChunk];
+    if (!chunk) return;
+    const html = el.chunkEditor.value;
+    try {
+      await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/chunk/${chunk.page_index}/${chunk.chunk_index}/save`), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ html }),
+      });
+      const key = `${chunk.page_index}_${chunk.chunk_index}`;
+      const cached = state.chunkCache.get(key) || {};
+      state.chunkCache.set(key, { ...cached, html });
+      setStatus('Chunk saved', 'success');
+    } catch (err) {
+      setStatus(`Failed to save chunk: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function approveChunk() {
+    const chunk = state.chunks[state.currentChunk];
+    if (!chunk) return;
+    try {
+      await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/chunk/${chunk.page_index}/${chunk.chunk_index}/approve`), {
+        method: 'POST',
+      });
+      const key = `${chunk.page_index}_${chunk.chunk_index}`;
+      const cached = state.chunkCache.get(key) || {};
+      state.chunkCache.set(key, { ...cached, approved: true });
+      setStatus('Chunk approved', 'success');
+      renderChunkView();
+    } catch (err) {
+      setStatus(`Approve failed: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function retryCurrentChunk(feedback = '') {
+    const chunk = state.chunks[state.currentChunk];
+    if (!chunk) return;
+    try {
+      await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/chunk/${chunk.page_index}/${chunk.chunk_index}/retry`), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ feedback }),
+      });
+      setStatus('Retry queued', 'success');
+      kickTasksPoll();
+    } catch (err) {
+      setStatus(`Retry failed: ${err.message}`, 'error', true);
+    }
+  }
+
+  function feedbackChunk() {
+    const note = window.prompt('Feedback for this chunk:');
+    if (note === null) return;
+    retryCurrentChunk(note);
+  }
+
+  async function renderFullView() {
+    if (state.pdfUrl) {
+      el.pdfFrame.src = state.pdfUrl;
+    }
+    if (!state.htmlCache.full) {
+      try {
+        state.htmlCache.full = await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/html/de`));
+      } catch (err) {
+        state.htmlCache.full = { html: '', mtime: 0 };
+      }
+    }
+    if (state.editingFull) {
+      el.fullEditor.value = state.htmlCache.full.html || '';
+      el.fullEditor.style.display = 'block';
+      el.fullPreview.style.display = 'none';
+      el.fullEditor.focus();
+    } else {
+      el.fullEditor.style.display = 'none';
+      el.fullPreview.style.display = 'block';
+      el.fullPreview.srcdoc = state.htmlCache.full.html || '';
+    }
+    loadUnifiedReasoning();
+  }
+
+  function toggleFullEdit(flag) {
+    if (flag) {
+      state.editingFull = true;
+      renderFullView();
+      return Promise.resolve();
+    }
+    return exitFullEdit();
+  }
+
+  async function exitFullEdit() {
+    if (!state.editingFull) return;
+    await saveFullHtml();
+    state.editingFull = false;
+    if (el.fullEditor) {
+      el.fullEditor.blur();
+    }
+    renderFullView();
+  }
+
+  async function saveFullHtml() {
+    if (!state.editingFull) return;
+    const html = el.fullEditor.value;
+    try {
+      const result = await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/html/de`), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ html }),
+      });
+      state.htmlCache.full = { html, mtime: result.mtime };
+      setStatus('Unified HTML saved', 'success');
+    } catch (err) {
+      setStatus(`Failed to save unified HTML: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function loadUnifiedReasoning() {
+    try {
+      const data = await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/reasoning`));
+      updateReasoning(data.reasoning || '');
+    } catch (err) {
+      updateReasoning('');
+    }
+  }
+
+  async function rebuildUnified(withFeedback = false) {
+    const payload = {};
+    if (withFeedback) {
+      const message = window.prompt('Feedback to include in rebuild:');
+      if (message && message.trim()) payload.feedback = message.trim();
+    }
+    try {
+      await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/rebuild`), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      setStatus('Rebuild queued', 'success');
+      kickTasksPoll();
+    } catch (err) {
+      setStatus(`Rebuild failed: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function toggleFinished() {
+    try {
+      const res = await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/finished`), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      state.finished = !!res.finished;
+      updateLetterSummary(state.letter, { finished: state.finished });
+      renderLetterMeta();
+      setStatus(state.finished ? 'Marked finished' : 'Marked unfinished', 'success');
+    } catch (err) {
+      setStatus(`Failed to toggle finished: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function deepReload() {
+    if (!window.confirm('Deep reload will reprocess the document. Continue?')) return;
+    try {
+      await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/deep_reload`), {
+        method: 'POST',
+      });
+      setStatus('Deep reload queued', 'success');
+      kickTasksPoll();
+    } catch (err) {
+      setStatus(`Deep reload failed: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function renderTranslateView() {
+    if (!state.htmlCache.translateDe) {
+      try {
+        state.htmlCache.translateDe = await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/html/de`));
+      } catch (err) {
+        state.htmlCache.translateDe = { html: '', mtime: 0 };
+      }
+    }
+    if (!state.htmlCache.translateEn) {
+      try {
+        state.htmlCache.translateEn = await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/html/en`));
+      } catch (err) {
+        state.htmlCache.translateEn = { html: '', mtime: 0 };
+      }
+    }
+
+    if (state.editingTranslate.de) {
+      el.translateEditorDe.value = state.htmlCache.translateDe.html || '';
+      el.translateEditorDe.style.display = 'block';
+      el.translatePreviewDe.style.display = 'none';
+      el.translateEditorDe.focus();
+    } else {
+      el.translateEditorDe.style.display = 'none';
+      el.translatePreviewDe.style.display = 'block';
+      el.translatePreviewDe.srcdoc = state.htmlCache.translateDe.html || '';
+    }
+
+    if (state.editingTranslate.en) {
+      el.translateEditorEn.value = state.htmlCache.translateEn.html || '';
+      el.translateEditorEn.style.display = 'block';
+      el.translatePreviewEn.style.display = 'none';
+      el.translateEditorEn.focus();
+    } else {
+      el.translateEditorEn.style.display = 'none';
+      el.translatePreviewEn.style.display = 'block';
+      el.translatePreviewEn.srcdoc = state.htmlCache.translateEn.html || '';
+    }
+  }
+
+  function toggleTranslateEdit(lang, flag) {
+    if (flag) {
+      state.editingTranslate[lang] = true;
+      renderTranslateView();
+      return Promise.resolve();
+    }
+    return exitTranslateEdit(lang);
+  }
+
+  async function saveTranslate(lang) {
+    if (!state.editingTranslate[lang]) return;
+    const editor = lang === 'de' ? el.translateEditorDe : el.translateEditorEn;
+    const html = editor.value;
+    try {
+      const result = await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/html/${lang}`), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ html }),
+      });
+      if (lang === 'de') {
+        state.htmlCache.translateDe = { html, mtime: result.mtime };
+      } else {
+        state.htmlCache.translateEn = { html, mtime: result.mtime };
+      }
+      setStatus(`${lang.toUpperCase()} HTML saved`, 'success');
+    } catch (err) {
+      setStatus(`Failed to save ${lang.toUpperCase()}: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function exitTranslateEdit(lang) {
+    if (!state.editingTranslate[lang]) return;
+    await saveTranslate(lang);
+    state.editingTranslate[lang] = false;
+    const editor = lang === 'de' ? el.translateEditorDe : el.translateEditorEn;
+    if (editor) editor.blur();
+    renderTranslateView();
+  }
+
+  async function translateCurrent(feedback = '') {
+    try {
+      await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/translate`), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(feedback ? { feedback } : {}),
+      });
+      setStatus('Translation queued', 'success');
+      kickTasksPoll();
+    } catch (err) {
+      setStatus(`Translate failed: ${err.message}`, 'error', true);
+    }
+  }
+
+  function translateWithFeedback() {
+    const message = window.prompt('Feedback for translation:');
+    if (message === null) return;
+    translateCurrent(message.trim());
+  }
+
+  async function enqueueBatchRebuild() {
+    try {
+      await fetchJSON(withBase('/api/qc/batch/rebuild_changed'), { method: 'POST' });
+      setStatus('Batch rebuild queued', 'success');
+      kickTasksPoll();
+    } catch (err) {
+      setStatus(`Batch rebuild failed: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function enqueueTranslateAll() {
+    try {
+      await fetchJSON(withBase('/api/qc/batch/translate_all'), { method: 'POST' });
+      setStatus('Batch translate queued', 'success');
+      kickTasksPoll();
+    } catch (err) {
+      setStatus(`Batch translate failed: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function fetchTasks() {
+    try {
+      const data = await fetchJSON(withBase('/api/qc/tasks'));
+      renderTasks(data.tasks || []);
+      handleTaskTransitions(data.tasks || []);
+      const active = (data.tasks || []).some((t) => t.status === 'queued' || t.status === 'running');
+      el.tasksCount.textContent = String((data.tasks || []).filter((t) => t.status === 'queued' || t.status === 'running').length);
+      if (active && !state.tasksTimer) {
+        state.tasksTimer = setInterval(fetchTasks, 500);
+      }
+      if (!active && state.tasksTimer) {
+        clearInterval(state.tasksTimer);
+        state.tasksTimer = null;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  function renderTasks(tasks) {
+    if (!el.tasksList) return;
+    el.tasksList.innerHTML = '';
+    tasks.slice(0, 25).forEach((task) => {
+      const li = document.createElement('li');
+      const left = document.createElement('div');
+      left.className = 'task-label';
+      const dot = document.createElement('span');
+      dot.className = `task-dot dot-${task.status}`;
+      const label = document.createElement('span');
+      label.textContent = task.name;
+      left.append(dot, label);
+      const right = document.createElement('div');
+      right.className = 'task-meta';
+      const parts = [];
+      if (task.meta?.letter) parts.push(task.meta.letter);
+      if (task.meta?.page_index !== undefined) parts.push(`p${task.meta.page_index + 1}`);
+      if (task.meta?.chunk_index !== undefined) parts.push(`c${task.meta.chunk_index + 1}`);
+      right.textContent = parts.join(' · ');
+      li.append(left, right);
+      el.tasksList.appendChild(li);
+    });
+  }
+
+  function handleTaskTransitions(tasks) {
+    const currentIds = new Set();
+    tasks.forEach((task) => {
+      currentIds.add(task.id);
+      const previous = state.taskStatusMap.get(task.id);
+      if (previous !== task.status) {
+        state.taskStatusMap.set(task.id, task.status);
+        if (task.status === 'done' || task.status === 'error') {
+          onTaskSettled(task);
+        }
+      }
+    });
+    Array.from(state.taskStatusMap.keys()).forEach((id) => {
+      if (!currentIds.has(id)) {
+        state.taskStatusMap.delete(id);
+      }
+    });
+  }
+
+  function onTaskSettled(task) {
+    const { status, name = '', meta = {} } = task;
+    if (meta.letter && meta.letter !== state.letter) {
+      return;
+    }
+    if (status === 'error') {
+      setStatus(`${name} failed`, 'error', true);
+      return;
+    }
+    const normalized = name.toLowerCase();
+    if (normalized.includes('rebuild html') ||
+        normalized.includes('update chunks') ||
+        normalized.includes('regenerate chunks') ||
+        normalized.includes('deep reload')) {
+      reloadLetterContext()
+        .then(() => setStatus(`${name} complete`, 'success'))
+        .catch((err) => console.error(err));
+      return;
+    }
+    if (normalized.includes('translate')) {
+      state.htmlCache.translateDe = null;
+      state.htmlCache.translateEn = null;
+      const refresh = state.view === 'translate'
+        ? renderTranslateView()
+        : Promise.resolve();
+      Promise.resolve(refresh)
+        .then(() => setStatus(`${name} complete`, 'success'))
+        .catch((err) => console.error(err));
+    }
+  }
+
+  function kickTasksPoll() {
+    fetchTasks();
+    setTimeout(fetchTasks, 600);
+  }
+
+  function updateReasoning(text) {
+    if (!el.reasoningPanel) return;
+    el.reasoningPanel.textContent = text || '';
+  }
+
+  function selectPage(index) {
+    state.currentPage = clampPage(index);
+    renderBoxesView();
+  }
+
+  function navigateNext() {
+    switch (state.view) {
+      case 'boxes':
+        if (state.pages.length && state.currentPage < state.pages.length - 1) {
+          state.currentPage += 1;
+          renderBoxesView();
+        } else if (state.chunks.length) {
+          state.currentChunk = 0;
+          setView('chunks');
+        } else {
+          setView('full');
+        }
+        break;
+      case 'chunks':
+        if (state.currentChunk < state.chunks.length - 1) {
+          state.currentChunk += 1;
+          renderChunkView();
+        } else if (state.pages.length) {
+          setView('full');
+        } else {
+          showHint('End reached ✨');
+        }
+        break;
+      case 'full':
+        setView('translate');
+        break;
+      case 'translate':
+        showHint('End reached ✨');
+        break;
+    }
+  }
+
+  function navigatePrev() {
+    switch (state.view) {
+      case 'boxes':
+        if (state.currentPage > 0) {
+          state.currentPage -= 1;
+          renderBoxesView();
+        } else {
+          showHint('Start reached ⏪');
+        }
+        break;
+      case 'chunks':
+        if (state.currentChunk > 0) {
+          state.currentChunk -= 1;
+          renderChunkView();
+        } else if (state.pages.length) {
+          setView('boxes');
+          state.currentPage = state.pages.length - 1;
+          renderBoxesView();
+        }
+        break;
+      case 'full':
+        if (state.chunks.length) {
+          setView('chunks');
+          state.currentChunk = state.chunks.length - 1;
+          renderChunkView();
+        } else {
+          setView('boxes');
+        }
+        break;
+      case 'translate':
+        setView('full');
+        break;
+    }
+  }
+
+  function handleKeyDown(evt) {
+    const key = evt.key;
+    const ctrl = evt.ctrlKey || evt.metaKey;
+    if (!state.allowShortcuts) {
+      if (ctrl && key === 'Enter') {
+        handleCtrlEnter();
+        evt.preventDefault();
+      }
+      if (ctrl && (key === 'm' || key === 'M')) {
+        handleCtrlM();
+        evt.preventDefault();
+      }
+      return;
+    }
+
+    if (key === 'v' || key === 'V') {
+      setView('boxes');
+    } else if (key === 'c' || key === 'C') {
+      setView('chunks');
+    } else if (key === 'p' || key === 'P') {
+      setView('full');
+    } else if (key === 'r' || key === 'R') {
+      handleRetryShortcut();
+    } else if (key === '|') {
+      handleFeedbackShortcut();
+    } else if (key === 'm' || key === 'M') {
+      handleEditToggle();
+    } else if (key === 'f' || key === 'F') {
+      if (state.letter) {
+        toggleFinished();
+        evt.preventDefault();
+      }
+    } else if (key === 'd' || key === 'D') {
+      if (state.view === 'full') {
+        deepReload();
+      }
+    } else if (key === '[') {
+      if (evt.shiftKey) {
+        navigateLetter(-1);
+      } else {
+        navigatePrev();
+      }
+      evt.preventDefault();
+    } else if (key === ']') {
+      if (evt.shiftKey) {
+        navigateLetter(1);
+      } else {
+        navigateNext();
+      }
+      evt.preventDefault();
+    } else if (key === 'Escape') {
+      if (state.drawMode) {
+        setDrawMode(false, { silent: true });
+        setStatus('Draw mode cancelled', 'info');
+      }
+    } else if (key === 'Backspace') {
+      if (state.drawMode && state.drawRects.length > 0) {
+        state.drawRects.pop();
+        if (el.draftLayer && el.draftLayer.lastChild) {
+          el.draftLayer.lastChild.remove();
+        }
+        setStatus(`${state.drawRects.length} box(es) drawn`, 'info');
+        evt.preventDefault();
+      }
+    } else if (ctrl && key === 'Enter') {
+      handleCtrlEnter();
+      evt.preventDefault();
+    } else if (ctrl && (key === 'm' || key === 'M')) {
+      handleCtrlM();
+      evt.preventDefault();
+    }
+  }
+
+  function handleCtrlEnter() {
+    if (state.view === 'boxes' && state.drawMode) {
+      applyDrawnBoxes(false);
+    } else if (state.view === 'chunks') {
+      approveChunk();
+    } else if (state.view === 'full' && state.editingFull) {
+      exitFullEdit();
+    } else if (state.view === 'translate') {
+      if (state.editingTranslate.de) exitTranslateEdit('de');
+      if (state.editingTranslate.en) exitTranslateEdit('en');
+    }
+  }
+
+  function handleCtrlM() {
+    if (state.view === 'chunks' && state.editingChunk) {
+      exitChunkEdit();
+    } else if (state.view === 'full' && state.editingFull) {
+      exitFullEdit();
+    } else if (state.view === 'translate') {
+      if (state.editingTranslate[state.translateFocus]) {
+        exitTranslateEdit(state.translateFocus);
+      }
+    }
+  }
+
+  function handleRetryShortcut() {
+    switch (state.view) {
+      case 'boxes':
+        regenerateBoxes();
+        break;
+      case 'chunks':
+        retryCurrentChunk();
+        break;
+      case 'translate':
+        translateCurrent();
+        break;
+      case 'full':
+        rebuildUnified();
+        break;
+    }
+  }
+
+  function handleFeedbackShortcut() {
+    switch (state.view) {
+      case 'chunks':
+        feedbackChunk();
+        break;
+      case 'translate':
+        translateWithFeedback();
+        break;
+      case 'boxes':
+        showHint('Feedback shortcut not available in boxes view');
+        break;
+      case 'full':
+        rebuildUnified(true);
+        break;
+    }
+  }
+
+  function handleEditToggle() {
+    switch (state.view) {
+      case 'chunks':
+        if (state.editingChunk) {
+          exitChunkEdit();
+        } else {
+          toggleChunkEdit(true);
+        }
+        break;
+      case 'full':
+        if (state.editingFull) {
+          exitFullEdit();
+        } else {
+          toggleFullEdit(true);
+        }
+        break;
+      case 'translate':
+        if (state.editingTranslate[state.translateFocus]) {
+          exitTranslateEdit(state.translateFocus);
+        } else {
+          toggleTranslateEdit(state.translateFocus, true);
+        }
+        break;
+    }
+  }
+
+  function navigateLetter(direction) {
+    if (!state.letters.length) return;
+    const idx = state.letters.findIndex((l) => l.id === state.letter);
+    const nextIdx = idx + direction;
+    if (nextIdx < 0 || nextIdx >= state.letters.length) {
+      showHint(direction > 0 ? 'All PDFs finished ✅' : 'Start reached ⏪');
+      return;
+    }
+    rememberPosition();
+    const nextLetter = state.letters[nextIdx].id;
+    loadLetter(nextLetter, { restore: true });
+  }
+})();

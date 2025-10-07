@@ -1,143 +1,613 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>QC Interface</title>
-	<link rel="stylesheet" href="/style.css" />
-	<style>
-		:root{ --muted:#666; --panel:#f6f6f6; --border:#ddd; --bg:#fff; }
-		.qc-row { display: flex; gap: 12px; padding: 10px; }
-		.qc-split { display: flex; gap: 12px; height: 68vh; padding: 10px; }
-		.qc-pane { flex: 1; overflow: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; }
-		.qc-toolbar { position: relative; display: flex; align-items: center; gap: 8px; padding: 10px; background: var(--panel); border-bottom: 1px solid var(--border); border-radius: 6px 6px 0 0; }
-		.qc-thumb { max-width: 100%; height: auto; display: block; border-radius: 4px; }
-		.qc-editor { width: 100%; height: 62vh; padding:8px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; border: none; outline: none; }
-		.qc-render { width: 100%; height: 62vh; border: none; background: #fafafa; }
-		.qc-hidden { display: none; }
-		.qc-badge { font-size: 11px; padding: 2px 6px; background: #eef; border-radius: 10px; }
-		.small-btn { font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); background: var(--bg); border-radius: 6px; cursor: pointer; }
-		.small-btn:hover{ background:#fafafa; }
-		#qc-reasoning-bottom { margin: 10px; padding: 10px; max-height: 22vh; overflow: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; }
-		#page-wrap { position: relative; }
-		#page-canvas { position: absolute; left: 0; top: 0; }
-		#tasks-button { margin-left: 6px; }
-		#tasks-panel { position: absolute; right: 8px; top: 44px; z-index: 10; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 8px; font-size: 12px; min-width: 320px; max-height: 40vh; overflow: auto; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-		#tasks-panel h4 { margin: 0 0 6px 0; font-size: 12px; font-weight: 600; color: #333; }
-		#tasks-list { list-style: none; margin: 0; padding: 0; }
-		#tasks-list li { margin: 4px 0; display: flex; align-items: center; gap: 8px; justify-content: space-between; padding: 4px 2px; border-radius: 4px; }
-		#tasks-list li:hover{ background:#fafafa; }
-		.task-meta { color: var(--muted); font-size: 11px; }
-		.task-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-		.dot-queued { background: #bbb; }
-		.dot-running { background: #0af; }
-		.dot-done { background: #2a2; }
-		.dot-error { background: #e33; }
-		#page-list { list-style: none; margin: 8px 12px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 6px; }
-		#page-list li { padding: 6px 8px; background: #fafafa; border:1px solid var(--border); border-radius: 6px; cursor: pointer; text-align: center; }
-		#page-list li:hover{ background:#f0f0f0; }
-	</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quality Control</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --border: #d9e0ef;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+      --danger: #dc2626;
+      --success: #16a34a;
+      --muted: #64748b;
+      --text: #0f172a;
+      --task-queued: #94a3b8;
+      --task-running: #2563eb;
+      --task-done: #16a34a;
+      --task-error: #dc2626;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+    }
+
+    header.qc-header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2.5rem 1.25rem;
+    }
+
+    header.qc-header h1 {
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    header.qc-header .subtitle {
+      margin-top: 0.35rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    main.qc-main {
+      position: relative;
+    }
+
+    .qc-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 0.75rem;
+      padding: 0.9rem 1.75rem;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .qc-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    .qc-select {
+      padding: 0.4rem 1.8rem 0.4rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      background: var(--panel);
+      color: inherit;
+    }
+
+    .qc-select:focus {
+      outline: 2px solid var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    .qc-btn {
+      padding: 0.5rem 0.85rem;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      cursor: pointer;
+      color: inherit;
+      transition: background 0.15s ease, border 0.15s ease;
+    }
+
+    .qc-btn:hover {
+      background: #f0f4ff;
+      border-color: #c3d4ff;
+    }
+
+    .qc-btn.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .qc-btn.primary:hover {
+      background: #1d4ed8;
+    }
+
+    .qc-btn.danger {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+
+    .qc-btn.small {
+      padding: 0.35rem 0.6rem;
+      font-size: 0.78rem;
+    }
+
+    .qc-status {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    #status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.78rem;
+      min-height: 28px;
+    }
+
+    #status-badge[data-state="success"] {
+      background: rgba(34, 197, 94, 0.18);
+      color: #15803d;
+    }
+
+    #status-badge[data-state="error"] {
+      background: rgba(248, 113, 113, 0.2);
+      color: #b91c1c;
+    }
+
+    #status-badge[data-state="warning"] {
+      background: rgba(251, 191, 36, 0.2);
+      color: #b45309;
+    }
+
+    .qc-views {
+      padding: 1.5rem 1.75rem 1rem;
+    }
+
+    .qc-view {
+      display: none;
+    }
+
+    .qc-view.active {
+      display: block;
+    }
+
+    .qc-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .qc-pane {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 420px;
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    .qc-pane.overflow {
+      overflow: auto;
+    }
+
+    .view-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      align-items: center;
+    }
+
+    .page-stage {
+      position: relative;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: #000;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #page-image {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      width: auto;
+      height: auto;
+    }
+
+    .boxes-layer,
+    .draft-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .boxes-layer {
+      pointer-events: auto;
+    }
+
+    .draft-layer {
+      pointer-events: none;
+    }
+
+    .draft-layer.drawing {
+      pointer-events: auto;
+      cursor: crosshair;
+    }
+
+    .qc-box {
+      position: absolute;
+      border: 2px solid rgba(37, 99, 235, 0.85);
+      border-radius: 6px;
+      background: rgba(37, 99, 235, 0.14);
+      color: #0f172a;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto;
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .qc-box:hover {
+      transform: translate3d(0, 0, 0) scale(1.01);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.22);
+    }
+
+    .qc-box.selected {
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.4);
+      border-color: #059669;
+      background: rgba(16, 185, 129, 0.24);
+    }
+
+    .draw-rect {
+      position: absolute;
+      border: 2px dashed rgba(14, 165, 233, 0.9);
+      background: rgba(14, 165, 233, 0.18);
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    #pages-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 0.75rem;
+      overflow: auto;
+    }
+
+    #pages-list li {
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #f8fafc;
+      text-align: center;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      transition: background 0.15s ease, border 0.15s ease;
+    }
+
+    #pages-list li strong {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    #pages-list li span {
+      font-weight: 600;
+    }
+
+    #pages-list li.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    #chunk-image {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0f172a;
+    }
+
+    textarea.qc-editor,
+    textarea.translate-editor {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-family: "JetBrains Mono", "SFMono-Regular", "Courier New", monospace;
+      font-size: 0.85rem;
+      resize: none;
+      min-height: 320px;
+    }
+
+    textarea.qc-editor:focus,
+    textarea.translate-editor:focus {
+      outline: 2px solid var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    iframe.qc-preview {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      min-height: 320px;
+    }
+
+    #pdf-frame {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      min-height: 520px;
+      background: #fff;
+    }
+
+    .qc-meta-line {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    #reasoning-panel {
+      margin: 1rem 1.75rem 2rem;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #f8fbff;
+      min-height: 120px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-size: 0.87rem;
+    }
+
+    #hint-banner {
+      display: none;
+      margin: 0.75rem 1.75rem 0;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      background: rgba(6, 148, 162, 0.18);
+      border: 1px solid rgba(6, 148, 162, 0.35);
+      color: #0d9488;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    #hint-banner.visible {
+      display: block;
+    }
+
+    #tasks-panel {
+      position: absolute;
+      right: 1.75rem;
+      top: calc(100% + 0.4rem);
+      width: 320px;
+      max-height: 300px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 18px 38px rgba(15, 23, 42, 0.16);
+      padding: 0.85rem;
+      overflow-y: auto;
+      display: none;
+      z-index: 30;
+    }
+
+    #tasks-panel.visible {
+      display: block;
+    }
+
+    #tasks-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    #tasks-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      gap: 0.5rem;
+    }
+
+    .task-label {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-weight: 600;
+    }
+
+    .task-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-queued { background: var(--task-queued); }
+    .dot-running { background: var(--task-running); }
+    .dot-done { background: var(--task-done); }
+    .dot-error { background: var(--task-error); }
+
+    .task-meta {
+      color: var(--muted);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    .view-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.6rem;
+    }
+
+    @media (max-width: 1200px) {
+      .qc-split {
+        grid-template-columns: 1fr;
+      }
+      #tasks-panel {
+        position: fixed;
+        top: 72px;
+        right: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-	<header>
-		<h1>Quality Control</h1>
-		<p class="subtitle">Use keyboard: [ / ] navigate within PDF, b/n prev/next unfinished PDF, f toggle finished, Ctrl+Enter approve/save, r retry, | feedback+retry, m edit, Ctrl+M exit edit, d deep reload, v Boxes, c Chunks, p Full</p>
-	</header>
-	<main>
-		<div class="qc-toolbar">
-			<label>Letter:</label>
-			<select id="qc-letters"></select>
-			<button id="qc-rebuild" class="small-btn">Rebuild all changed HTMLs</button>
-			<button id="qc-translate" class="small-btn">Translate to EN</button>
-			<span id="qc-status" class="qc-badge"></span>
-			<span style="margin-left:auto"></span>
-			<label for="qc-bases" style="font-size:12px;color:#555">Folder:</label>
-			<select id="qc-bases"></select>
-			<button id="tasks-button" class="small-btn">Tasks <span id="tasks-count" class="qc-badge">0</span></button>
-			<div id="tasks-panel" class="qc-hidden">
-				<h4>Background tasks</h4>
-				<ul id="tasks-list"></ul>
-			</div>
-			<button id="view-btn-1" class="small-btn">Boxes (v)</button>
-			<button id="view-btn-2" class="small-btn">Chunks (c)</button>
-			<button id="view-btn-3" class="small-btn">Full (p)</button>
-			<button id="view-btn-4" class="small-btn">Translate</button>
-		</div>
+  <header class="qc-header">
+    <h1>Quality Control</h1>
+    <p class="subtitle">Shortcuts: [ / ] navigate · Shift+[ / ] switch PDF · v / c / p switch views · f toggle finished · r retry · | feedback · m edit · Ctrl+M render · Ctrl+Enter approve/apply · Esc cancels drawing</p>
+  </header>
+  <main class="qc-main">
+    <div class="qc-topbar">
+      <label class="qc-label" for="base-select">Folder</label>
+      <select id="base-select" class="qc-select" title="Switch output folder"></select>
+      <label class="qc-label" for="letter-select">Document</label>
+      <select id="letter-select" class="qc-select" title="Select document"></select>
+      <button id="btn-batch-rebuild" class="qc-btn" title="Rebuild all changed HTMLs">Rebuild Changed HTMLs</button>
+      <button id="btn-translate-current" class="qc-btn" title="Translate current document to English">Translate to EN</button>
+      <button id="btn-translate-all" class="qc-btn" title="Translate all pending documents">Translate ALL</button>
+      <div class="qc-status">
+        <span id="status-badge">Idle</span>
+        <button id="btn-tasks" class="qc-btn small" title="Show background tasks">Tasks <span id="tasks-count">0</span></button>
+        <div id="tasks-panel">
+          <div class="section-title">Background tasks</div>
+          <ul id="tasks-list"></ul>
+        </div>
+      </div>
+      <div class="view-toolbar" style="margin-bottom:0">
+        <button id="btn-view-boxes" class="qc-btn small" title="Boxes view (v)">Boxes</button>
+        <button id="btn-view-chunks" class="qc-btn small primary" title="Chunks view (c)">Chunks</button>
+        <button id="btn-view-full" class="qc-btn small" title="Full view (p)">Full</button>
+        <button id="btn-view-translate" class="qc-btn small" title="Translation view">Translate</button>
+      </div>
+    </div>
 
-		<div id="qc-views">
-			<div id="view-1" class="qc-split qc-hidden">
-				<div class="qc-pane" style="padding:10px">
-					<div id="page-wrap">
-						<img id="page-image" class="qc-thumb" />
-						<canvas id="page-canvas"></canvas>
-					</div>
-				</div>
-				<div class="qc-pane" style="padding:10px">
-					<h3>Pages</h3>
-					<ul id="page-list"></ul>
-					<p style="font-size:12px;color:#666">Click a box to open its chunk. Click-drag to redefine boxes; Ctrl+Enter to apply changes. Press 'r' to regenerate boxes using AI.</p>
-				</div>
-			</div>
+    <div id="hint-banner"></div>
 
-			<div id="view-2" class="qc-split">
-				<div class="qc-pane" style="padding:10px">
-					<img id="chunk-image" class="qc-thumb" />
-				</div>
-				<div class="qc-pane">
-					<div class="qc-toolbar">
-						<button id="btn-prev" class="small-btn">Prev ([)</button>
-						<button id="btn-next" class="small-btn">Next (])</button>
-						<button id="btn-approve" class="small-btn">Approve (Ctrl+Enter)</button>
-						<button id="btn-retry" class="small-btn">Retry (r)</button>
-						<button id="btn-feedback" class="small-btn">Feedback (|)</button>
-						<button id="btn-edit" class="small-btn">Edit (m)</button>
-						<button id="btn-render" class="small-btn">Render (Ctrl+M)</button>
-						<span id="chunk-approved" class="qc-badge"></span>
-					</div>
-					<textarea id="chunk-editor" class="qc-editor qc-hidden"></textarea>
-					<iframe id="chunk-render" class="qc-render"></iframe>
-				</div>
-			</div>
+    <section class="qc-views">
+      <div id="view-boxes" class="qc-view">
+        <div class="qc-split">
+          <div class="qc-pane">
+            <div class="view-toolbar">
+              <button id="btn-draw-toggle" class="qc-btn" title="Toggle draw mode">Draw Mode</button>
+              <button id="btn-boxes-apply" class="qc-btn" title="Apply boxes (Ctrl+Enter)">Apply</button>
+              <button id="btn-boxes-apply-rebuild" class="qc-btn" title="Apply boxes & rebuild unified HTML">Apply + Rebuild</button>
+              <button id="btn-boxes-regenerate" class="qc-btn" title="Regenerate boxes with AI (r)">Regenerate</button>
+            </div>
+            <div class="page-stage" id="page-stage">
+              <img id="page-image" alt="Page preview" />
+              <div id="boxes-layer" class="boxes-layer"></div>
+              <div id="draft-layer" class="draft-layer"></div>
+            </div>
+            <p class="view-note">Click a box to jump to chunk. Draw mode: drag to add boxes, Esc cancels, Ctrl+Enter applies.</p>
+          </div>
+          <div class="qc-pane overflow">
+            <div class="section-title">Pages</div>
+            <ul id="pages-list"></ul>
+          </div>
+        </div>
+      </div>
 
-			<div id="view-3" class="qc-split qc-hidden">
-				<div class="qc-pane">
-					<iframe id="full-pdf" class="qc-render"></iframe>
-				</div>
-				<div class="qc-pane">
-					<div class="qc-toolbar">
-						<button id="btn-full-edit" class="small-btn">Edit DE (m)</button>
-						<button id="btn-full-render" class="small-btn">Render (Ctrl+M)</button>
-						<button id="btn-full-reload" class="small-btn">Reload</button>
-						<button id="btn-full-reload-comment" class="small-btn">Reload + Comment</button>
-						<button id="btn-approve-pdf" class="small-btn">Toggle Finished (f)</button>
-					</div>
-					<textarea id="full-de-editor" class="qc-editor qc-hidden"></textarea>
-					<iframe id="full-html-de" class="qc-render"></iframe>
-				</div>
-			</div>
+      <div id="view-chunks" class="qc-view active">
+        <div class="qc-split">
+          <div class="qc-pane">
+            <div class="section-title">Chunk Image</div>
+            <img id="chunk-image" alt="Chunk" />
+          </div>
+          <div class="qc-pane">
+            <div class="view-toolbar">
+              <button id="btn-prev" class="qc-btn" title="Previous ([)">Prev</button>
+              <button id="btn-next" class="qc-btn" title="Next (])">Next</button>
+              <button id="btn-approve" class="qc-btn" title="Approve chunk (Ctrl+Enter)">Approve</button>
+              <button id="btn-retry" class="qc-btn" title="Retry extraction (r)">Retry</button>
+              <button id="btn-feedback" class="qc-btn" title="Feedback and retry (|)">Feedback</button>
+              <button id="btn-edit" class="qc-btn" title="Toggle edit (m)">Edit</button>
+              <button id="btn-render" class="qc-btn" title="Render preview (Ctrl+M)">Render</button>
+              <span id="chunk-meta" class="qc-meta-line"></span>
+            </div>
+            <textarea id="chunk-editor" class="qc-editor" style="display:none;"></textarea>
+            <iframe id="chunk-preview" class="qc-preview" title="Chunk preview"></iframe>
+          </div>
+        </div>
+      </div>
 
-			<div id="view-4" class="qc-split qc-hidden">
-				<div class="qc-pane">
-					<div class="qc-toolbar">
-						<button id="btn-edit-de" class="small-btn">Edit DE (m)</button>
-						<button id="btn-retry-de" class="small-btn">Retry DE (r)</button>
-						<button id="btn-feedback-de" class="small-btn">Feedback DE (|)</button>
-					</div>
-					<textarea id="de-editor" class="qc-editor qc-hidden"></textarea>
-					<iframe id="de-render" class="qc-render"></iframe>
-				</div>
-				<div class="qc-pane">
-					<div class="qc-toolbar">
-						<button id="btn-edit-en" class="small-btn">Edit EN (m)</button>
-					</div>
-					<textarea id="en-editor" class="qc-editor qc-hidden"></textarea>
-					<iframe id="en-render" class="qc-render"></iframe>
-				</div>
-			</div>
-		</div>
+      <div id="view-full" class="qc-view">
+        <div class="qc-split">
+          <div class="qc-pane">
+            <div class="section-title">Source PDF</div>
+            <iframe id="pdf-frame" title="PDF"></iframe>
+          </div>
+          <div class="qc-pane">
+            <div class="view-toolbar">
+              <button id="btn-full-edit" class="qc-btn" title="Toggle edit (m)">Edit</button>
+              <button id="btn-full-render" class="qc-btn" title="Render preview (Ctrl+M)">Render</button>
+              <button id="btn-full-reload" class="qc-btn" title="Reload unified HTML">Reload</button>
+              <button id="btn-full-reload-feedback" class="qc-btn" title="Reload with feedback">Reload + Comment</button>
+              <button id="btn-full-finished" class="qc-btn" title="Toggle finished (f)">Toggle Finished</button>
+              <button id="btn-full-deep" class="qc-btn danger" title="Deep reload (d)">Deep Reload</button>
+            </div>
+            <textarea id="full-editor" class="qc-editor" style="display:none;"></textarea>
+            <iframe id="full-preview" class="qc-preview" title="Unified HTML"></iframe>
+          </div>
+        </div>
+      </div>
 
-		<div id="qc-reasoning-bottom"></div>
-	</main>
-	<script src="/qc.js"></script>
+      <div id="view-translate" class="qc-view">
+        <div class="view-toolbar" style="margin-bottom:1rem;">
+          <button id="btn-translate-retry" class="qc-btn" title="Retry translation (r)">Retry Translation</button>
+          <button id="btn-translate-feedback" class="qc-btn" title="Provide feedback (|)">Feedback</button>
+        </div>
+        <div class="qc-split">
+          <div class="qc-pane">
+            <div class="view-toolbar">
+              <span class="section-title">German</span>
+              <button id="btn-translate-edit-de" class="qc-btn" title="Toggle edit German (m)">Edit</button>
+              <button id="btn-translate-render-de" class="qc-btn" title="Render German (Ctrl+M)">Render</button>
+            </div>
+            <textarea id="translate-editor-de" class="translate-editor" style="display:none;"></textarea>
+            <iframe id="translate-preview-de" class="qc-preview" title="German HTML"></iframe>
+          </div>
+          <div class="qc-pane">
+            <div class="view-toolbar">
+              <span class="section-title">English</span>
+              <button id="btn-translate-edit-en" class="qc-btn" title="Toggle edit English (Shift+M)">Edit</button>
+              <button id="btn-translate-render-en" class="qc-btn" title="Render English">Render</button>
+            </div>
+            <textarea id="translate-editor-en" class="translate-editor" style="display:none;"></textarea>
+            <iframe id="translate-preview-en" class="qc-preview" title="English HTML"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reasoning-panel" aria-live="polite"></section>
+  </main>
+  <script src="/qc.js" defer></script>
 </body>
-</html> 
+</html>
