@@ -7,7 +7,7 @@ from typing import List
 
 client = AsyncOpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-async def get_text_response(prompt, image=None, image_list: List[Image.Image] = None, model="gpt-5", return_reasoning=False, effort="high"):
+async def get_text_response(prompt, image=None, image_list: List[Image.Image] = None, model="gpt-5", return_reasoning=False, effort="low"):
     response = None
 
     if image_list is not None and image is not None:
