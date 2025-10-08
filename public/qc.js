@@ -1323,6 +1323,10 @@
         handleCtrlM();
         evt.preventDefault();
       }
+      if (key === 'm' || key === 'M') {
+        handleEditToggle();
+        evt.preventDefault();
+      }
       return;
     }
 
@@ -1338,6 +1342,7 @@
       handleFeedbackShortcut();
     } else if (key === 'm' || key === 'M') {
       handleEditToggle();
+      evt.preventDefault();
     } else if (key === 'f' || key === 'F') {
       if (state.letter) {
         toggleFinished();
