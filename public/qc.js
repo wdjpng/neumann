@@ -1390,6 +1390,16 @@
     const key = evt.key;
     const code = evt.code || '';
     const ctrl = evt.ctrlKey || evt.metaKey;
+    const isEditing = !!(state.editingChunk || state.editingFull || (state.editingTranslate && (state.editingTranslate.de || state.editingTranslate.en)));
+
+    // In edit mode, only capture Ctrl+M to exit/edit toggle. Let everything else through to the editor
+    if (isEditing) {
+      if (ctrl && (key === 'm' || key === 'M')) {
+        handleCtrlM();
+        evt.preventDefault();
+      }
+      return;
+    }
     if (!state.allowShortcuts) {
       if (ctrl && key === 'Enter') {
         handleCtrlEnter();
