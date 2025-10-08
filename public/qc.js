@@ -157,7 +157,7 @@
 
     el.btnPrev.addEventListener('click', () => navigatePrev());
     el.btnNext.addEventListener('click', () => navigateNext());
-    el.btnApprove.addEventListener('click', () => approveChunk());
+    el.btnApprove.addEventListener('click', () => toggleChunkReviewed());
     el.btnRetry.addEventListener('click', () => retryCurrentChunk());
     el.btnFeedback.addEventListener('click', () => feedbackChunk());
     el.btnEdit.addEventListener('click', () => toggleChunkEdit(true));
@@ -787,6 +787,7 @@
     updateReasoning(detail.reasoning || '');
     renderBoxesOverlay();
     renderPagesList();
+    updateApproveButtonUI();
   }
 
   function updateChunkMeta(chunk) {
@@ -796,6 +797,32 @@
     const parts = [`Page ${chunk.page_index + 1}`, `Chunk ${chunk.chunk_index + 1}`];
     if (approved) parts.push('✅ Approved');
     el.chunkMeta.textContent = parts.join(' · ');
+  }
+
+  function currentChunkApproved() {
+    const chunk = state.chunks[state.currentChunk];
+    if (!chunk) return false;
+    // Prefer cache detail if available, fall back to list entry
+    const key = `${chunk.page_index}_${chunk.chunk_index}`;
+    const detail = state.chunkCache.get(key);
+    return typeof detail?.approved === 'boolean' ? !!detail.approved : !!chunk.approved;
+  }
+
+  function setCurrentChunkApproved(flag) {
+    const chunk = state.chunks[state.currentChunk];
+    if (!chunk) return;
+    const key = `${chunk.page_index}_${chunk.chunk_index}`;
+    const cached = state.chunkCache.get(key) || {};
+    state.chunkCache.set(key, { ...cached, approved: !!flag });
+    // Also mirror onto list item for skip logic
+    state.chunks[state.currentChunk] = { ...chunk, approved: !!flag };
+  }
+
+  function updateApproveButtonUI() {
+    if (!el.btnApprove) return;
+    const approved = currentChunkApproved();
+    el.btnApprove.textContent = approved ? 'Unapprove' : 'Approve';
+    el.btnApprove.title = approved ? 'Mark chunk as not reviewed (t)' : 'Mark chunk as reviewed (t, Ctrl+Enter)';
   }
 
   async function getChunkDetail(pageIdx, chunkIdx) {
@@ -874,10 +901,34 @@
       const key = `${chunk.page_index}_${chunk.chunk_index}`;
       const cached = state.chunkCache.get(key) || {};
       state.chunkCache.set(key, { ...cached, approved: true });
+      state.chunks[state.currentChunk] = { ...chunk, approved: true };
       setStatus('Chunk approved', 'success');
       renderChunkView();
     } catch (err) {
       setStatus(`Approve failed: ${err.message}`, 'error', true);
+    }
+  }
+
+  async function unapproveChunk() {
+    const chunk = state.chunks[state.currentChunk];
+    if (!chunk) return;
+    try {
+      await fetchJSON(withBase(`/api/qc/letter/${encodeURIComponent(state.letter)}/chunk/${chunk.page_index}/${chunk.chunk_index}/unapprove`), {
+        method: 'POST',
+      });
+      setCurrentChunkApproved(false);
+      setStatus('Chunk unapproved', 'success');
+      renderChunkView();
+    } catch (err) {
+      setStatus(`Unapprove failed: ${err.message}`, 'error', true);
+    }
+  }
+
+  function toggleChunkReviewed() {
+    if (currentChunkApproved()) {
+      void unapproveChunk();
+    } else {
+      void approveChunk();
     }
   }
 
@@ -1311,8 +1362,33 @@
     }
   }
 
+  function navigateNextUnreviewed() {
+    if (state.view !== 'chunks' || !state.chunks.length) return;
+    for (let i = state.currentChunk + 1; i < state.chunks.length; i++) {
+      if (!state.chunks[i]?.approved) {
+        state.currentChunk = i;
+        renderChunkView();
+        return;
+      }
+    }
+    showHint('No next unreviewed chunk');
+  }
+
+  function navigatePrevUnreviewed() {
+    if (state.view !== 'chunks' || !state.chunks.length) return;
+    for (let i = state.currentChunk - 1; i >= 0; i--) {
+      if (!state.chunks[i]?.approved) {
+        state.currentChunk = i;
+        renderChunkView();
+        return;
+      }
+    }
+    showHint('No previous unreviewed chunk');
+  }
+
   function handleKeyDown(evt) {
     const key = evt.key;
+    const code = evt.code || '';
     const ctrl = evt.ctrlKey || evt.metaKey;
     if (!state.allowShortcuts) {
       if (ctrl && key === 'Enter') {
@@ -1325,6 +1401,22 @@
       }
       if (key === 'm' || key === 'M') {
         handleEditToggle();
+        evt.preventDefault();
+      }
+      if (evt.shiftKey && (code === 'BracketLeft' || key === '{' || key === '[')) {
+        if (state.view === 'chunks') {
+          navigatePrevUnreviewed();
+        } else {
+          navigateLetter(-1);
+        }
+        evt.preventDefault();
+      }
+      if (evt.shiftKey && (code === 'BracketRight' || key === '}' || key === ']')) {
+        if (state.view === 'chunks') {
+          navigateNextUnreviewed();
+        } else {
+          navigateLetter(1);
+        }
         evt.preventDefault();
       }
       return;
@@ -1352,20 +1444,33 @@
       if (state.view === 'full') {
         deepReload();
       }
-    } else if (key === '[') {
+    } else if (code === 'BracketLeft' || key === '[' || key === '{') {
       if (evt.shiftKey) {
-        navigateLetter(-1);
+        if (state.view === 'chunks') {
+          navigatePrevUnreviewed();
+        } else {
+          navigateLetter(-1);
+        }
       } else {
         navigatePrev();
       }
       evt.preventDefault();
-    } else if (key === ']') {
+    } else if (code === 'BracketRight' || key === ']' || key === '}') {
       if (evt.shiftKey) {
-        navigateLetter(1);
+        if (state.view === 'chunks') {
+          navigateNextUnreviewed();
+        } else {
+          navigateLetter(1);
+        }
       } else {
         navigateNext();
       }
       evt.preventDefault();
+    } else if (key === 't' || key === 'T') {
+      if (state.view === 'chunks') {
+        toggleChunkReviewed();
+        evt.preventDefault();
+      }
     } else if (key === 'Escape') {
       if (state.drawMode) {
         setDrawMode(false, { silent: true });
@@ -1389,16 +1494,22 @@
     }
   }
 
-  function handleCtrlEnter() {
+  async function handleCtrlEnter() {
     if (state.view === 'boxes' && state.drawMode) {
       applyDrawnBoxes(false);
     } else if (state.view === 'chunks') {
-      approveChunk();
+      const wasApproved = currentChunkApproved();
+      if (wasApproved) {
+        await unapproveChunk();
+      } else {
+        await approveChunk();
+        navigateNext();
+      }
     } else if (state.view === 'full' && state.editingFull) {
-      exitFullEdit();
+      await exitFullEdit();
     } else if (state.view === 'translate') {
-      if (state.editingTranslate.de) exitTranslateEdit('de');
-      if (state.editingTranslate.en) exitTranslateEdit('en');
+      if (state.editingTranslate.de) await exitTranslateEdit('de');
+      if (state.editingTranslate.en) await exitTranslateEdit('en');
     }
   }
 
