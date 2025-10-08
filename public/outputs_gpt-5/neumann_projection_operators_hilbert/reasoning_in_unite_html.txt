@@ -1,3 +1,0 @@
-**Assembling CSS and layout**
-
-I want to include the location address line as part of the layout. I’m thinking about crafting CSS for different elements like footnotes, overlines, fractions, and math, while making sure to ensure density. Also, I need to replicate the page 1 header in the top preface and add a small watermark "NM" near the top left. I’m considering lightening the pencil line numbers in the left margin, but maybe that's not necessary. Now, let's focus on assembling the final code carefully!

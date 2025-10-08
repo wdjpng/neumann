@@ -1,3 +1,0 @@
-<div style="text-align:center; font-family: 'Courier New', Courier, monospace;">
-  (B. L. van der Waerden)
-</div>
