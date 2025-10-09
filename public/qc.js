@@ -29,6 +29,7 @@
     allowShortcuts: true,
     lastPositions: {},
     taskStatusMap: new Map(),
+    scrollPositions: { chunk: 0, full: 0, translateDe: 0, translateEn: 0 },
   };
 
   const el = {};
@@ -854,6 +855,7 @@
 
   function toggleChunkEdit(flag) {
     if (flag) {
+      saveScrollPosition(el.chunkPreview, 'chunk');
       state.editingChunk = true;
       renderChunkView();
       return Promise.resolve();
@@ -869,6 +871,13 @@
       el.chunkEditor.blur();
     }
     renderChunkView();
+    // Wait for iframe to load, then restore scroll position
+    if (el.chunkPreview) {
+      el.chunkPreview.addEventListener('load', function restoreScroll() {
+        restoreScrollPosition(el.chunkPreview, 'chunk');
+        el.chunkPreview.removeEventListener('load', restoreScroll);
+      });
+    }
   }
 
   async function saveChunkHtml() {
@@ -980,6 +989,7 @@
 
   function toggleFullEdit(flag) {
     if (flag) {
+      saveScrollPosition(el.fullPreview, 'full');
       state.editingFull = true;
       renderFullView();
       return Promise.resolve();
@@ -995,6 +1005,13 @@
       el.fullEditor.blur();
     }
     renderFullView();
+    // Wait for iframe to load, then restore scroll position
+    if (el.fullPreview) {
+      el.fullPreview.addEventListener('load', function restoreScroll() {
+        restoreScrollPosition(el.fullPreview, 'full');
+        el.fullPreview.removeEventListener('load', restoreScroll);
+      });
+    }
   }
 
   async function saveFullHtml() {
@@ -1110,6 +1127,9 @@
 
   function toggleTranslateEdit(lang, flag) {
     if (flag) {
+      const preview = lang === 'de' ? el.translatePreviewDe : el.translatePreviewEn;
+      const key = lang === 'de' ? 'translateDe' : 'translateEn';
+      saveScrollPosition(preview, key);
       state.editingTranslate[lang] = true;
       renderTranslateView();
       return Promise.resolve();
@@ -1145,6 +1165,15 @@
     const editor = lang === 'de' ? el.translateEditorDe : el.translateEditorEn;
     if (editor) editor.blur();
     renderTranslateView();
+    // Wait for iframe to load, then restore scroll position
+    const preview = lang === 'de' ? el.translatePreviewDe : el.translatePreviewEn;
+    const key = lang === 'de' ? 'translateDe' : 'translateEn';
+    if (preview) {
+      preview.addEventListener('load', function restoreScroll() {
+        restoreScrollPosition(preview, key);
+        preview.removeEventListener('load', restoreScroll);
+      });
+    }
   }
 
   async function translateCurrent(feedback = '') {
@@ -1288,6 +1317,32 @@
   function updateReasoning(text) {
     if (!el.reasoningPanel) return;
     el.reasoningPanel.textContent = text || '';
+  }
+
+  function saveScrollPosition(iframe, key) {
+    try {
+      if (iframe && iframe.contentWindow && iframe.contentWindow.document && iframe.contentWindow.document.documentElement) {
+        state.scrollPositions[key] = iframe.contentWindow.document.documentElement.scrollTop || iframe.contentWindow.document.body.scrollTop || 0;
+      }
+    } catch (err) {
+      // Cross-origin or other access errors
+    }
+  }
+
+  function restoreScrollPosition(iframe, key) {
+    try {
+      if (iframe && iframe.contentWindow && iframe.contentWindow.document) {
+        const scrollTop = state.scrollPositions[key] || 0;
+        if (iframe.contentWindow.document.documentElement) {
+          iframe.contentWindow.document.documentElement.scrollTop = scrollTop;
+        }
+        if (iframe.contentWindow.document.body) {
+          iframe.contentWindow.document.body.scrollTop = scrollTop;
+        }
+      }
+    } catch (err) {
+      // Cross-origin or other access errors
+    }
   }
 
   function selectPage(index) {
