@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Zusammengeführte Transkription des Briefes</title>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root {
+    --bg: #faf7f0;
+    --paper: #fffdf6;
+    --ink: #1a1a1a;
+    --rule: #e6dfcf;
+  }
+  body {
+    margin: 40px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Georgia", "Times New Roman", serif;
+  }
+  .sheet {
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    padding: 40px 60px;
+  }
+  .topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .left-note { font-style: italic; color: #3b3b3b; }
+  .right-note { font-style: italic; text-align: right; }
+  .letter-body { margin-top: 28px; line-height: 1.8; font-size: 1.1rem; }
+  .greeting { font-style: italic; font-size: 1.25rem; margin-bottom: 0.4rem; }
+  .para { margin: 0.55rem 0; }
+  .eq-block {
+    margin: 0.35rem 0;
+    text-align: center;
+    font-size: 1.15rem;
+  }
+  .signature { margin-top: 1rem; font-size: 1.5rem; }
+  .address { margin-top: 0.25rem; font-size: 1.1rem; }
+  .footnotes {
+    border-top: 1px solid var(--rule);
+    margin-top: 1.25rem;
+    padding-top: 0.6rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #2f3a4a;
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="topline">
+    <div class="left-note">Hs 91: 685</div>
+    <div class="right-note">
+      Cortina d’Ampezzo, den 5. August<br>
+      1930.
+    </div>
+  </div>
+
+  <div class="letter-body">
+    <div class="greeting">Sehr geehrter Herr Professor!</div>
+
+    <div class="para">
+      In der letzten Zeit habe ich mich mit der Ein-
+      deutlichkeitsfrage der Lösungen der Verständigungsrelation
+    </div>
+
+    <div class="eq-block">
+      \( PQ - QP = \dfrac{h}{2\pi i}\,1 \)
+    </div>
+
+    <div class="para">
+      bzw. ihrer Gleichungen \( U(\alpha)\,V(\beta) \;=\; e^{i\alpha\beta}\, V(\beta)\,U(\alpha) \)
+    </div>
+
+    <div class="para">
+      ( \(U(\alpha)=e^{\left(\frac{2\pi i}{h}\right)aP}\), \(V(\beta)=e^{\,i\beta Q}\) ) beschäftigt, und die Eindeutigkeit
+      mit einer ziemlich einfachen Methode bewiesen*). Da dieselbe
+    </div>
+
+    <div class="para">
+      an Ihre Behandlung der kontinuierlichen geschlossenen Gruppen
+      mit Hilfe der den „Gruppenzahlen“ entsprechenden Integral-
+      gleichungen, anlehnt, wird sie Sie vielleicht interessieren,
+      und ich erlaube mir sie im Folgenden zu skizzieren. Ich führe hier die unitäre Schar
+    </div>
+
+    <div class="eq-block">
+      $$S(\alpha,\beta)\;=\;e^{-\tfrac{i}{2}\alpha\beta}\,U(\alpha)V(\beta)\;=\;e^{\tfrac{i}{2}\alpha\beta}\,V(\beta)U(\alpha)$$
+    </div>
+
+    <div class="para">ein, für die Multiplikations-Relationen</div>
+
+    <div class="eq-block">
+      \( S(\alpha,\beta)\; S(\gamma,\delta) \;=\; e^{\frac{i}{2}\,(\alpha\delta-\beta\gamma)} \; S(\alpha+\gamma,\;\beta+\delta) \)
+    </div>
+
+    <div class="para">lautet, und betrachtete Operatoren</div>
+
+    <div class="eq-block">
+      \( A = \iint_{-\infty}^{+\infty} a(\alpha,\beta)\, S(\alpha,\beta)\, d\alpha\, d\beta. \)
+    </div>
+
+    <div class="para">
+      mit also (über die ganze \( \alpha, \beta \)-Ebene) absolut integrierbaren "Kern" \( a(\alpha,\beta) \). Es ist leicht, die Rechenregeln für diese Kerne anzugeben, insbesondere ist
+    </div>
+
+    <div class="eq-block">
+      $$\Bigg(\iint a(\alpha,\beta)\,S(\alpha,\beta)\,d\alpha\,d\beta\Bigg)^{*}
+        \;=\;
+        \iint \overline{a(-\alpha,-\beta)}\,S(\alpha,\beta)\,d\alpha\,d\beta.$$
+    </div>
+
+    <div class="eq-block">
+      $$\iint a(\alpha,\beta)\,S(\alpha,\beta)\,d\alpha\,d\beta \;\cdot\;
+        \iint b(\alpha,\beta)\,S(\alpha,\beta)\,d\alpha\,d\beta$$
+      $$=\;\iint c(\alpha,\beta)\,S(\alpha,\beta)\,d\alpha\,d\beta$$
+    </div>
+
+   
+
+    <div class="eq-block">
+      $$S(u,v)\,\iint \ldots \;=\; \iint e^{-\tfrac{1}{2} i \,(u\alpha - v\beta)}\, a(\alpha - u, \beta - v)\, S(\alpha, \beta)\, d\alpha\, d\beta$$
+    </div>
+
+    <div class="eq-block">
+      $$ S(u,v) \;=\; \iint e^{\,i\zeta\,(v\alpha - u\beta)}\, a(\alpha - u,\, \beta - v)\, S(\alpha,\beta)\, d\alpha\, d\beta $$
+    </div>
+ <div class="para">
+      mit  \( L(\alpha,\beta) = \iint e^{\tfrac{i}{2}(\beta \xi - \alpha \eta)}\, a(\xi,\eta)\, b(\alpha-\xi,\beta-\eta)\, d\xi\, d\eta. \)
+    </div>
+ <div class="eq-block">
+      \( S(-u,-v)\; \int\int \ldots\; S(u,v)=0, \)
+    </div>
+    <div class="para">
+      Ferner folgt aus \( \iint a(\alpha,\beta)\, S(\alpha,\beta)\, d\alpha\, d\beta = 0 \)
+    </div>
+
+   
+
+    <div class="para">
+      d. h. 
+    </div>
+    <div class="eq-block">
+      $$
+        \iint e^{\,i(\alpha x-\beta t)}\; a(\alpha,\beta)\, S(\alpha,\beta)\, d\alpha\, d\beta \;=\; 0
+      $$
+    </div>
+    <div class="para">
+      für alle \(u,v\) — und hieraus leicht \(a(\alpha,\beta)\equiv 0\).
+      Der Kalkül mit den „Kernen“ ist also demjenigen mit ihren Operatoren gleichwertig.
+    </div>
+
+    <div class="para">Nun setze ich</div>
+
+    <div class="eq-block">
+      \(A \;=\; \iint e^{-\tfrac{1}{4}\alpha^{2} - \tfrac{1}{4}\beta^{2}} \; S\, \alpha(\beta)\; d\alpha \, d\beta.\)
+    </div>
+
+    <div class="para">
+      dann erkennt man durch die leichte Rechnungen
+    </div>
+
+    <div class="eq-block">
+      $$A \ne 0,\quad A = A^{*},\quad A\,S(u,v) = 2\pi\,e^{-\tfrac{1}{4}u^{2}-\tfrac{1}{4}v^{2}}  A$$
+    </div>
+
+    <div class="para">
+      Also ist insbesondere \( \frac{1}{2\pi} A \) ein Projektions‑Operator \( \neq0 m\) \((u=v=0)\),
+      sei \(f\) eine Lösung von \( \frac{1}{2\pi}Af = f,  |f|=1 \). Alle \( f_{\alpha,\beta} = S(\alpha,\beta)f \)
+    </div>
+
+    <div class="para">
+      bestimmen einen Raum \( \omega \), der gegenüber allen \( S(\gamma,\delta) \),
+      d. h. allen \( U(\gamma), V(\delta) \), invariant ist, also (Irreduzibilität!),
+      der volle Hilbertsche Raum.
+    </div>
+
+    <div class="para">
+      Nun ist
+      \( (f_{\alpha, \beta}, f_{\gamma, \delta}) = (S_{\alpha, \beta}f, S(\gamma, \delta)f) = \)
+    </div>
+
+    <div class="eq-block">
+      $$= \frac{1}{4\pi^{2}}\,( S(\alpha,\beta)Af,\; S(\gamma,\delta)Af ) \;=\; \frac{1}{4\pi^{2}}\,\big( A\,S(-\gamma,-\delta)\,S(\alpha,\beta)\,A f,\; f \big) =$$
+    </div>
+
+    <div class="eq-block">
+      $$= \frac{1}{2\pi}\, e^{-\tfrac{1}{4}(\alpha-\gamma)^{2}-\tfrac{1}{4}(\beta-\delta)^{2}+\frac{1}{2}i(\alpha\delta - \beta\gamma)}\qquad
+        (Af,f)=e^{\ldots}\,(f,f)=$$
+    </div>
+
+    <div class="eq-block">
+      \[
+        e^{-\tfrac{1}{4}(\alpha-\gamma)^2 - \tfrac{1}{2}(\beta-\delta)^2 + \frac{1}{2}\,i(\alpha\delta-\beta\gamma)}
+      \]
+    </div>
+
+    <div class="eq-block">
+      \[
+        S(u,v)\, f_{\alpha\beta}
+        \;=\;
+        e^{\tfrac{i}{2}\,(u\beta - v\alpha)}\;
+        f_{\alpha+u,\;\beta+v}
+      \]
+    </div>
+
+    <div class="para">
+      Dabei ist H die Menge aller Häufungspunkte aller Linienaggregate irgendwelcher (endlich vieler) \(f,\ \alpha,\ \beta\).
+    </div>
+
+    <div class="para">
+      Das aber sowie H mit den Eigenschaften I, II
+      ein‑eindeutig, längentreu und \(S(\alpha,\beta)\)-isomorph aufeinander
+      beziehbar sind, ist evident (man lasse die \(f_{\alpha,\beta}\) sich ent-
+      sprechen, und erweitere linear‑stetig auf ganz \( \omega \) ).
+    </div>
+
+    <div class="para">
+      Dieselbe Methode ist auch auf die mehrdimensionalen Vertauschungsrelationen, bzw. ihre allgemeine Theorie oder
+      „bis auf einen Zahlenfaktor Abel’schen“ unitären Operatoren- gruppen anwendbar.
+    </div>
+
+    <div class="para">Werde ich Gelegenheit haben, Sie in Königsberg</div>
+    <div class="para">wiederzusehen? In der Hoffnung des Wiedersehens</div>
+    <div class="para">bin ich Ihr sehr ergebener</div>
+
+    <div class="signature">Johann v. Neumann</div>
+    <div class="address">Budapest, V. Vilmos császár út 62.</div>
+
+    <div class="footnotes">
+      <div>* ) Der von Stone Proc. Nat. Acad. angekündigte Beweis scheint, wie mir Stone mitteilte, noch nicht lückenlos zu sein.</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

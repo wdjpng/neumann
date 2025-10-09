@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brieftranskription</title>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body{
+    margin:0;
+    background:#f3efe6;
+    color:#3a2f2a;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .sheet{
+    max-width:1200px;
+    margin:2rem auto;
+    background:#efe6d3;
+    border:1px solid #d8c9a8;
+    padding:2.2rem 3rem 3rem 3.6rem;
+    box-shadow:
+      0 0 0 8px rgba(0,0,0,0.03) inset,
+      0 12px 30px rgba(0,0,0,0.18);
+    position:relative;
+  line-height:1.85;
+    font-size:1.2rem;
+  
+  }
+  /* margin guideline */
+  .sheet:before{
+    content:"";
+    position:absolute;
+    left:2rem; top:0; bottom:0;
+    width:2px;
+    background:rgba(150,80,20,0.15);
+  }
+  .scribble{
+    position:absolute;
+    left:0.7rem;
+    top:0.6rem;
+    white-space:pre;
+    font-family: "Bradley Hand", "Comic Sans MS", cursive;
+    font-size:1rem;
+    color:#8e8e8e;
+    transform: rotate(-8deg);
+    line-height:1.1;
+  }
+  .scribble.small{
+    top:2.6rem;
+    left:1rem;
+    font-size:1.05rem;
+    transform: rotate(-12deg);
+    color:#9b9b9b;
+  }
+  .header{
+    text-align:right;
+    font-family:"Brush Script MT", "Dancing Script", cursive;
+    font-size:1.4rem;
+    color:#7a6856;
+    margin:0.2rem 0 1.8rem 0;
+  }
+  .content p{
+    margin:0 0 0.9rem 0;
+    white-space:pre-wrap;
+  }
+  .display p{
+    margin:0.4rem 0;
+    text-align:center;
+    font-size:1.1em;
+  }
+  .centered{
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="scribble">H 9723 32727</div>
+    <div class="scribble small">= John Neumann</div>
+
+    <div class="header">Zürich, den 4. VI. 1926.</div>
+
+    <div class="content">
+      <p>Sehr geehrter Herr Professor!</p>
+
+      <p>Die Frage nach der Definition grosser Zahlen des
+zweiten Zahlklasse, von der wir über Pfingsten wiederholt spra-
+chen, scheint doch einer einigermaßen allgemeinen Methode
+zugänglich zu sein. Ich kann die damals besprochene erste
+kritische \( \varepsilon \)-Zahl so definiren, und benötige dabei alle Typen
+bis zum \( \omega^2 \)-ten (exclusive). Die Methode scheint verallgemein-
+erungsfähig zu sein; so wird man z. B. wohl ziemlich leicht die
+erste kritische unter den kritischen \( \varepsilon \)-Zahlen analog aufstellen
+können (mit Hilfe aller Typen bis zum \( \omega^3 \)-ten, exklusive).
+Definition lässt sich eventuell noch vereinfachen, aber dass man
+mit weniger Typen auskommen könnte, glaube ich nicht.</p>
+
+      <p>Die Stelle der „Einholung“, der erste „kritische“ Typus ist
+damit wieder hinausgeschoben, man könnte etwa die folgende
+Zahl vermuten.</p>
+
+      <div class="display">
+        <p>\( f(0,\alpha) = \omega^{\alpha} \)</p>
+        <p>\( f(\beta+1,\alpha) \) — kritische Funktion von \( f(\beta,\xi) \) (d.&nbsp;h. die \( \alpha \)-te kritische Stelle der als Funktion von \( \xi \) angegebenen Funktion \( f(\beta,\xi)) \) </p><p>\( f(\lim \beta_n,\alpha) = \lim_{n\to\infty} f(\beta_n,\alpha) \)</p>
+      </div>
+
+      <p>Man bilde nun
+\(g(\alpha)=f(\alpha,\alpha)\), und \( \alpha_0 \) sei die erste kritische Stelle von \(g(\alpha)\).
+Allerdings ist mir der Mechanismus des „Einholens“ hier noch nicht völlig klar.
+Meine Definition folgt auf dem beiliegenden Blatte, den Beweis dafür, daß wirklich die erste kritische e‑Zahl gewonnen
+wird lasse ich fort, es ist am Papier etwas lang und inhaltlich doch
+nicht schwer. Übrigens ist sie hier nicht als Limes der Folge</p>
+
+      <p class="centered">\( \varepsilon_{0}, \varepsilon_{\varepsilon_{0}}, \varepsilon_{\varepsilon_{\varepsilon_{0}}}, \varepsilon_{\varepsilon_{\varepsilon_{\varepsilon_{0}}}} \cdots \)</p>
+
+      <p>dargestellt (es ist die \( \varepsilon_\alpha \)-te \( \epsilon \)-Zahl, sondern als eines der Folge</p>
+
+      <p class="centered">\( \omega, \; \varepsilon_{\omega}, \varepsilon_{\varepsilon_{\omega}}, \varepsilon_{\varepsilon_{\varepsilon_{\omega}}}, \ldots \)</p>
+
+      <p>Gibt es sonst Nachrichten über die Beweistheorie? Ist Herrn Acker
+manns Wf. Beweis bereits endgültig formulirt?
+Es würde mich sehr interessieren zu erfahren, welche Fortschri
+te Sie bezüglich der zweiten Fallklasse gemacht haben.</p>
+
+      <p>Ich verbleibe hochachtungsvoll</p>
+
+      <p>Ihr ganz ergebener<br>H. v. Neumann</p>
+    </div>
+  </div>
+</body>
+</html>

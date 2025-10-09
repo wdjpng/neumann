@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Brieftranskription</title>
+<style>
+  body { margin: 0; padding: 30px; font-family: "Times New Roman", Times, serif; color: #222; background:#f7f4ef; }
+  .page { max-width: 1100px; margin: 0 auto; background: #fbfaf7; padding: 10px 20px 40px; }
+
+  /* Header (left as in original) */
+  .header { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .left h1, .left h2 { margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+  .left h1 { font-size: 28px; font-weight: 800; }
+  .left h2 { font-size: 26px; font-weight: 800; }
+  .left h3 { margin: 6px 0 10px; font-size: 22px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+  .divider { width: 60px; height: 2px; background: #222; margin: 8px 0 10px; }
+  .smallcaps { font-variant: small-caps; letter-spacing: 1px; }
+  .left .block { line-height: 1.35; font-size: 14px; }
+  .right { text-align: right; }
+  .right h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+  .right .date { margin-left: 8px; font-style: italic; font-weight: 600; }
+  .right .info { margin-top: 6px; font-size: 13px; line-height: 1.35; }
+
+  /* Unified body formatting */
+  .letter-body { margin-top: 50px; font-size: 1.15rem; line-height: 1.7; }
+  .greeting { font-size: 1.6rem; font-weight: 600; font-style: italic; margin-bottom: 14px; }
+  .letter-body p { margin: 0 0 1rem; }
+  .math { margin: 10px 0 12px 0; }
+  .signature { font-size: 1.35rem; font-style: italic; margin-top: 0.5rem; }
+  .address-block { display: flex; align-items: baseline; gap: 10px; margin-top: 6px; }
+  .address-block .label { font-style: italic; }
+  u { text-underline-offset: .15em; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)'], ['$', '$']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="left">
+      <h1>Hausverwaltung</h1>
+      <h2>Hohenzollernstrasse</h2>
+      <h3>Nr. 23/24</h3>
+
+      <div class="divider"></div>
+
+      <div class="block">
+        <div class="smallcaps">Bank-Konto:</div>
+        Deutsche Bank u. Disconto-Ges.<br>
+        Depositen-Kasse K2<br>
+        Berlin W 35, Lützowstrasse 33–36<br>
+        Konto Nr. 231
+      </div>
+    </div>
+
+    <div class="right">
+      <h1>Berlin W 10, den <span class="date">12.6.1933, Montag.</span></h1>
+      <div class="info">
+        Tel.: B 2 Lützow 3116, 3186, 3137, B 1 Kurfürst 2368<br>
+        Nach Eröffnung des Selbstanschlussbetriebes Lützow:<br>
+        Sammel-Nr. B 2 Lützow 9141<br>
+        und B 2 Lützow 5039, 8137, 3116, 9145
+      </div>
+    </div>
+  </div>
+
+  <div class="letter-body">
+    <div class="greeting">Lieber Herr Professor Bernays!</div>
+
+    <p>
+      Dabei schicke ich Ihnen den Beweis der Wohlord-<br>
+      nung Ihrer Ordnung \( \underset{\small\vee}{<} \), d. h. von
+    </p>
+
+    <p class="math">\( (x)(E y)\big[\, U(x)\rightarrow \big((y \underset{\small\vee}{<} x)\land U(y)\big)\,\big]\;\rightarrow\; (x)\,\overline{U(x)}\,, \)</p>
+
+    <p>
+      für jede Aussage \(U\), und mit freier Variable \(v\), m. w.<br>
+      ohne Verwendung von Aussagen‑Variablen. Ich habe der Einfachheit halber den Beweis in Worten aufge-<br>
+      schrieben, und bloss die wichtigsten zwischen-For-<br>
+      mlen (Definitionen und bewiesene Aussagen) formal<br>
+      angegeben. (Der Beweis steht auf den Blättern 1.-3.,<br>
+      die Formeln als Anhang auf jedem Blatte; Formeln,<br>
+      die Verweisungen auf dieselben haben Nummern <u>I. - XI.</u>) die Idee ist diese: \(U(x)\) hat für \(\le\) ein<br>
+      erstes Element, falls dies für eine Folge anderer For-<br>
+      mlen bei \(\underset{\small v-1}{<}\) gilt, diese haben es wiederum, falls<br>
+      es für eine weitere Folge anderer Formeln bei \(\underset{\small v-2}{<}\) gilt,<br>
+      ...<br>
+      Alle diese Formeln bilden eine Folge, die ich ausrechne, und in <u>VII.</u> angebe, die Aussage,<br>
+      dass alle diese Formeln bei \( \underset{\small\vee}{<} \)  erste Elemente<br>
+      haben; kann daher für sich allein induktiv<br>
+      bewiesen werden, und enthält nur Grundvariablen.<br>
+      Wo in <u>IV. – XI.</u> scheinbar Aussagen‑Variablen auftreten,<br>
+      ten, sind es Mitteilungs‑Variablen, die bloss zur<br>
+      Abkürzung dienen und vermieden werden könnten.<br>
+      (Es wäre hier möglich, das Definierte stets durch<br>
+      das Definierende zu ersetzen.) —
+    </p>
+
+    <p>
+      Entschuldigen Sie bitte, dass ich mich am Sonnabend nicht mehr gemeldet habe;<br>
+      ich musste aber noch 4 weitere Besuche machen.<br>
+      Ich wäre Ihnen sehr dankbar, wenn Sie meine Noten gelegentlich zurückschicken<br>
+      würden, da ich keine Kopie besitze.
+    </p>
+
+    <p>Mit den besten Grüßen Ihr</p>
+
+    <div class="signature">J. v. Neumann.</div>
+
+    <div class="address-block">
+      <div class="label">Adresse:</div>
+      <div class="address">Budapest, V., Arany János ucca 16.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

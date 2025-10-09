@@ -1,0 +1,3 @@
+**Including MathJax for rendering**
+
+Okay, the user asked for MathJax to render mathematical expressions. I think I can include the MathJax script tag to help with that, even if the environment might already load it. Since the user requested HTML output only, I'll make sure to include the CDN for MathJax, while also maintaining a style that mimics handwritten spacing. Alright, I’ll write that out now!

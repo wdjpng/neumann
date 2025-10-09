@@ -1,0 +1,3 @@
+**Finalizing math formatting**
+
+I’m considering the equation (r1 - m1/r1^2) and keeping it as r_1 and m_1. I need to ensure it looks nice with MathJax formatting, so I'll use HTML to center the equations and add line breaks. I’ll wrap everything in a `<div class="equations">` and place each equation in `<p>` tags for inline display. Keeping things clean is key, and I shouldn't worry about any lines being cut off since the visible lines seem complete. Let's craft this!

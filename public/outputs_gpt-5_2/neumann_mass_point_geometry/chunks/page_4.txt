@@ -1,0 +1,3 @@
+**Delivering coordinates**
+
+I want to make sure I output the coordinates properly, which are (768, 1010). I'm double-checking the bounds: the y-coordinate must not exceed height - 1. Since the height is 1010, the maximum index can be 1009, which is okay. Everything checks out, so I’ll go ahead and deliver this information. It’s important to be precise with these details!

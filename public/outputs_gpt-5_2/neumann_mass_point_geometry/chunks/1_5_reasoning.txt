@@ -1,0 +1,30 @@
+**Transcribing handwritten text**
+
+I need to transcribe text from an image into HTML while preserving formatting and line breaks, but I should ignore lines that are partially cut off. The image contains a handwritten German fragment: "Also ist diese Hyperbelwelt für x > r_0 ?, d.h. außerhalb einer Umgebung sind des Massenpunktes und seiner Antipode regulär." I should analyze this word by word. Is "r_0" the exponent? The handwritten notation looks important, so I’ll take a closer look.
+**Analyzing handwritten notation**
+
+In the image, I see something near "x >" that looks like "r° / r_i," with a small circle superscript on the '0'. Could this be "r_0" or "r_0^o"? Let's zoom in further. I'm noticing that there’s "x > r_0^o." The small circle seems to denote something, possibly an angular measure. I might be interpreting it as "r_0°." Then, there's a fraction involving "r_i" as the denominator. So it could be "x > r_0° / r_i" or "x > r_0^°/r_i."
+**Interpreting mathematical expressions**
+
+Okay, I'm considering if the notation might say "n°" over "r_i" instead of "r." The top could be "n°," which could mean "n^0," with "r_i" as the denominator. Alternatively, it might indicate "x > r_0^0 / r_i." This is tricky! The term "Hyperbelwelt" could mean "hyperbola world" in German, which doesn't ring a bell for me. I see "Massenpunktes" too. 
+
+I need to be cautious here while using MathJax, and I shouldn’t guess if I’m unsure. Let's carefully read through: "Also," "ist diese Hyperbelwelt," and "für" all seem correct. Then for "x > r_0/?," there might be a fraction involving "r°_0," or perhaps "r_0^o."
+**Exploring numerator possibilities**
+
+I’m considering that the numerator might be "v_0°," which could represent an angle, or maybe "v_0^0." But I'm also seeing that it might be "v_0" with the small circle, which could indicate "v_0° / r_i." Alternatively, it might just be "x > r_0 / r_i." I notice "r0" with a small "o," which indicates "r_0." In German handwriting, they often use a small circle above to denote "null." 
+
+So, the expression might be "x > r^0 / r_1" or "x > r_0 / r_i." I wonder if the 'i' is italicized or a subscript.
+**Transcribing and formatting the text**
+
+Hmm, I’m thinking the numerator could be "v_0°," suggesting an angle, or "v_0^0." It might even be "x > r_0 / r_i." In German handwriting, "r_0" often has a small superscript. It seems plausible for the expression to be "x > r_0 / r_i." 
+
+Now, there's a part where "d. h." stands for "das heißt," and "außerhalb" appears. The second line talks about "einer Umgebung sind des Massenpunktes." I wonder if "sind" should be "und." After reviewing, I think I’ll go with "außerhalb einer Umgebung des Massenpunktes und seiner Antipode regulär." 
+
+I’ll replicate the structure in HTML while keeping styles minimal and using MathJax to render the equation. I'll ensure the text looks nice and matches the original as best as possible, while avoiding any partially cut-off text. Let's craft it now!
+**Finalizing HTML output**
+
+I’m thinking it’s not strictly necessary to go overboard with the CSS, but I definitely want to include a serif font and some line-height for readability. It’s also good to have italic formatting in there. 
+
+I’ll keep it simple and focus on getting the final HTML right. I want to ensure I include the MathJax script in case it’s needed for rendering the equations, though I’m questioning if it’s absolutely necessary. 
+
+Let’s finalize everything now!

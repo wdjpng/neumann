@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Brieftranskription</title>
+<style>
+  body{
+    margin:0;
+    background:#f3efe6;
+    color:#5b4a3a;
+    font-family: "EB Garamond", Georgia, serif;
+  }
+  .sheet{
+    max-width:1200px;
+    margin:2rem auto;
+    background:#efe6d3;
+    border:1px solid #d8c9a8;
+    padding:2.2rem 3rem 3rem 3.6rem;
+    box-shadow:
+      0 0 0 8px rgba(0,0,0,0.03) inset,
+      0 12px 30px rgba(0,0,0,0.18);
+    position:relative;
+  }
+  /* faint paper lines */
+  .sheet{
+    background-image:
+      linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size:100% 34px;
+  }
+  /* margin guideline */
+  .sheet:before{
+    content:"";
+    position:absolute;
+    left:2rem; top:0; bottom:0;
+    width:2px;
+    background:rgba(150,80,20,0.15);
+  }
+  .scribble{
+    position:absolute;
+    left:0.7rem;
+    top:0.6rem;
+    white-space:pre;
+    font-family: "Bradley Hand", "Comic Sans MS", cursive;
+    font-size:1rem;
+    color:#8e8e8e;
+    transform: rotate(-8deg);
+    line-height:1.1;
+  }
+  .scribble.small{
+    top:2.6rem;
+    left:1rem;
+    font-size:1.05rem;
+    transform: rotate(-12deg);
+    color:#9b9b9b;
+  }
+  .page-no{
+    text-align:center;
+    font-family:"Brush Script MT", "Dancing Script", cursive;
+    font-size:1.4rem;
+    color:#7a6856;
+    margin:0.2rem 0 0.2rem 0;
+  }
+  .header{
+    text-align:right;
+    font-family:"Brush Script MT", "Dancing Script", cursive;
+    font-size:1.6rem;
+    color:#7a6856;
+    margin:0.2rem 0 1.8rem 0;
+  }
+  .cursive{
+    font-family:"Brush Script MT", "Dancing Script", cursive;
+    font-size:1.7rem;
+    color:#6f5d4b;
+    line-height:2.2rem;
+  }
+  p{ margin:0; }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="scribble">H 9723 32727</div>
+    <div class="scribble small">= John Neumann</div>
+
+    <div class="header">Zürich, den 4. VI. 1926.</div>
+
+    <p class="cursive">Sehr geehrter Herr Professor!</p>
+    <p class="cursive">Die Frage nach der Definition grosser Zahlen des</p>
+  </div>
+</body>
+</html>

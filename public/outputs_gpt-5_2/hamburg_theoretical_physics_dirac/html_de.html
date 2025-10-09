@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brief – vereinheitlichte Transkription</title>
+<style>
+  :root{
+    --paper:#fff9ef;
+    --ink:#2f2f2f;
+    --note:#7a7a7a;
+    --rule:#e6dcc6;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #efe8db;
+    color: var(--ink);
+    font-family: "Times New Roman", Georgia, serif;
+  }
+  .letter {
+    max-width: 920px;
+    margin: 24px auto 64px;
+    padding: 32px 40px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  }
+  .header {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .leftnote {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--note);
+    font-style: italic;
+  }
+  .rightblock {
+    text-align: right;
+    line-height: 1.5;
+  }
+  .body {
+    font-size: 1.08rem;
+    line-height: 1.85;
+  }
+  .body p { margin: 0 0 0.95rem; }
+  .equation {
+    text-align: center;
+    margin: 0.6rem 0 1.2rem;
+    font-size: 1.15rem;
+  }
+  .closing {
+    margin-top: 1.4rem;
+  }
+  .signature {
+    margin-top: 1.2rem;
+    text-align: right;
+    font-family: "Brush Script MT","Lucida Handwriting","Segoe Script",cursive;
+    font-size: 1.6rem;
+  }
+  .footnotes {
+    margin-top: 2rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.95rem;
+    color: #444;
+  }
+  .footnotes p { margin: 0.35rem 0; }
+</style>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <main class="letter">
+    <header class="header">
+      <div class="leftnote">Hs 91: 682</div>
+      <div class="rightblock">
+        <div>Hamburg, den 15.5.1929.</div>
+        <div>Heimhuderstr. 18.</div>
+      </div>
+    </header>
+
+    <section class="body">
+      <p>Sehr geehrter Herr Professor!</p>
+
+      <p>Vielen Dank für Ihren Brief, ich bin über den Sommer in Hamburg, meine Adresse ist Heimhuderstr. 18.</p>
+
+      <p>Ihre Arbeit über das Drehelektron wird mich sehr interessieren, ich nehme an dass sie mir von Scheel zugeschickt werden soll, oder haben Sie anders verfügt?</p>
+
+      <p>Meine Zweifel an der Fernparallel-ismus-losen Behandlung der Dirac-schen Gleichung rühren daher, dass man sie allgemein-relativistisch so schreiben sollte:</p>
+
+      <div class="equation">
+        $$\left(\sum_{\mu}\gamma_{\mu}\!\left(p_{\mu}+\frac{e}{c}\,\phi_{\mu}\right)+m\,c\,i\right)\psi=0,$$
+      </div>
+
+      <p>wo für die \(q_\mu\) die allg. Regeln gelten — so dass nur die Vertauschungsrelationen der \(g_\mu\) und \(p_\mu\) bekannt sind, und die der \(\gamma_\nu\) \(\gamma_\mu\) nicht. Setzt man</p>
+
+      <div class="equation">
+        \( \gamma_\mu\gamma_\nu+\gamma_\nu\gamma_\mu = 2\,g_{\mu\nu} \)
+      </div>
+
+      <p>hingegen im Sinne der Fernparallelen — Theorie \( \gamma_\mu = h_{a\mu}\,\bar\gamma_a \) (\( \bar\gamma_1, \cdots, \bar\gamma_n \) die Konstanten Diracschen Matricen!)- so liefern die \( f_{a\mu} \)</p>— Feldgl. die gewünschten Vert.-Relationen. übrigens ist die neue Einsteinsche Theorie vorläufig recht unklar, da man die Feldgleichungen nicht kennt: im Moment kommt die 4-te Fassung (die die 3 früheren aufhebt) heraus, und es kann noch beliebig viele weitere geben. Glauben Sie daran, dass die Welt wirklich so kompliziert ist? Um so mehr, als noch niemals Elektrodynamik in astronomischen und Gravitation in atomaren Grössenordnungen wahrgenommen würde?</p>
+
+      <p>Das Resultat von Herrn Stoner gefällt mir auch sehr. Ich habe übrigens inzwischen eine Arbeit geschrieben, in der ich u. a. beweise, dass eine beliebige Menge miteinander vertauschbarer hermitischer Operatoren stets als Funktionen eines aufzufassen ist, der seinerseits Funktion *) von ihnen ist. Ferner</p>
+
+      <p>kann ich die Theorie der Normalität und Abzählbarkeit im Unbeschränkten einfach durchführen. Ferner: wenn ich eine Menge von Herm. Op. habe, ob alle Herm. Op. umfaßt, die mit jedem Element von A vert. sind, ob "dasselbe" für all — dann besteht es "genau aus den Funktionen der Elemente von H*)".</p>
+
+      <p>Vor kurzem habe ich mir überlegt, wie der Ergodensatz in der Quantenmechanik ohne "Einordnungsannahmen" benützen ist, "von welchen Annahmen" "beweisen ist", bzw. Welche Annahmen für seine Gültigkeit charakteristisch sind. Es gelingt insbesondere das quantenmechanische Analogon für den Gibbs-schen Phasenraum (den die "Unbestimmtheitsrelationen" geforderten) anzugeben. —</p>
+
+      <p>Ich habe mich für den Sommer nach Hamburg beurlauben lassen, um im Winter nach Berlin zurückzugehen. Nach Schwiers Abgang nach Rostock, hätte ich mit dem Professortitel leichter kommen können, kommt mich aber nicht entschliessen, Berlin unter diesen Umständen endgültig zu verlassen. —</p>
+
+      <p>Hoffentlich werde ich nicht allzulange Zeit Gelegenheit haben Sie wiederzusehen, bis dahin bin ich mit den besten Grüssen, und der Bitte Ihrer Frau Gemahlin meine Handküsse zu übergeben,</p>
+
+      <p class="closing">Ihr sehr ergebener</p>
+
+      <div class="signature">J. v. Neumann,</div>
+
+      <div class="footnotes">
+        <p>*1 Lineares von Polynomen!</p>
+        <p>*) In endlich vielen Dimensionen ist das der Burnside-Frobenius-sche Satz für Hrn. O.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

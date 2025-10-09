@@ -1,0 +1,23 @@
+**Analyzing image splitting needs**
+
+I need to split the image into rectangular chunks that capture the lines of text. There might be multiple faint lines, even reversed text. The envelope includes elements like "LUFTPOST," the name of a professor, and an address from Princeton, New Jersey. The maximum lines per chunk should be around eight, and I should consider the full width of each letter page when possible. It's important that every line is fully contained within a chunk, avoiding overlaps if I can!
+**Defining chunk boundaries**
+
+I should include the whole width of the text when reasonable, aiming for 2-3 chunks. One chunk could cover the faint mirrored text and the translucent show-through lines at the top. However, I need to clarify if those faint lines count as text because they seem visible. I’ll ensure they're included while managing the tricky separation of those lines. I have the dimensions from the metadata, so I know the expected output resolution is 1078 by 768, which I'll use to define bounding boxes. I'll aim for the entire width, adding a bit of a margin as well.
+**Setting boundaries for chunks**
+
+The instruction is clear: when reasonable, include the whole width of each letter page for each chunk. So, I’ll set x1=0 and x2=1077, which is safe since the text is central within the image. For chunk 1, I want to capture the top region above "LUFTPOST," including faint mirror lines and possibly the header line. I’ll estimate chunk 1 from y=0 to around y=175 to ensure those faint lines are included but not "LUFTPOST," which I believe starts around y=215. Understanding the layout helps me place everything accurately!
+**Deciding on chunk divisions**
+
+I’m thinking about how to split the text into three chunks, with chunk 1 covering the faint header lines and “LUFTPOST.” However, I want to keep the number of chunks to a minimum, especially for the header. I could combine the header with the early typed lines, making sure not to exceed eight lines in total. I’ve counted about 10 lines: “LUFTPOST,” “Prof.,” “Institute,” “PRINCETON,” “New Jersey,” and “U.S.A.,” plus a few faint lines. Thus, I’m considering two chunks — one for the top area with the header and another for the remaining lines. It feels safer to go with two or three chunks!
+**Finalizing chunk boundaries**
+
+I’m leaning towards creating three chunks: the top for faint lines and "LUFTPOST," the middle for "Prof." and "Institute," and the lower for "PRINCETON," "New Jersey," and "U.S.A." Each will be under eight lines while ensuring no lines cross chunk borders. 
+
+I’ll set precise y-coordinates: 
+
+- Chunk 1: (0, 0, 1077, 190) for faint lines.
+- Chunk 2: (0, 180, 1077, 335) for "LUFTPOST" and related lines.
+- Chunk 3: (0, 330, 1077, 560) for the lower section.
+
+This approach includes slight overlaps to ensure full containment within the limits. Final resolution is (1078, 768).

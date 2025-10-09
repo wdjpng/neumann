@@ -1,0 +1,12 @@
+**Organizing document chunks**
+
+I'm focusing on splitting the document into rectangular chunks that cover lines of text since there's no math involved here. The goal is to include the whole width of the page when possible, and I need to ensure that every line is fully contained in a chunk. The document includes a top right header, a main body starting with "My dear Von Neumann," and a signature line. I also need to consider those faint reverse impression lines, but they aren't intended text.
+**Assessing faint lines for chunking**
+
+I see that there are faint mirror lines in the document, particularly "PRINCETON" in the middle. I'm pondering whether to include these lines since they're still considered text. Including them could complicate chunking because some lines aren’t perfectly straight, allowing for overlap. However, I think I can create larger chunks that cover everything, like one big chunk from "My dear" to the signature. Following the instruction to span the full width of each letter page will help ensure everything's included. I need between 2 and 10 chunks.
+**Segmenting the document**
+
+I'm planning to segment the document into vertical bands to capture various sections: two lines for the header, 4-5 lines for the salutation and paragraph, two lines for the "Herzliche Grüsse / Ihr," the signature line in parentheses, and any stray lines like "U.S.A." faintly at the bottom left. Since the image dimensions are 1078x768, I’ll determine the coordinates based on that. I noticed a faint pencil note "Hs ?? 6528" near the top; we should definitely include that as well in a narrow chunk.
+**Defining chunk dimensions**
+
+I need to remember to include the whole width of the page when it makes sense, mixing the header on the right with the pencil notes on the top left. I can create a chunk from about 20 to 120 pixels high to cover the header and pencil scribble. There are only a few lines at the top, which should keep it manageable. The second chunk will include the salutation and main paragraph, likely around six lines total, which fits within the guideline of not exceeding eight lines per chunk. Then, I'll consider how to handle the middle faint inverted lines for the third chunk.

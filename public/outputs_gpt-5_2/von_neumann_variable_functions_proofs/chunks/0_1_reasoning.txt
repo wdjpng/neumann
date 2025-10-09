@@ -1,0 +1,3 @@
+**Evaluating line breaks**
+
+I'm thinking about how the last word ends with "auf-" due to a line break hyphen. The instruction is to ignore partially cut-off lines. Even though the bottom line may be partially cut, I'll include the lines that are fully visible until the last word "auf-." It seems the next line is cut off right after the hyphen, so I should focus on what is completely visible. Alright, let's proceed!

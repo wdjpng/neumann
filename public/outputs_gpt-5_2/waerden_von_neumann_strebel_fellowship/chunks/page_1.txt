@@ -1,0 +1,32 @@
+**Planning letter chunking**
+
+I’m figuring out how to split the letter into chunks based on lines and sections. Since this is a typed letter without math, the rule regarding equations doesn't apply here. I want to keep it around eight lines of text per chunk, breaking it down into logical sections. 
+
+I should consider the date, address, salutation, and paragraphs, allowing for overlaps to ensure clarity. It seems reasonable to utilize full width for the chunks to simplify things.
+**Determining pixel coordinates**
+
+I need to get the pixel coordinates for the original image, which has a resolution of 768 in width and 1067 in height. I'll make sure the last line captures this as (768, 1067). 
+
+Next, I have to find bounding boxes for text lines, estimating positions visually. The page takes up most of the image’s area, and I can only include about eight lines per chunk. 
+
+For instance, the date "18th of January 1953" is likely around coordinates x  490-680, y  80-110. It might be reasonable to create a chunk that spans the full width of the page.
+**Establishing header chunk boundaries**
+
+I’m considering how to handle the "6525" scribble at the top left. Since it's text, I should include it in the chunk. So for chunk 1, I’ll combine both the scribble and the date, creating two lines. 
+
+I want to set the bounding box to span the full width of the page, potentially x from 40 to 730. My y range will focus on only those lines, so I’ll set y1 around 10 and y2 around 140 to exclude address lines below. The height estimate of 140 keeps it concise while capturing the relevant header elements.
+**Defining chunk coordinates**
+
+I’m deciding on the x coordinates for the chunks. I think starting at x1 around 40 is reasonable since that’s where the page border begins, but the scribble is likely closer to x  80. So, to be safe, I’ll set x1 to 0 to capture the scribble fully outside the page, even though the image has margin areas.
+
+The instructions say to include the whole width of each letter page, so for chunk 1, I’ll use coordinates (0, 0, 768, 160) to capture both the scribble and date lines. For chunk 2, I’ll focus on the address block.
+**Chunking letter segments**
+
+The address includes five lines, with "Princeton" spaced and underlined, located left of center on the right side. It's simpler to include this across the full width horizontally, setting y coordinates around 180 to 320, specifically from (0, 150, 768, 330).
+
+For the salutation and first paragraph—counting ten lines—I'll split it into two chunks, capturing the salutation and first six lines in chunk 3 (y  330 to 560) and the remaining lines in chunk 4 (y  560 to 680). Then I'll handle the list of publications, estimating two chunks for those, ensuring all lines are contained appropriately within the specified bounds. I'll keep overlaps minimal to avoid unnecessary splitting.
+**Defining chunk boundaries**
+
+I’m figuring out the chunk boundaries and thinking overlap is okay if it helps fully contain any line of text. They suggest we can have overlaps, so I’ll proceed to create about eight horizontal stripes across the page to ensure we fit in 5-8 lines per chunk.
+
+I’ll set up the y coordinates to maximize coverage while avoiding splits. The seven chunks I’ll create will range from (0, 0, 768, 180) for the first to (0, 980, 768, 1067) for the last, allowing for overlaps of 20-40 pixels to keep lines intact. This way, I’m ensuring each line is contained within the specified structure.

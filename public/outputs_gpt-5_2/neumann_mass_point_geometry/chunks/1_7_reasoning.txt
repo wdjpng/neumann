@@ -1,0 +1,9 @@
+**Transcribing German cursive**
+
+I'm looking to transcribe handwritten German cursive. The snippet starts with "verschwindet die Wirkung des Massenpunktes" – I wonder about the spelling, possibly "Massenpunktes." The next part says "selbst in unendlichen, außerhalb der...". There's a strike-through on "ausblöse," and I think maybe it should be "auslösen" or something like "sphäre." The last word could possibly be "Achse," but I should double-check the context since it might relate to Einstein's wording. The phrase "in unendlich fernen" feels familiar too.
+**Transcribing uncertain text**
+
+I'm trying to decipher the text, focusing on "außerhalb der" and considering if the next word might be "Achse." It seems longer, and I'm thinking about possible alternatives like "Umgebung" or "Oberfläche." The letters after "der" suggest there's a scribble and they crossed something out, which makes it tricky. I’ll aim for a best-effort transcription without fabricating. The instructions allow for square brackets for illegible parts. Maybe I'll use [unleserlich] for clarity instead. I'll also produce HTML replicating the line breaks.
+**Preparing transcription output**
+
+I’m focused on transcribing all text while keeping the formatting intact. I need to represent uncertain letters with something like "[?]" for clarity. For the confident parts, I’ll transcribe: "verschwindet die Wirkung des Massenpunktes" and "selbst in unendlich fernen, außerhalb der [...]". Since there is a strike-through, I’ll apply that styling in the HTML output. I think I’ll use a placeholder like [unleserlich] instead of making assumptions about unsure words. A simple CSS addition will make it visually appealing. Let’s finalize this!

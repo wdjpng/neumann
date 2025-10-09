@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Brief-Transkription</title>
+<style>
+  body { margin: 0; padding: 2rem; background:#efefef; }
+  .page {
+    margin: 0 auto;
+    max-width: 960px;
+    background: #f6f0dd;
+    color:#374151;
+    padding: 2rem 2.2rem;
+    border: 8px solid #111;
+    box-shadow: 0 3px 18px rgba(0,0,0,.25) inset;
+    line-height: 1.6;
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 1.25rem;
+  }
+  .lines .line { white-space: pre; }
+  .underline { border: none; border-top: 3px solid #9aa0a6; margin: .9rem 0 .6rem; width: 35%; }
+  .footnote { font-size: .95rem; color:#4b5563; }
+  .footnote .star { font-weight: bold; margin-right:.3rem; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="lines">
+    <div class="line">einem Prof. F. D. Murnaghan aus</div>
+    <div class="line">Baltimore verhandelt, der "Europäer"</div>
+    <div class="line">nach Johns Hopkins importieren</div>
+    <div class="line">wollte, d. h. er hat mir einen</div>
+    <div class="line">Antrag auf eine "associate" Stelle mit</div>
+    <div class="line">3000 $ im Jahr gemacht, vorläufig</div>
+  </div>
+
+  <hr class="underline">
+
+  <div class="footnote"><span class="star">*)</span>Ich meine: Unendlich kleine Ruhemasse</div>
+  <div class="footnote">des Punktelektrons, Ladungswechsel, <span>\(\beta\)</span>-Emissionen!</div>
+</div>
+
+<!-- MathJax for inline math like β -->
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']] } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>

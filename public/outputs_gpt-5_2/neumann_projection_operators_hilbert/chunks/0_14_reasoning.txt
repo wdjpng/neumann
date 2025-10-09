@@ -1,0 +1,3 @@
+**Transcribing handwritten text**
+
+I need to transcribe a small handwritten German line that says, "Ferner folgt aus ∫∫ a(α,β) S(α,β) dα dβ = 0." The handwriting is clear, and it seems likely I should focus on the double integrals. The opening phrase is standard German, meaning "Furthermore, it follows from." I’ll create HTML with MathJax for this, keeping the formatting simple and centered.  I want to maintain the cursive look using a specific font style and include inline math formatting.

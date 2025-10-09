@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Vereinte Brief-Transkription</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --paper:#fff;
+    --page-shadow:0 8px 28px rgba(0,0,0,.12);
+    --edge:#e6e3de;
+    --ink:#1e1e1e;m
+  }
+
+  /* background to mimic the scan */
+  body{
+    margin:0;
+    background:
+      radial-gradient(1500px 600px at 50% -200px, #f2f0ec 40%, #e9e6e1 70%, #dedbd6 100%) fixed;
+    font-family: "Times New Roman", Georgia, serif;
+    color: var(--ink);
+  }
+
+  .sheet{
+    width: 980px;
+    margin: 38px auto;
+    background: var(--paper);
+    box-shadow: var(--page-shadow);
+    border: 1px solid var(--edge);
+    position: relative;
+    padding: 70px 72px 110px;
+  }
+
+  /* letterhead like on the first page */
+  .letterhead{
+    text-align:center;
+    line-height:1.35;
+    margin-top: 8px;
+    margin-bottom: 34px;
+  }
+  .letterhead .inst{
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:.02em;
+  }
+  .letterhead .loc{
+    font-weight:700;
+    font-size:16px;
+    margin-top:4px;
+    letter-spacing:.02em;
+  }
+  .letterhead .date{
+    margin-top: 18px;
+    font-size: 22px;
+    font-family: "Segoe Script","Lucida Handwriting","Brush Script MT",cursive;
+  }
+
+  /* main handwriting style */
+  .hand{
+    font-family: "Segoe Script","Lucida Handwriting","Bradley Hand","Brush Script MT",cursive;
+    font-size: 22px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  .salutation{ margin-bottom: .8rem; }
+
+  /* folio marks seen on the scan */
+  .folio-left{
+    position:absolute; left: 18px; top: 14px;
+    font-family: "Segoe Script","Lucida Handwriting","Brush Script MT",cursive;
+    font-size: 20px; opacity:.9;
+  }
+  .folio-right{
+    position:absolute; right: 18px; top: 14px;
+    font-family: "Segoe Script","Lucida Handwriting","Brush Script MT",cursive;
+    font-size: 20px; opacity:.9;
+  }
+
+  /* vertical archive note on page 2 */
+  .margin-note{
+    position:absolute;
+    right: -6px; bottom: 42px;
+    transform: rotate(90deg);
+    transform-origin: bottom right;
+    font-family: "Segoe Script","Lucida Handwriting","Brush Script MT",cursive;
+    font-size:16px; color:#444;
+    text-align:right;
+  }
+  .margin-note span{ display:block; }
+
+  /* spacing between paragraphs (keeps the handwritten look) */
+  .gap{ height: .6rem; }
+</style>
+</head>
+<body>
+
+  <!-- Page 1 -->
+  <section class="sheet">
+    <header class="letterhead">
+      <div class="inst">THE INSTITUTE FOR ADVANCED STUDY</div>
+      <div class="loc">PRINCETON, NEW JERSEY</div>
+      <div class="date">Dec. 5.</div>
+    </header>
+
+    <div class="hand">
+      <div class="salutation">Lieber Herr Alexandroff,</div>
+vielen Dank für die
+liebenswürdige Aufforderung,
+meine Moskauer Vorträge Ihnen in
+excerpto zuzuschicken. Es trifft
+sich, dass ich über meinen
+Kongressvortrag bereits im Mai 1935
+ein Manuskript aufgeschrieben
+hatte, das ich mit dem Titel
+"The unity of Haar's Measure"
+in den "Annals of Mathematics"
+publizieren wollte. Seine Länge ist
+das von Ihnen angegebene
+Maximum: ca. 15 normale
+Druckseiten.
+Ich möchte daher Ihnen
+vorschlagen, dass ich Ihnen diese
+Arbeit zunächst — je nach dem
+wie Sie es für nützlich finden,
+zur Publikation als "Kongressvortrag",
+oder im "Recueil Mathématique".
+
+Wenn es Ihnen passt, was ich
+hoffe, kann ich die Ihnen sofort
+zugehn lassen.
+    </div>
+  </section>
+
+  <!-- Page 2 -->
+  <section class="sheet">
+    <div class="folio-right">3./</div>
+    <header class="letterhead">
+      <div class="inst">THE INSTITUTE FOR ADVANCED STUDY</div>
+      <div class="loc">PRINCETON, NEW JERSEY</div>
+    </header>
+
+    <div class="hand">
+Mit meinem Vortrag in der
+Moskauer Mathematischen Gesellschaft
+ist es etwas schwieriger, da ich
+über diesen Gegenstand eine
+längere Arbeit schreiben sollte,
+aber er vermutlich noch
+einige Zeit dauern wird ehe
+es dazu kommt.
+
+NB. habe ich, als ich in Moskau
+war, einer liebenswürdigen
+Aufforderung von Herrn Bermant
+Folge leistend, eine Arbeit über
+"Maßtheorie in Funktionalräumen"
+für den "Recueil Mathématique"
+versprochen, die in 1-2 Wochen
+fertig sein wird. —
+
+Ich hoffe, dass Sie sich
+von den Mühen des Kongresses
+— er war ja für Sie gewiss
+ebenso "mühevoll", als er für
+uns genussreich war — bereits
+gut erholt haben. Wir alle
+denken mit dem größten
+Vergnügen an die entrückenden
+
+Mit den besten Grüssen
+bin ich Ihr ergebener
+
+J. v. Neumann.
+    </div>
+
+    <div class="margin-note">
+      <span>Hs 160:</span>
+      <span>164</span>
+    </div>
+  </section>
+
+</body>
+</html>

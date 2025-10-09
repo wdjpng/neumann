@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Transkription</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body{font-family: "Times New Roman", Georgia, serif; line-height:1.35; color:#222; background:#f7f7f5; padding:24px;}
+  .note{font-style:italic; font-size:1.2rem; margin-bottom:18px;}
+  .eqs{display:grid; grid-template-columns:auto 1fr auto; gap:8px 18px; align-items:center;}
+  .eq{font-size:1.15rem;}
+  .brace{align-self:stretch; display:flex; align-items:center;}
+  .brace .mjx-mrow{font-size:1.05rem;}
+</style>
+</head>
+<body>
+  <div class="note">wobei f, g, h folgendermaßen definiert sind:</div>
+
+  <div class="eqs">
+    <div class="eq">\(f(x)=r_1^{2}\)</div>
+ <div class="eq"></div>
+    <div class="brace" rowspan="3">
+      \[
+      \left\{
+      \begin{aligned}
+      Q(x) &= \left(x-\dfrac{\gamma_0}{\gamma_1}\right)\\[4pt]
+      &\cdot\left(x-\dfrac{r_0}{r_1}\right) = \\[4pt]
+      &= x^{2}+x-\dfrac{2m}{r_1^{3}}
+      \end{aligned}
+      \right.
+      \]
+    </div>
+
+    <div class="eq">\(g(x)=\dfrac{1}{\,Q(x)\, x\, (1-x)} -\dfrac{4\,Q(x)}{Q(1)^{2}\, x\, (x+1)^{2}\, (1-x)} - \dfrac{r_1^{2}}{x^{2}}\)</div>
+    <div class="eq">
+      \(\)
+    </div>
+
+    <div class="eq">\(h(x)=\dfrac{4\,Q(x)}{Q(1)^{2}\, x\, (x+1)} \)</div>
+  
+    <div></div>
+  </div>
+</body>
+</html>

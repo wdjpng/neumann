@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brief – Transkription (vereinigt)</title>
+
+<!-- MathJax -->
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]'], ['$$','$$']] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+  /* Page look inspired by the first scanned page */
+  body {
+    margin: 0;
+    background: #faf9f7;
+    color: #2b2b2b;
+    font-family: "Georgia", "Times New Roman", serif;
+  }
+  .page {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #ffffff;
+    border: 1px solid #e5e2dc;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    padding: 2.5rem 3rem;
+    line-height: 1.75;
+    font-size: 1.1rem;
+  }
+  header {
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom: 1.8rem;
+  }
+  .inv-no { color:#667; font-style:italic; }
+  .np { color:#a45100; font-weight:600; }
+  .place-date { text-align:right; font-style:italic; white-space:pre; }
+  .body { white-space: pre-wrap; }
+  .equation { margin: .8rem 0 .4rem; text-align: center; }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+    margin: .5rem 0 1rem;
+  }
+  .rule {
+    height: 1px;
+    background: #e8e4dd;
+    margin: 1.5rem 0;
+  }
+  .signature {
+    font-family: "Brush Script MT", "Lucida Handwriting", cursive;
+    font-size: 2.2rem;
+    color: #444;
+    margin-top: .2rem;
+  }
+  .ps-label {
+    font-size: 1.35rem;
+    letter-spacing: .04em;
+    margin: .2rem 0 0.6rem;
+  }
+</style>
+</head>
+<body>
+
+  <div class="page">
+    <header>
+      <div>
+        <div class="inv-no">Hs. 91: 676</div>
+        <div class="np">N. P.</div>
+      </div>
+      <div class="place-date">Budapest, den 1. III. 1925.</div>
+    </header>
+
+    <div class="body">
+Sehr geehrter Herr Professor!
+
+Während meiner Reise und nach mei-
+ner Ankunft in Budapest ist es mir gelun-
+gen die in Lenzerheide berührte Frage von
+der Wirkung eines Massenpunktes auf die
+de Sitter’sche Hyperbelwelt zu erledigen.
+
+Das Resultat ist das folgende:
+Darstellen ist der Raum der r, θ, φ, t mit dem
+Streckenelement
+    </div>
+
+    <div class="equation">
+      \[
+        ds^{2}
+        = -\left(1-\frac{2m}{r}-r^{2}\right)^{-1} \, dr^{2}
+          - r^{2}\, d\theta^{2}
+          - r^{2}\sin^{2}(\theta)\, d\varphi^{2}
+          + \left(1-\frac{2m}{r}-r^{2}\right)\, dt^{2}.
+      \]
+    </div>
+
+    <div class="body">
+Wenn \(0 < m < \frac{1}{3\sqrt{3}}\) ist so hat \(\,1-\frac{2m}{r}-r^{2}\,\) 1 nega-
+tiv und 2 positive Wurzeln \(r_{-1}, r_{0}, r_{1}\). Für \(r_{0} < r < r_{1}\)
+ist dann diese Lösung brauchbar.
+
+Mit der Transformation
+    </div>
+
+    <div class="grid-2">
+      <div>
+        \( x_{1} = \dfrac{r}{r_{1}} \cos(\theta) \)<br>
+        \( x_{2} = \dfrac{r}{r_{1}} \sin(\theta)\cos(\varphi) \)<br>
+        \( x_{3} = \dfrac{r}{r_{1}} \sin(\theta)\sin(\varphi) \)
+      </div>
+      <div>
+        \( x_{4} = \sqrt{\,1-\dfrac{r^{2}}{r_{1}^{2}}\,}\;\mathrm{Ch}\!\big((r_{1}-\dfrac{m}{r_{1}^{2}})\,t\big) \)<br>
+        \( x_{5} = \sqrt{\,1-\dfrac{r^{2}}{r_{1}^{2}}\,}\;\mathrm{Sh}\!\big((r_{1}-\dfrac{m}{r_{1}^{2}})\,t\big) \)
+      </div>
+    </div>
+
+    <div class="body">
+wird dieser Raum \(r, \theta, \varphi, t\) auf den Raum des
+\(x_1, x_2, x_3, x_4, x_5\)  mit
+    </div>
+    <div class="equation">\(x_1^{2}+x_2^{2}+x_3^{2}+x_4^{2}-x_5^{2}=1\)</div>
+
+    <div class="body">
+(das De Sittersche Hyperboloid) abgebildet, d. h. auf einem
+Teil mit \(x_1^{2} + x_2^{2} + x_3^{2} < 1\). und das Streckenelement
+wird
+    </div>
+
+    <div class="equation">
+      $$\begin{aligned}
+      ds^2 \;=\;& -\,f\!\left(\sqrt{x_1^{2}+x_2^{2}+x_3^{2}}\right)\,\left(dx_1^{2}+dx_2^{2}+dx_3^{2}\right)\;-\;\\[2pt]
+      & g\!\left(\sqrt{x_1^{2}+x_2^{2}+x_3^{2}}\right)\,\bigl(x_1\,dx_1+x_2\,dx_2+x_3\,dx_3\bigr)^{2}\;-\;\\[2pt]
+      & h\!\left(\sqrt{x_1^{2}+x_2^{2}+x_3^{2}}\right)\,\left(dx_4^{2}-dx_5^{2}\right)
+      \end{aligned}$$
+    </div>
+
+    <div class="body">
+wobei f, g, h folgendermaßen definiert sind:
+    </div>
+
+    <div class="equation">\(f(x)=r_1^{2}\)</div>
+    <div class="equation">
+      \[
+      \left\{
+      \begin{aligned}
+      Q(x) &= \left(x-\dfrac{\gamma_0}{\gamma_1}\right)\\[4pt]
+      &\cdot\left(x-\dfrac{r_0}{r_1}\right) = \\[4pt]
+      &= x^{2}+x-\dfrac{2m}{r_1^{3}}
+      \end{aligned}
+      \right.
+      \]
+    </div>
+    <div class="equation">
+      \(g(x)=\dfrac{1}{\,Q(x)\, x\, (1-x)} -\dfrac{4\,Q(x)}{Q(1)^{2}\, x\, (x+1)^{2}\, (1-x)} - \dfrac{r_1^{2}}{x^{2}}\)
+    </div>
+    <div class="equation">
+      \(h(x)=\dfrac{4\,Q(x)}{Q(1)^{2}\, x\, (x+1)} \)
+    </div>
+
+    <div class="body">
+Daß sich für \(x > \frac{r_0}{r_1}\) endlich und positiv sind, ist ohne weiteres klar, für \(g(x)\) folgt dies aus der Dar.
+stellung
+    </div>
+
+    <div class="equation">
+      \[
+        g(x)=\frac{1}{x^{2}}\;\frac{x\,\varphi(x)-\varphi(1)}{x-1},\qquad
+       \varphi(x)=\frac{Q(x)}{(x+1)^{2}}-\frac{1}{Q(x)}-r_{1}^{2}.
+      \]
+    </div>
+
+    <div class="body">
+Also ist diese Hyperbelwelt für \(x > \frac{r_0}{r_1}\), d. h. außerhalb
+einer Umgebung des Massenpunktes
+und <u>seiner Antipode</u> regulär.
+
+Da für \(x \to \infty\)  \(f(x) \to r^2,\; g(x) \to 0,\; h(x) \to \dfrac{4}{Q^2(1)} = \dfrac{1}{\left(1-\dfrac{m}{r_1^3}\right)^2}\)
+verschwindet die Wirkung des Massenpunktes
+selbst in unendlich fernen, außerhalb der
+Vergangenheit oder der Zukunft liegenden
+Weltgebieten nicht; die Welt ist dort räumlich
+im Verhältnisse \( r_1 : 1 \) verkleinert, zeitlich
+im Verhältnisse \( \dfrac{1}{\,t - \dfrac{m}{r^{3}_1}\,} : 1 \) beschleunigt.
+Die Discussion dieser Lösung ist auch sonst ganz
+einfach. — 
+Ich habe noch die angenehme Pflicht
+
+[illegible in original] Professor und ihrer w. Familie meinen
+Danke für die angenehmen Tage auszusprechen,
+die ich in ihrem Kreise in Lenzerheide
+verbrachte. Indem ich Herrn Professor bitte
+Ihrer Frau Gemahlin meinen Handkuß
+übergeben zu wollen
+verbleibe ich hochachtungsvoll
+
+Ihr ganz ergebener
+    </div>
+
+    <div class="signature">Hans v. Neumann.</div>
+
+    <div class="rule"></div>
+
+    <div class="ps-label">P. S.</div>
+    <div class="body">
+Ich weiß nicht wie die Symmetrie der Antipoden zu deuten ist.
+Die radikalste Lösung wäre stets zwei Antipoden \(x_1, x_2, x_3, x_4, x_5\) und \(-x_1, -x_2, -x_3, -x_4, -x_5\) zu identifizieren. Diese Operation (deren teilweises Analo-
+gon ja in der Einsten'schen Zylinderwelt
+auch betrachtet wird) hätte aber die Wirkung
+daß man keine eindeutige Zeitrichtung Vergan-
+genheit → Zukunft (für alle Weltlinien)
+festlegen könnte.
+
+Diese Richtung müßte vielmehr für die Weltlinie
+jedes Atoms eindeutig definiert werden. Um mit
+der Kausalität in Einklang zu bleiben müssen
+erklären: Signale \(A \to B\) (unterlichtgeschwindig-
+keit) sind nur möglich wenn A in B-s Vergangen-
+heit und B in A-s Zukunft liegt. Zwischen Welt-
+linien mit entgegengesetzten Zeitrichtungen
+gibt es also keine Signale.
+Für jede Weltlinie umfaßt sowohl Vergangen-
+heit wie Zukunft die ganze Hyperbelwelt, der-
+art daß von jeder anderen Weltlinie ein Teil
+gleichgerichtete, der andere aber entgegengesetz-
+te Zeitrichtung hat. Also werden entfernte
+Himmelsobjekte auch hier zunächst sichtbar
+sein, sich immer schneller entfernen und
+immer stärkere Zeitverlangsamung zeigen,
+und nie über einen gewissen Zeitpunkt hinaus
+verfolgbar sein. Auf dem Sterne geschieht natür-
+lich nichts, der Beobachter wird sehen
+daß zunächst Stehenbleiben, sodann Umkehr
+der Zeit erfolge.
+
+Hochachtungsvoll   H.v. Neumann.
+    </div>
+
+  </div>
+</body>
+</html>

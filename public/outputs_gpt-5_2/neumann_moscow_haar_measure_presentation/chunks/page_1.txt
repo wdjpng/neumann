@@ -1,0 +1,13 @@
+**Defining chunk coordinates**
+
+I need to output the chunk coordinates for a two-page scan of a handwritten German letter. Since mathematics isn't involved here, I’ll divide each page into about 2-3 chunks, ensuring none exceed roughly 8 lines. For the left page, I can create 3 chunks: the header area, upper text lines, and remaining lower text lines. Likewise, the right page will mirror this structure. I need to include the entire width of each page in the chunking.
+**Outlining page chunks**
+
+I need to set chunk coordinates for the right page, from 542 to 1082, while making sure not to crop any slanted lines near the edges. A small overlap across the center will help. For the left page, I'll identify the header, date, salutation, and body lines. 
+
+For chunking: chunk 1 will contain the header, date, and possibly the salutation, covering about 3-4 lines, so I’ll set that from y 0 to 240. Chunk 2 will focus on body lines from y 230 to 460, while chunk 3 will go from y 440 to 720.
+**Calculating chunk coordinates**
+
+I’m setting up the chunk coordinates for both pages. For the left side, I'll define the y-ranges: top chunk at y 0-220, middle body lines at y 200-500, and bottom lines at y 480-760. 
+
+For the left chunks, I'll specify coordinates: chunk 1 at (0, 0, 550, 240), chunk 2 at (0, 230, 550, 460), and chunk 3 at (0, 440, 768). For the right chunks, I’ll use x1 532 to include overlap, with coordinates: chunk 1 at (532, 0, 1082, 240), chunk 2 at (532, 230, 1082, 500), and chunk 3 at (532, 480, 1082, 768).

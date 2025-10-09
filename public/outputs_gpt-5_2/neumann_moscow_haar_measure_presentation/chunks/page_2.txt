@@ -1,0 +1,11 @@
+**Processing handwritten text**
+
+I need to split the handwritten text into chunks on the right half of the page. Since there are no math expressions, I can cover groups of up to 8 lines per chunk. It's sensible to include the full width of the page, ensuring all lines are fully contained and possibly overlapping slightly for safety. The resolution of the image is confirmed at 768x1079, so I'll use that as I create the bounding boxes accordingly.
+**Creating text chunks**
+
+I plan to create three chunks covering the handwritten text area, possibly segmenting vertically into bands. Each chunk will include up to 8 lines. Starting around y 90, I see about 16-18 lines total. 
+
+So, I can estimate breakpoints as follows: the top chunk will include the page number and around 6-7 lines, the middle chunk will contain another 6-7 lines, and the bottom chunk will capture the remaining lines, ensuring slight overlaps. I'll set approximate coordinates for each chunk based on the image height of 768 pixels, using the full width of the page.
+**Finalizing text output settings**
+
+I have the dimensions set at 1078 for width and 767 for height, but I need to ensure I only include the area containing text. The header does suggest including the full width when it's reasonable. So, I’ll output three lines plus the resolution line, making sure every line is fully contained. To be safe, I’ll allow for overlaps of about 30 pixels between the chunks. I think this approach will work well!

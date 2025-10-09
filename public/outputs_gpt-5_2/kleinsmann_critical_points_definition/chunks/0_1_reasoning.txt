@@ -1,0 +1,5 @@
+**Crafting CSS Styles**
+
+I’m setting up some CSS styles. I plan to use a body background color of #e6d8c3. For the .paper class, I’m considering a width of about 1200 px, centered with auto margins, and a repeating linear gradient to mimic manuscript lines, maybe with a subtle texture.
+
+I’ll use a font stack starting with Georgia, falling back to 'Times New Roman', and then a generic cursive font. I should also consider adding letter spacing. I’ll finalize and include inline math rendering with MathJax.

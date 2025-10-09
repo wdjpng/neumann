@@ -1,0 +1,29 @@
+**Planning image segmentation for OCR**
+
+I need to split the image of a handwritten German letter into rectangular chunks for OCR. There might be some mathematical symbols like "P," "t," and "φ," but no full formulas. Since the letter has continuous text lines, I can chunk it into blocks containing up to 8 lines. I need to ensure the entire width of the letter page is included in each chunk when reasonable, and I’ll output the coordinates as bounding rectangles while allowing for some overlap.
+**Chunking the image for OCR**
+
+I'm working with a full page that has wide margins, so I'll use chunks that span the entire width to be safe. The image resolution is 945x768, which is critical to keep in mind while counting lines. The page width is 768 pixels and height is 945 pixels. My goal is to provide 2-10 chunks, ideally around 5. I'll account for header lines and paragraphs, aiming for chunks with up to 8 lines each. The letter starts with some headings and a salutation, which I need to keep in mind.
+**Defining chunk boundaries**
+
+The page contains about 20-24 lines of text, and I'm planning to split it into 5 chunks with around 4-6 lines each. I need to account for the full width of the page, setting x1 to 0 and x2 to 768, while ensuring that every line is fully contained, even if some are slanted. I'll add an overlap of 10-20 pixels between chunks to capture any lines that cross boundaries. I’ll also consider the three-hole punch on the left and approximate the vertical positions for the lines with the image height being 945 pixels.
+**Mapping chunk positions**
+
+I’m assessing the top margin, which has handwritten text around y = 25-70. The salutation lines seem to start near y = 140. The header text, "Princeton, den 11. Dec. 1933," is around y = 40-60, and "Sehr geehrter Herr Professor!" starts around y = 140. I may not need exact measurements, but I must ensure each line is fully included within the chunks. 
+
+I plan for overlapping chunks, suggesting segment heights of 0-180, 150-320, 300-500, 480-700, and 680-945 with overlaps of 30-40 pixels, proposing 6 chunks, each about 170 pixels in height to cover the full 945 pixels.
+**Finalizing chunk coordinates**
+
+I need to ensure the chunking contains the header and text lines without exceeding the specified limits. I’ve settled on creating 7 chunks, with careful overlaps to capture all lines fully. The overlaps should be adjusted to around 30 pixels for safety. Each chunk will be:
+
+(0, 0, 768, 180)  
+(0, 150, 768, 320)  
+(0, 300, 768, 470)  
+(0, 450, 768, 620)  
+(0, 600, 768, 770)  
+(0, 740, 768, 880)  
+(0, 860, 768, 945)  
+
+And the resolution line will be:
+
+(768, 945)

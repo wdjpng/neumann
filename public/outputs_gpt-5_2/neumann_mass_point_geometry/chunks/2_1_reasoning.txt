@@ -1,0 +1,3 @@
+**Considering output format**
+
+The request involves using MathJax for mathematical expressions, but it looks like I'm not able to do that this time. So, I'll just go ahead and output everything in HTML format instead. It seems straightforward, but I want to ensure it’s what the user expects. I’ll keep it simple and clear while providing any necessary information in HTML, which should still work well for the user's needs. Let’s move forward!

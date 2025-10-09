@@ -1,0 +1,8 @@
+**Formatting mathematical expressions**
+
+I'm looking to format a mathematical expression for visual appeal. To start, I’ll clarify the equation: \( A = \iint e^{-\tfrac{1}{4}\alpha^2 - \tfrac{1}{4}\beta^2} \, S\, l\, \alpha(\beta) \, d\alpha\, d\beta \). It could also be presented as "S l α(β)." 
+
+The user wants a handwritten-style font and is asking to keep the formatting neat. I'll use MathJax to render the expressions correctly in HTML, ensuring it looks pretty!
+**Including MathJax and CSS**
+
+I'm ensuring the formatting is correct and need to ignore any partially cut lines, like the one before "Nun." It seems fine to proceed without it. I’ll add minimal CSS to enhance the look and include the MathJax configuration script tag since the instructions specify its use. However, I must keep in mind that some environments might not allow for external loading of scripts. So, I'll focus on outputting only the HTML effectively!

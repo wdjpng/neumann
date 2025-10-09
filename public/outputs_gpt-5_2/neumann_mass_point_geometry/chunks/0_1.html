@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Briefauszug – Transkription</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+  body { margin: 0; background:#faf8f3; }
+  .page {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2.5rem 2rem;
+    background: #fffef8;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    border: 1px solid #eee7d8;
+    line-height: 1.6;
+    color: #2b2b2b;
+    font-family: "EB Garamond", Georgia, "Times New Roman", serif;
+    font-size: 1.15rem;
+  }
+  .line { display:block; margin: .35rem 0; }
+  .equation { margin: .8rem 0 .2rem 0; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <span class="line">Das Resultat ist das folgende:</span>
+    <span class="line">Darstellen ist der Raum der r, θ, φ, t mit dem</span>
+    <span class="line">Streckenelement</span>
+
+    <div class="equation">
+      \[
+        ds^{2}
+        = -\left(1-\frac{2m}{r}-r^{2}\right)^{-1} \, dr^{2}
+          - r^{2}\, d\theta^{2}
+          - r^{2}\sin^{2}(\theta)\, d\varphi^{2}
+      \]
+      \[
+        \qquad + \left(1-\frac{2m}{r}-r^{2}\right)\, dt^{2}.
+      \]
+    </div>
+  </div>
+</body>
+</html>

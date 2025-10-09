@@ -1,0 +1,41 @@
+**Chunking handwritten text**
+
+I need to split the handwritten letter into rectangular chunks. The text is in German and consists of lines rather than equations. I have to divide it into 2-10 rectangles, ensuring each chunk has no more than eight lines of text, ideally with only 3-4 lines of equations in mind — but there aren't any equations here!
+
+Let’s ensure each chunk captures the full width of the letter page. Counting carefully, I see there are about 16 lines of text to work with.
+**Estimating text lines on the page**
+
+Let's analyze the page size of 768x957. Given the fold creases, the text area starts around y=95 and goes down to about y=720. 
+
+First, I see approximately 5 lines in the top paragraph, starting with "Bei jedem weiteren Schritt...". It could also be 4 lines, but it's tough to determine accurately. 
+
+Then, there's a heading "E." followed by another section which has around 3-4 lines. 
+
+I recognize a significant paragraph beginning with "Ich glaube, dass damit..." that spans about 9 lines, and finally, the closing lines add about 3 more. To keep under 8 lines per chunk, we can proceed with chunking the sections accordingly.
+**Chunking the content carefully**
+
+For Chunk 2, I'm including the "E." section with about 3 lines, which is fine. Then for Chunk 3, the first half of the larger paragraph could have around 6 lines, so that works too. Chunk 4 will have the second half of the large paragraph, plus the closing lines, probably also around 6 lines — but I must ensure not to exceed 8 lines per chunk.
+
+As for the width of the letter, it occupies almost the full image width. I should use x coordinates that cover the whole width from 24 to 741, while making sure each line is fully contained. I'll allow for overlaps to capture any slanted lines and maintain visual continuity across chunk boundaries.
+**Setting chunk boundaries**
+
+To ensure complete coverage, I'll use vertical margins of about 10-20 px, providing integer coordinates. I need to make sure we don't split any single line across chunk boundaries, so the boundaries should fall in blank spaces between lines.
+
+I'll estimate the y ranges for the chunks based on the total height of 957 px. The top blank space goes until around y=70. For Chunk 1, I'll start at y=60 and go to y=250.
+
+For Chunk 2, I can set it from y=235 to 380, including the "E." section. For Chunk 3, I'll use y1=360 to y2=650 for the large paragraph, then for Chunk 4, I’ll cover y1=635 to y2=880 to include the signature.
+**Finalizing chunk coordinates**
+
+I think the bottom of the page is around y=920, so I will set y2=940 to be safe. The signature "J.v. Neumann" appears between y=800-860, meaning Chunk 4 can extend to 930.
+
+Each chunk should span the full width of the letter page, so I'll set x1=0 and x2=767. I need to ensure that no chunk contains more than eight lines of text.
+
+I’ll refine the y boundaries: Chunk 1 from y=60 to 255, Chunk 2 from 235 to 365, Chunk 3 from 350 to 655, and Chunk 4 from 640 to 940.
+
+Overall, I'll pick the coordinates:
+
+(0, 50, 767, 255)  
+(0, 235, 767, 365)  
+(0, 350, 767, 655)  
+(0, 640, 767, 945)  
+(768, 957)

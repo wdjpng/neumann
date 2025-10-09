@@ -1,0 +1,6 @@
+**Considering double integrals**
+
+I notice the integral setup I’m looking at has "+∞" at the top and "-∞" at the bottom. Typically, I'd expect a double integral with those limits to be formatted as A = ∫_{-∞}^{+∞} ∫_{-∞}^{+∞} a(α,β) S(α,β) dα dβ. The image seems to imply a single pair of limits. I'll create a minimal HTML skeleton featuring MathJax to handle the rendering and style it simply—mimicking a handwritten font while ensuring clarity and maintaining formatting.
+**Creating HTML structure**
+
+I'm preparing to create an HTML structure that includes the MathJax script in the head section. In the body, I'll have a div where I'll separate lines of text with <br>. The first line reads: "In der Tat, sind betrachtete Operatoren." Then, I’ll add the math line with a centered formula: A = ∬_{-\infty}^{+\infty} a(\alpha,\beta) S(\alpha,\beta)\, d\alpha\, d\beta. Let's put this together and ensure it’s properly formatted!

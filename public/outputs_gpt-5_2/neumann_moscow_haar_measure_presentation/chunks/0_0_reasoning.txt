@@ -1,0 +1,3 @@
+**Formatting HTML for organization**
+
+I should stylize the text with centered alignment and letter spacing. I’ll make "THE INSTITUTE FOR ADVANCED STUDY" bold, "PRINCETON, NEW JERSEY" in small caps, and use a cursive font for "Dec. 5." with italic script and an underline. The focus is on the organization, so I won't include any identities. I'll create a minimal HTML body with a centered block containing just the header and the date. Let's get to work on that!

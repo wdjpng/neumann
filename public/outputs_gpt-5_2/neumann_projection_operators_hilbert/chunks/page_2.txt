@@ -1,0 +1,27 @@
+**Detecting layout boundaries**
+
+I need to detect the layout of a handwritten page that includes equations and text. My goal is to output bounding boxes while including the full width of each letter. I'll be working with up to 10 chunks, ensuring I don't exceed 3-4 lines of equations per chunk, with overlaps allowed. The image resolution is 967x768, which means I need to define my chunks horizontally at that size. I should estimate y positions for sections, starting with a header and equations. I'll create multiple chunks based on this.
+**Estimating equation positions**
+
+I'm gauging the positions for a handwritten document. It looks like the first block of equations and text runs from y=60 to y=210. There’s a faint line that starts at around y=70 and goes down to about y=220, containing around 7-8 lines. I plan to divide this into three chunks. 
+
+For the first chunk, I'll set coordinates at (0, 60, 767, 130), and the second chunk will be (0, 120, 767, 220). I need to ensure lines aren't split and allow for some overlap where necessary.
+**Continuing equation and text layout**
+
+I’m planning to continue with the equations around y=220 to y=360, which might include further sums and annotations. For Chunk 3, I’ll define coordinates as (0, 210, 767, 300) and for Chunk 4 as (0, 295, 767, 390). 
+
+Then, there's a text paragraph from around y=400 to y=520, which should cover up to 8 lines. I’ll set Chunk 5 to (0, 390, 767, 540). Following that, I’ll create two additional chunks for the closing paragraph and signature around y=540 to y=800, with chunks defined as (0, 540, 767, 700) and (0, 700, 767, 860). I’ll need to adjust y ranges to ensure everything fits well.
+**Finalizing chunk coordinates**
+
+I’m wrapping up my layout with the following chunk coordinates: 
+
+1: (0, 60, 767, 140)  
+2: (0, 130, 767, 220)  
+3: (0, 210, 767, 300)  
+4: (0, 290, 767, 380)  
+5: (0, 380, 767, 540)  
+6: (0, 540, 767, 700)  
+7: (0, 700, 767, 860)  
+8: (0, 860, 767, 966)  
+
+The resolution is set at (768, 967). I need to ensure there are overlaps, especially between 130 and 140, to avoid splitting lines. Now, I’m ready to produce the output.

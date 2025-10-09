@@ -1,0 +1,15 @@
+**Confirming image dimensions**
+
+I’m figuring out how to capture all text from an image by ensuring I include the entire width to avoid slanted lines. The text is mostly at the top half, so I’ll set chunk coordinates with a small x1, maybe around 30. I’m checking the resolution, and it looks like it should be 768 for width and 1026 for height. So I need to confirm that this orientation is correct before moving forward!
+**Determining bounding box coordinates**
+
+It looks like the resolution suggests the first number is the height (1026) and the second is the width (768). We need to set our bounding box coordinates, starting with x1 at 0 and up to x2 at 767 to capture the full page width. Since there are slight gray borders, this should work. For the y coordinates, I’m estimating a chunk that starts at around 70 and goes to 600 to ensure all text is included, while allowing for some extra margin due to potential slanting.
+**Setting final chunk coordinates**
+
+I’ve decided to set y1 to 60 and y2 to 620, ensuring I include the signature line "J. v. Neumann" with its descenders. It’s good to know that we might consider splitting into two chunks, but since we have less than eight lines, one chunk should work fine. I want to avoid too much empty space, but it’s fine to include the full width even if there’s a bit of blank area. Lastly, I’ll remember to print the image’s resolution as (768, 1026) after the chunk coordinates.
+**Refining bounding box estimation**
+
+I’m taking a closer look at approximating the bounding coordinates. The topmost scribble seems to start around y=150, but considering the empty margin, I think y1 should be set to 100. I must remember that while some text lines might not be perfectly straight, I need to ensure every line is fully contained in at least one bounding box. If necessary, I can let two chunks overlap to capture everything, but it’s best to avoid overlaps if I can guarantee that all lines, especially mathematical expressions, are included without cuts.
+**Defining final bounding box dimensions**
+
+I'm setting the bounding box for the text, aiming for y1 around 90 to capture the topmost scribbles, leading to a decision to set y1 at 70 and y2 at 700 for safety. I'm confirming that coordinates need to be integers, so x1 is 0 and x2 is 767. The total lines are around 6 to 8, so one chunk works. I’ll put the final bounding box as (0, 70, 767, 700) and include the resolution as (768, 1026) to finish it up.

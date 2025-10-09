@@ -1,0 +1,48 @@
+**Determining image dimensions and layout**
+
+I need the actual pixel dimensions for the image. The statement at the bottom shows width 768 and height 774. To process it properly, I need to figure out how to split the content into chunks. 
+
+I'll consider the header, small text, and body lines — ensuring I keep chunks at 3-4 large horizontal sections, covering nearly the full width. I also want to limit each chunk to eight lines of text. Looking at the letter, I'll likely use three chunks: the header and salutation, a middle section, and the bottom lines, while allowing some overlap for slanted lines. I'll approximate the coordinates based on the image margins.
+**Establishing chunk coordinates**
+
+The instruction is to include the whole width of each letter page in each chunk as long as it’s reasonable. It seems simplest to use the entire width of the image, so I’ll set the x coordinates from 0 to 768 for the full background. The x2 coordinate will be 767, and I’ll assume y2 is 773.
+
+I need to look at the y slices for the header lines: "Hs91:687" is around y=20 to 60 and "N.G." at y=80 to 110. I want to keep the header chunks minimized.
+**Planning chunk divisions for text**
+
+I’m thinking about how to include both the small header lines and the salutation, which I believe begins around y=150. I'll approximate the y positions based on the image height of 774. The interior area roughly spans from 40 to 740.
+
+To keep each chunk under eight lines, I’m counting: 
+
+For Chunk 1, I’ll include "Hs91:687," "N.G.," the salutation "Sehr geehrter Herr Professor," and possibly the first two lines of the body. It’s crucial to avoid line splits, so I’ll overlap where needed. I plan to create four chunks in total, starting with this top region.
+**Defining lines for text chunks**
+
+So, considering the header, salutation, and the following lines, I think we’ll end up around 4-5 lines for Chunk 1. 
+
+The lines are: "Hs91:687" as one, "N.G." as another, followed by "Sehr geehrter Herr Professor!" and then two lines starting with "Ich habe Ihren Brief..." and "...abgeschickt. Ich..." I want to keep it under eight lines total, which works since there are no equations.
+
+For Chunk 2, I’ll grab the next 5-7 lines, and Chunk 3 will take another 5-7 lines from the lower middle section. Finally, Chunk 4 will capture the last line. I need to count precisely from the body, starting after the salutation with the long sentences about the letter.
+**Finalizing text chunk boundaries**
+
+I’m clarifying how to break down the lines into chunks. For the first chunk, I want to include the header, salutation, and the first four lines. This totals about 7-8 lines.
+
+For Chunk 2, I’ll take lines 5-8, and for Chunk 3, I’ll include lines 9 and 10. I need to ensure the y boundaries allow for overlaps to fully contain each line. 
+
+I’ll set up the following boundaries: 
+- Chunk 1: (0, 0, 767, 350) 
+- Chunk 2: (0, 340, 767, 540) 
+- Chunk 3: (0, 520, 767, 773). 
+
+These spans should capture all lines while maintaining the full width. The overlaps should help keep it clear!
+**Confirming final chunk dimensions**
+
+I’m ensuring that each chunk has no more than eight lines. For Chunk 1, I’m including the header and salutation along with the first four lines, totaling seven lines. Chunk 2 covers lines 5-8, which is four lines, and Chunk 3 includes lines 9 and 10, adding up to two lines.
+
+I’ll compute the x2 as 767 for the width, keeping y2 at a maximum of 773 for height. I should avoid cropping too close to the edges, but I’ll stick with the whole width of 0 to 767. Here are the final boundaries:
+
+(0, 0, 767, 350)  
+(0, 340, 767, 540)  
+(0, 520, 767, 773)  
+(768, 774) as resolution.
+
+I'll double-check everything and proceed with these values!
