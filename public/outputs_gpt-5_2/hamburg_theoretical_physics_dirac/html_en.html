@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Letter – Unified Transcription</title>
+<style>
+  :root{
+    --paper:#fff9ef;
+    --ink:#2f2f2f;
+    --note:#7a7a7a;
+    --rule:#e6dcc6;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #efe8db;
+    color: var(--ink);
+    font-family: "Times New Roman", Georgia, serif;
+  }
+  .letter {
+    max-width: 920px;
+    margin: 24px auto 64px;
+    padding: 32px 40px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  }
+  .header {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .leftnote {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--note);
+    font-style: italic;
+  }
+  .rightblock {
+    text-align: right;
+    line-height: 1.5;
+  }
+  .body {
+    font-size: 1.08rem;
+    line-height: 1.85;
+  }
+  .body p { margin: 0 0 0.95rem; }
+  .equation {
+    text-align: center;
+    margin: 0.6rem 0 1.2rem;
+    font-size: 1.15rem;
+  }
+  .closing {
+    margin-top: 1.4rem;
+  }
+  .signature {
+    margin-top: 1.2rem;
+    text-align: right;
+    font-family: "Brush Script MT","Lucida Handwriting","Segoe Script",cursive;
+    font-size: 1.6rem;
+  }
+  .footnotes {
+    margin-top: 2rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.95rem;
+    color: #444;
+  }
+  .footnotes p { margin: 0.35rem 0; }
+</style>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <main class="letter">
+    <header class="header">
+      <div class="leftnote">Hs 91: 682</div>
+      <div class="rightblock">
+        <div>Hamburg, May 15, 1929</div>
+        <div>Heimhuderstr. 18</div>
+      </div>
+    </header>
+
+    <section class="body">
+      <p>Dear Professor,</p>
+
+      <p>Many thanks for your letter. I will be in Hamburg over the summer, my address is Heimhuderstr. 18.</p>
+
+      <p>Your paper on the spinning electron will interest me greatly. I assume it will be sent to me by Scheel, or have you arranged otherwise?</p>
+
+      <p>My doubts about treating Dirac's equation without distant parallelism arise from the fact that it should be written in general relativity as:</p>
+
+      <div class="equation">
+        $$\left(\sum_{\mu}\gamma_{\mu}\!\left(p_{\mu}+\frac{e}{c}\,\phi_{\mu}\right)+m\,c\,i\right)\psi=0,$$
+      </div>
+
+      <p>where the general rules apply for the \(q_\mu\) — so that only the commutation relations of the \(g_\mu\) and \(p_\mu\) are known, and not those of the \(\gamma_\nu\) \(\gamma_\mu\). If one sets</p>
+
+      <div class="equation">
+        \( \gamma_\mu\gamma_\nu+\gamma_\nu\gamma_\mu = 2\,g_{\mu\nu} \)
+      </div>
+
+      <p>however, in the sense of distant parallelism theory \( \gamma_\mu = h_{a\mu}\,\bar\gamma_a \) (\( \bar\gamma_1, \cdots, \bar\gamma_n \) the constant Dirac matrices!), then the \( f_{a\mu} \) field equations yield the desired commutation relations. Incidentally, the new Einstein theory is quite unclear for the time being, since the field equations are not known: at the moment the 4th version (which supersedes the 3 earlier ones) is coming out, and there can be arbitrarily many more. Do you believe that the world is really so complicated? All the more so, since electrodynamics has never been observed at astronomical scales and gravitation at atomic orders of magnitude?</p>
+
+      <p>I also very much like Mr. Stoner's result. Incidentally, I have meanwhile written a paper in which I prove, among other things, that an arbitrary set of mutually commuting Hermitian operators can always be regarded as functions of a single one, which in turn is a function *) of them. Furthermore,</p>
+
+      <p>I can carry through the theory of normality and countability in the unbounded case quite simply. Furthermore: if I have a set of Hermitian operators, whether it encompasses all Hermitian operators that commute with every element of A, whether "the same" for all — then it consists "precisely of the functions of the elements of H*)".</p>
+
+      <p>Recently I have been thinking about how the ergodic theorem in quantum mechanics can be used without "ordering assumptions," which assumptions can be "proven," or rather, which assumptions are characteristic for its validity. In particular, it is possible to specify the quantum mechanical analogue of Gibbs's phase space (as required by the "uncertainty relations"). —</p>
+
+      <p>I have taken leave for the summer to Hamburg in order to return to Berlin in the winter. After Schwier's departure to Rostock, I could have come by the professor title more easily, but I cannot bring myself to leave Berlin permanently under these circumstances. —</p>
+
+      <p>I hope it will not be too long before I have the opportunity to see you again. Until then I remain with best regards, and the request to convey my hand-kisses to your wife,</p>
+
+      <p class="closing">Yours most devotedly,</p>
+
+      <div class="signature">J. v. Neumann</div>
+
+      <div class="footnotes">
+        <p>*) Linear combination of polynomials!</p>
+        <p>*) In finitely many dimensions this is the Burnside-Frobenius theorem for Hermitian operators.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

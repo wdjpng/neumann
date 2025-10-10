@@ -1,0 +1,12 @@
+**Identifying text lines**
+
+I'm focusing on creating bounding boxes for lines of text in the image. There seem to be faint lines in the top third, possibly around three lines with a signature in the middle, and then a line with parentheses in the lower middle. After counting carefully, I see about 5-6 lines total. I should split them into two chunks, with the upper chunk capturing the top three lines that include the signature.
+**Defining text boundaries**
+
+I'm working on creating the lower chunk that captures two lines of notes across the full width of the page, as the instructions say to include the whole width when reasonable. I can set x1 to 0 for a small margin. While including the entire width (0 to 768) captures the gray background, I might as well stick with that. The top line is around y  140 and spans one line, so I'll keep that in mind as I estimate the coordinates for proper coverage of each line.
+**Estimating vertical positions**
+
+I’m approximating the vertical positions for the lines in the image. The top margin is around 0-60, with the first faint handwriting perhaps around y 120-180. I want to be systematic, so I notice there's possibly nothing at y  120. The first line, "danke...", might be at y 150-180, then "Ihr ganz ..." around y 250, and "Hans v. Neumann" around y 320. I plan to set Chunk 1 from y  90 to y  380, and Chunk 2 from y  470 to y  670. It's fine to include a bit of blank space for coverage.
+**Defining chunk dimensions**
+
+I’m setting x1 to 0 and x2 to 768 to include the whole width and ensure every line is captured in at least one chunk. I notice there might be an embossed stamp near 850, but that’s not text. There’s a possibility of faint text near the lower bottom, and I should include a small line like "(45)" at the end of one of the chunks. To be safe, I’ll set Chunk 1 to (0, 80, 768, 420) and Chunk 2 to (0, 470, 768, 720), considering the text lines I see around 550-650.

@@ -3,8 +3,12 @@
 <head>
 <meta charset="utf-8">
 <title>Briefauszug – Transkription</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
-  window.MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']] }, svg: { fontCache: 'global' } };
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']] },
+    svg: { fontCache: 'global' }
+  };
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
@@ -22,55 +26,38 @@
     max-width: 1100px;
     border: 1px solid rgba(0,0,0,0.08);
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    line-height: 1.45;
-    font-size: 1.1rem;
+    line-height: 1.5;
+    font-size: 1.15rem;
   }
   .topline {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1.0rem;
+    margin-bottom: 1rem;
     font-size: 0.95rem;
   }
-  .smallnote {
-    font-size: 0.9rem;
-    color: #6b5e56;
-  }
-  .dateline {
-    font-size: 1.15rem;
-    font-style: italic;
-  }
+  .smallnote { color: #6b5e56; }
+  .dateline { font-size: 1.15rem; font-style: italic; }
   .salutation {
-    margin-top: 2.2rem;
-    font-size: 1.6rem;
+    margin-top: 2rem;
+    font-size: 1.7rem;
     font-weight: 600;
     font-style: italic;
   }
-  .section {
-    margin-top: 2rem;
+  .heading {
+    margin-top: 1.6rem;
     font-size: 1.15rem;
+    font-style: italic;
     font-weight: 600;
-    display: inline-block;
-    padding-bottom: 0.15rem;
     border-bottom: 2px solid #3b2f27;
+    display: inline-block;
+    padding-bottom: 0.1rem;
   }
-  .lines {
-    margin-top: 0.6rem;
+  .block {
+    margin-top: 1rem;
   }
-  .line {
-    margin: 0.35rem 0;
-  }
-  .strike { text-decoration: line-through; }
-  .mono { font-family: "Courier New", Courier, monospace; }
-  .signature {
-    text-align: right;
-    margin-top: 1.5rem;
-    font-size: 2rem;
-    line-height: 1.2;
-    letter-spacing: 0.5px;
-    font-family: "Brush Script MT", "Lucida Handwriting", "Segoe Script", cursive;
-    color: #5a4e42;
-  }
+  .line { margin: 0.35rem 0; }
+  .mathline { margin: 0.35rem 0; font-size: 1.15rem; }
 </style>
 </head>
 <body>
@@ -82,56 +69,71 @@
 
     <div class="salutation">Lieber Herr Professor Bernays!</div>
 
-    <p>Das uns interessierende Beispiel sieht so aus:</p>
-
-    <div class="section">Bezeichnungen:</div>
-    <div class="lines">
-      <div class="line">$$\mathrm{Or}(x,y,z) \equiv (z=0) \to (x=y),$$</div>
-      <div class="line">$$\mathrm{Lo}(x,y) \equiv x=y.$$</div>
-      <div class="line">$$k\ \text{eine effektive Zahl} \equiv 1,2,3,\dots$$</div>
-      <div class="line">$$\equiv\ U(y, k, E_{u}\,L(y+1, u)),$$</div>
-      <div class="line">$$\equiv\ L(\epsilon_{y}\,L(y),\,v).$$</div>
+    <div class="block">
+      <div class="line">Das uns interessierende Beispiel sieht so aus:</div>
+      <div class="heading">Bezeichnungen:</div>
+      <div class="mathline">$$\mathrm{Or}(x,y,z) \equiv (z=0) \to (x=y),$$</div>
+      <div class="mathline">$$\mathrm{Lo}(x,y) \equiv x=y.$$</div>
+      <div class="mathline">$$k\ \text{eine effektive Zahl} \equiv 1,2,3,\dots$$</div>
+      <div class="mathline">$$\equiv\ U(y, k, E_{u}\,L(y+1, u)),$$</div>
+      <div class="mathline">$$\equiv\ L(\epsilon_{y}\,L(y),\,v).$$</div>
     </div>
 
-    <div class="section">Kritische Formeln:</div>
-    <div class="lines">
-      <div class="line">\(L(K) \rightarrow L\big(\exists y\, L(y)\big),\)</div>
-      <div class="line">\(\mathcal{D}L\big(\exists y\, L(y)\big) \rightarrow \mathcal{D}\big(\exists x\, \mathcal{D}(x x)\big)\)</div>
-      <div class="line"><span class="mono">2.</span> hat den Rang 1, 1. oder Rang 2</div>
+    <div class="block">
+      <div class="heading">Kritische Formeln:</div>
+      <div class="mathline">\(1.\quad L(K) \rightarrow L\big(\exists y\, L(y)\big),\)</div>
+      <div class="mathline">\(2.\quad \mathcal{D}L\big(\exists y\, L(y)\big) \rightarrow \mathcal{D}\big(\exists x\, \mathcal{D}(x x)\big)\)</div>
+      <div class="line">2. hat den Rang 1, 1. oder Rang 2</div>
     </div>
 
-    <div class="section">Ausführungen:</div>
-    <div class="lines">
-      <div class="line"><span class="mono">2.</span> Am Anfang des ganzen Verfahrens ist <span class="strike">[…]</span> (…) für alle <span class="mono">x</span> gleich \(0\), d. h. die Grenze \(i \to k\), d. h. \(l = k\).</div>
-      <div class="line">Im <span class="mono">2.</span> haben wir dann \(\,I(0) \equiv K(l, v) \equiv (l = v)\,\) vor uns,</div>
-      <div class="line">also die kritische Formel \((\,l = l\,) \rightarrow (\,l = \exists\,l(w)\,)\).</div>
-      <div class="line">es muss also \(E_v(F(v)) = l\) gemacht werden. Falls \(l = 0\) ist, wird damit \(y = k\) aus \(M\) entfernt, es geht in \(0,\ldots,1\) über.</div>
-      <div class="line">Bei jedem weiteren Schritt-Paar wird \(l\) um \(1\) vermindigt, bis es \(0\) geworden ist; bei \(l=0\) ist der zweite Schritt bereits gegenstandslos. Daher werden insgesamt \(2k+1\) Schritte notwendig sein.</div>
+    <div class="block">
+      <div class="line">2. Am Anfang des ganzen Verfahrens ist […] (…) für alle <span style="font-family:'Courier New',monospace">x</span> gleich \(0\), d. h. die Grenze \(i \to k\), d. h. \(l = k\).</div>
     </div>
 
-    <div class="lines" style="margin-top: 1rem;">
-      <div class="line"><span class="mono">4.</span> Nehmen wir an, dass in irgendeiner Phase des Verfahrens die zu \( \delta(x,u) \) definierende Funktion im Bereiche der \( x = a_{1,\dots,k} \) so definiert ist: in der Menge \(M\) gleich \(0\), sonst \( \ne 0 \).</div>
+    <div class="block">
+      <div class="line"><span style="font-weight:600">4.</span> Nehmen wir an, dass in irgendeiner Phase des Verfahrens die zu \( \delta(x,u) \) definierende Funktion im Bereiche der \( x = a_{1,\dots,k} \) so definiert ist: in der Menge M gleich 0, sonst \( \ne 0 \).</div>
     </div>
 
-    <div class="lines" style="margin-top: 1rem;">
-      <div class="line"><span class="mono">B.</span> \(G(y+1,u))\) ist für \(z = k\) jedenfalls wahr,</div>
+    <div class="block">
+      <div class="line">B.  \(G(y+1,u)\)) ist für \(z = k\) jedenfalls wahr,</div>
       <div class="line">für \(y=0,\ldots,k-1\) dagegen nur dann wahr, wenn \(g+1\) nicht in \(M\) liegt.</div>
       <div class="line">Wenn also \(M\) eine Menge \(0,\ldots,l\) \((l\le k)\) ist, so ist \(y=l\) das erste \(y\), für welches es wahr wird, d.&nbsp;h. für welches \(L(y)\) wahr wird.</div>
       <div class="line">Da \(S(k)\) wahr ist, muß nach 1. \(E\,g\,L(y)\) gleich \(l\) gewählt werden.</div>
     </div>
 
-    <div class="lines" style="margin-top: 1rem;">
-      <div class="line"><span class="mono">E.</span> Somit hängt die Zahl der Erscheinungen, außer von der Gestalt der kritischen Formen, auch noch von dem Zahlenwerte des Zahlen‑Substituenten \(k = 12,\ldots\) ab.</div>
-      <div class="line">Ich glaube, dass damit die Frage, die wir bei der Durcharbeitung des modifizierten Ackermann'schen Beweises nicht diskutierten, ob nämlich eine Längen-Abschätzung für das korrigier-Verfahren unabhängig von der Grösse der Zahlen-Substituenten gleichmässig möglich sei, verneinend beantwortet</div>
-      <div class="line">An diesem Punkte ist dann der Nachweis des endlichen Abbrechens dieses Verfahrens (für den nächsten Grad, d. h. 3) jedenfalls lückenhaft.</div>
+    <div class="block">
+      <div class="line">Im <span style="text-decoration: underline">2.</span> haben wir dann \(\,I(0) \equiv K(l, v) \equiv (l = v)\,\) vor uns,</div>
+      <div class="line">also die <span style="font-weight:600">kritische Formel</span></div>
+      <div class="mathline">\((\,l = l\,) \rightarrow (\,l = \exists\,l(w)\,)\).</div>
+      <div class="line">es muss also \(E_v(F(v)) = l\) gemacht werden. Falls \(l = 0\) ist, wird damit \(y = k\) aus \(M\) entfernt, es geht in \(0,\ldots,1\) über.</div>
     </div>
 
-    <div class="lines" style="margin-top: 1rem;">
+    <div class="block">
+      <div class="line">Bei jedem weiteren Schritt-Paar wird \(l\) um \(1\) ver- mindigt, bis es \(0\) geworden ist; bei \(l=0\) ist der zweite Schritt bereits gegenstandslos. Da- her werden insgesamt \(2k+1\) Schritte notwen- dig sein.</div>
+      <div class="line">E. Somit hängt die Zahl der erforderlichen Schritt-</div>
+    </div>
+
+    <div class="block">
+      <div class="line"><span style="text-decoration: underline">E.</span></div>
+      <div class="line">Somit hängt die Zahl der Erscheinungen, außer von der Gestalt der kritischen Formen, auch noch von dem Zahlenwerte des Zahlen‑Substituenten \(k = 12,\ldots\) ab.</div>
+    </div>
+
+    <div class="block">
+      <div class="line">Ich glaube, dass damit die Frage, die wir bei der Durcharbeitung des modifizierten Ackermann'schen Beweises nicht diskuti- erten, ob nämlich eine Längen-Abschätzung für das korrigier-Verfahren unabhängig von der Grösse der Zahlen-Substituenten gleich- mässig möglich sei, verneinend beantwortet</div>
+    </div>
+
+    <div class="block">
+      <div class="line">An diesem Punkte ist dann der Nach- weis des endlichen Abbrechens dieses Verfahr- ens (für den nächsten Grad, d. h. 3) jedenfalls lückenhaft.</div>
+    </div>
+
+    <div class="block" style="margin-top:1.4rem">
       <div class="line">Mit den besten Grüssen</div>
-      <div class="line">Ihr</div>
+      <div class="line" style="margin-top:.4rem">Ihr</div>
     </div>
 
-    <div class="signature">J. v. Neumann.</div>
+    <div class="block" style="text-align:right; margin-top:1.2rem; font-size:2rem; font-family: 'Brush Script MT','Lucida Handwriting','Segoe Script',cursive; color:#5a4e42;">
+      J. v. Neumann.
+    </div>
   </div>
 </body>
 </html>

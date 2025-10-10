@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Letter Transcription – 16.7.1928</title>
+<style>
+  body {
+    margin: 0;
+    background: #f2f0e6;
+    color: #2b2b2b;
+    font-family: "Times New Roman", Georgia, serif;
+  }
+  .page {
+    max-width: 980px;
+    margin: 40px auto;
+    background: #fbf7ea;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+    border: 1px solid #e6dcc5;
+    padding: 36px 46px 56px;
+  }
+  .topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    line-height: 1;
+    margin-bottom: 26px;
+  }
+  .left-note {
+    color: #6b6b6b;
+    font-size: 20px;
+    white-space: pre;
+  }
+  .right-date {
+    color: #6b6b6b;
+    font-size: 22px;
+    font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;
+  }
+  .letter {
+    font-size: 1.18rem;
+    line-height: 1.8;
+  }
+  .line { margin: 0.35rem 0; white-space: pre-wrap; }
+  .underline { text-decoration: underline; font-weight: 600; }
+  .eq { text-align: center; margin: 0.6rem 0; }
+  .sig { margin-top: 1.1rem; font-size: 1.35rem; }
+</style>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="page">
+    <div class="topline">
+      <div class="left-note">Hs. 91; 680</div>
+      <div class="right-date">Berlin, July 16, 1928.</div>
+    </div>
+
+    <div class="letter">
+      <p class="line">Dear Professor!</p>
+
+      <p class="line">Many thanks for your postcard, and the proofs of your fine little book.</p>
+
+      <p class="line">Without having made myself thoroughly familiar with them, I would like to make a brief remark about your treatment of the symmetric group.</p>
+
+      <p class="line">On p.&nbsp;130, §&nbsp;52, you prove the Frobenius lemma about the elements of \( \mathcal{QB} \), and then on p.&nbsp;131 the further lemma</p>
+      <div class="eq">\[ \sum_{p} c(cspt) = c(cs)\, \sum_{p} c(pt) \]</div>
+      <p class="line">on which everything else depends, and which (as well as its later "exploitation") brings considerable calculations into the arguments.</p>
+
+      <p class="line">Would it not be more transparent and simpler to proceed as follows:</p>
+
+      <p class="line"><span class="underline">Lemma 1.</span> As in your treatment on p.&nbsp;130</p>
+
+      <p class="line"><span class="underline">Lemma 2.</span> The conditions</p>
+      <div class="eq">\(x(sp)=x(s), \quad x(qs)=\delta_q x(s)\)</div>
+      <p class="line">(p, q entirely from \( \mathcal{B} \) or \(\mathcal{Q}\) respectively) are satisfied only by the group numbers</p>
+      <div class="eq">\(x(s)=\text{Constant} \cdot \;c(s)\)</div>
+
+      <p class="line"><span class="underline">Proof:</span> The necessity is clear. The sufficiency is shown as follows: if \(x(s)\) satisfies the condition, then one immediately sees for the \(s\) from \(\mathcal{B}\;\mathcal{Q}\)</p>
+      <div class="eq">\(x(s)=x(0)\cdot c(s)=\text{Constant} \cdot \;c(s)\)</div>
+      <p class="line">If s does not lie in \(\mathcal{BQ}\), then let p, q be chosen with</p>
+      <div class="eq">\(sps^{-1}=q\), i.e. \(qsp=s\)</div>
+      <p class="line">(Lemma 1.), then</p>
+      <div class="eq">\(x(s)=x(qsp)=-x(s),\ x(s)=0.\)</div>
+      <p class="line">q.e.d.</p>
+
+      <p class="line"><span class="underline">Lemma 3.</span> For every group number x one has</p>
+      <div class="eq">\(c \times c = \text{Constant }\cdot c\)</div>
+      <p class="line"><span class="underline">Proof:</span> For with c, obviously \(c \times c\) also satisfies the condition in Lemma 2.</p>
+
+      <p class="line">From this now follows</p>
+
+      <p class="line">I. \(c^2 : \gamma c\), then \( \gamma > 0 \) as in your treatment, thus \(\frac{1}{\gamma} c\) is a characteristic unit.</p>
+
+      <p class="line">II. From</p>
+      <div class="eq">\(\frac{1}{\gamma}c = a + b,\quad a^2 = a,\quad b^2 = b,\quad ab = ba = 0\)</div>
+      <p class="line">follows</p>
+      <div class="eq">\(a = (a+b)\,a\,(a+b) = \frac{1}{\gamma^2}cac = \text{Constant }\frac{1}{\gamma}c\)</div>
+      <p class="line">thus because of \(a^{2}=a\) Constant = 0, 1, i.e., either \(a = \frac{1}{\gamma}c, \; b = 0\), or \(a = 0, \; b = \frac{1}{\gamma}c\),</p>
+
+      <p class="line">Therefore \(\frac{1}{\gamma}c\) is primitive, and the representation irreducible.</p>
+
+      <p class="line">I believe that this method is preferable to the much more computational approach. Of course they simultaneously obtain the affine group, but as far as I can see this arrangement still represents a simplification. What do you think of it?</p>
+
+      <p class="line">I remain with best regards</p>
+
+      <p class="line">Yours truly</p>
+
+      <p class="line sig">J. v. Neumann.</p>
+    </div>
+  </div>
+</body>
+</html>

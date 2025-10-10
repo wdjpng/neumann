@@ -1,0 +1,19 @@
+**Deciding on format and scripts**
+
+I'm planning to create a design like a letterhead with left-aligned shelfmark and right-aligned date and place. I want to use a simple container, possibly a horizontal rule, while ignoring any partially cut-off lines. The visible text will be full words despite cropping. 
+
+Now, regarding the MathJax script, it mentions using it for mathematical expressions, but since there are none, I’m thinking it might be unnecessary to include it. So, I could choose to omit it to keep things simple.
+**Creating HTML structure**
+
+I'm working on the HTML code now. I’ll set the body background to white for a clean look, despite the reviewer suggesting a normal plain background. For the header, I want to use a pencil-like grey font to mimic that pencil effect. 
+
+Next, I’ll apply flexbox to align the left and right text on the same line, perhaps using a cursive font to echo handwriting without over-styling. So, I’ll choose a handwritten-style font like "Segoe Script" in grey.
+
+I’ll also make sure to include padding in the letter-chunk container and represent the text as ". Hs 91: 677" using a monospace font.
+**Finalizing HTML structure**
+
+I'm wrapping up the HTML code. It seems I should use a bullet dot '·' instead of a plain dot since the user’s screenshot shows it clearly. I want to make sure it looks nice, so I’ll choose that middle dot.
+
+Next, I need to address the spacing because there’s some cropping in the vertical alignment. I’ll use flexbox with space-between to spread the elements out. I'll also consider adding "font-variant-numeric: tabular-nums" as an option.
+
+To finalize, I’ll keep it minimal with line breaks in a single line and include the necessary `<meta charset>` for correct encoding.

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Transcription – J. v. Neumann to P. Bernays (12.6.1933)</title>
+<style>
+  body{
+    margin:0;
+    padding:40px 30px 20px 30px;
+    font-family: "Times New Roman", Georgia, serif;
+    color:#222;
+    background:#f7f4ee;
+    line-height: 1.6;
+  }
+  .page{
+    max-width:1100px;
+    margin:0 auto;
+    background:#f3efe7;
+    padding:25px 30px 60px;
+    border:1px solid #ddd;
+    box-shadow:0 1px 2px rgba(0,0,0,.06) inset;
+  }
+  .pencil{
+    color:#6d6d6d;
+    font-style:italic;
+    font-size:14px;
+    opacity:.8;
+    margin-bottom:10px;
+  }
+  .header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:30px;
+  }
+  .left, .right{
+    width:48%;
+  }
+  .left{
+    text-align:left;
+  }
+  .right{
+    text-align:left;
+  }
+  .block-title{
+    font-weight:800;
+    letter-spacing:2px;
+    font-size:24px;
+    line-height:1.15;
+  }
+  .block-title .small{
+    display:block;
+    font-size:22px;
+    letter-spacing:2.5px;
+  }
+  .nr{
+    margin-top:4px;
+    font-weight:800;
+    letter-spacing:2px;
+  }
+  .tiny-rule{
+    width:60px;
+    height:1px;
+    background:#333;
+    margin:10px 0 12px 0;
+  }
+  .smallcaps{
+    font-variant:small-caps;
+    letter-spacing:.8px;
+  }
+  .meta{
+    line-height:1.35;
+    font-size:14.5px;
+  }
+  .right .cityline{
+    font-weight:800;
+    letter-spacing:1.7px;
+    font-size:18px;
+    margin-bottom:6px;
+  }
+  .hand{
+    font-family: "Brush Script MT", "Lucida Handwriting", cursive;
+    font-size:15px;
+    font-weight:500;
+    margin-left:8px;
+  }
+  .underline{
+    border-bottom:2px solid #444;
+    display:inline-block;
+    padding-bottom:2px;
+    margin:8px 0 4px 0;
+    font-weight:700;
+    letter-spacing:1px;
+    font-size:13px;
+  }
+  .right .meta{
+    font-size:13.5px;
+  }
+
+  /* Body */
+  .letter-body{
+    margin-top:26px;
+    font-size: 19px;
+    color:#2a2622;
+  }
+  .salutation{
+    font-size:1.4rem;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .para{
+    margin:14px 0;
+  }
+  .math-block{
+    margin:10px 0 10px 0;
+    font-size: 1.02em;
+  }
+  .signature{
+    font-family: "Lucida Handwriting", "Brush Script MT", cursive;
+    font-size: 2rem;
+    margin: 6px 0 0;
+    text-align: left;
+  }
+  .address-block{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-top:6px;
+    font-size: 1rem;
+  }
+  .label{
+    font-style: italic;
+    border-bottom:1px solid #6a5b4f;
+    padding-bottom:1px;
+    white-space: nowrap;
+  }
+  .address{
+    white-space: nowrap;
+    font-family: "Lucida Handwriting", "Brush Script MT", cursive;
+    font-size: 1.2rem;
+  }
+  u { text-underline-offset: .15em; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)'], ['$', '$']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="pencil">Ho. 9275: 3329</div>
+
+  <div class="header">
+    <div class="left">
+      <div class="block-title">
+        PROPERTY MANAGEMENT
+        <span class="small">HOHENZOLLERNSTRASSE</span>
+      </div>
+      <div class="nr">NO. 23/24</div>
+      <div class="tiny-rule"></div>
+      <div class="meta">
+        <span class="smallcaps">Bank Account:</span><br>
+        DEUTSCHE BANK U. DISCONTO-GES.<br>
+        DEPOSITEN-KASSE 2<br>
+        BERLIN W 35, LÜTZOWSTRASSE 33–36<br>
+        ACCOUNT NO. 231
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="cityline">
+        BERLIN W 10, <span class="hand">12.6.1933, Monday.</span>
+      </div>
+      <div class="meta">
+        TEL.: B 2 LÜTZOW 3116, 3186, 3137, B 1 KURFÜRST 2368<br>
+        <span class="underline">AFTER OPENING OF AUTOMATIC EXCHANGE LÜTZOW:</span><br>
+        EXCHANGE NO. B 2 LÜTZOW 9141<br>
+        AND B 2 LÜTZOW 5039, 8137, 8116, 9145
+      </div>
+    </div>
+  </div>
+
+  <div class="letter-body">
+    <div class="salutation">Dear Professor Bernays!</div>
+
+    <p class="para">
+      Enclosed I send you the proof of the well-ordering of your order \( \underset{\small\vee}{<} \), i.e. of
+    </p>
+
+    <div class="math-block">
+      \( (x)(E y)\big[\, U(x)\rightarrow \big((y \underset{\small\vee}{<} x)\land U(y)\big)\,\big]\;\rightarrow\; (x)\,\overline{U(x)}\,, \)
+    </div>
+
+    <p class="para">
+      for every proposition \(U\), with free variable \(v\), i.e. without use of propositional variables. For simplicity's sake I have written out the proof in words, and only formally stated the most important intermediate formulas (definitions and proven propositions). (The proof is on sheets 1.-3., the formulas as appendix on each sheet; formulas that are referenced have numbers <u>I. - XI.</u>) The idea is this: \(U(x)\) has a first element for \(\le\) if this holds for a sequence of other formulas under \(\underset{\small v-1}{<}\), these in turn have it if it holds for a further sequence of other formulas under \(\underset{\small v-2}{<}\), ... All these formulas form a sequence, which are given in <u>VII.</u> The proposition that I work out and state in <u>VII.</u>, the proposition that all these formulas have first elements under \( \underset{\small\vee}{<} \), can therefore be proven inductively by itself, and contains only basic variables. Where propositional variables seemingly appear in IV. – <u>XI</u>., they are communication variables that serve only as abbreviations and could be avoided. (It would be possible here to always replace the defined by the defining.) —
+    </p>
+
+    <p class="para">
+      Please excuse that I didn't contact you again on Saturday; however, I still had to make 4 more visits. I would be very grateful if you would send my notes back at your convenience, as I have no copy.
+    </p>
+
+    <p class="para">
+      With best regards Yours
+    </p>
+
+    <div class="signature">J. v. Neumann.</div>
+
+    <div class="address-block">
+      <div class="label">Address:</div>
+      <div class="address">Budapest, V., Arany János ucca 16.</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

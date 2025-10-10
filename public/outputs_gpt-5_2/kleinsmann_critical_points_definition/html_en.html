@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Letter Transcription (Unified)</title>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  body{
+    margin:0;
+    background:#f3efe6;
+    color:#5b4a3a;
+    font-family: "EB Garamond", Georgia, "Times New Roman", serif;
+    line-height: 1.8;
+  }
+  .sheet{
+    max-width:1100px;
+    margin:2.5rem auto;
+    background:#efe6d3;
+    border:1px solid #d8c9a8;
+    padding:2.2rem 3rem 3rem 3.6rem;
+    box-shadow:
+      0 0 0 8px rgba(0,0,0,0.03) inset,
+      0 12px 30px rgba(0,0,0,0.18);
+    position:relative;
+
+    background-size:100% 34px;
+  }
+ 
+  .scribble{
+    position:absolute;
+    left:0.7rem;
+    top:0.6rem;
+    white-space:pre;
+    font-family: "Bradley Hand", "Comic Sans MS", cursive;
+    font-size:1rem;
+    color:#8e8e8e;
+    transform: rotate(-8deg);
+    line-height:1.1;
+  }
+  .scribble.small{
+    top:2.6rem;
+    left:1rem;
+    font-size:1.05rem;
+    transform: rotate(-12deg);
+    color:#9b9b9b;
+  }
+  .header{
+    text-align:right;
+    font-family:"Brush Script MT", "Dancing Script", cursive;
+    font-size:1.5rem;
+    color:#7a6856;
+    margin:0 0 1.4rem 0;
+  }
+  .letter p{
+    margin:0 0 1rem 0;
+  }
+  .math-block{
+    margin: 0.6rem 0 1.2rem 0;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+Hs 975 3227
+<br><br>
+    <div class="scribble small"<br><br><br>= John Neumann?</div>
+
+    <div class="header">Zurich, 4 June 1926.</div>
+
+    <div class="letter">
+      <p>Dear Professor!</p>
+
+      <p>The question concerning the definition of large numbers of the second number class, which we discussed repeatedly over Whitsun, does seem to be accessible to a reasonably general method. I can define the first critical \( \varepsilon \)-number we discussed at the time, and in doing so I require all types up to (but excluding) the \( \omega^2 \)-th. The method seems capable of generalization; for example, one will probably quite easily be able to construct analogously the first critical among the critical \( \varepsilon \)-numbers (with the help of all types up to, but excluding, the \( \omega^3 \)-th). The definition can possibly be simplified further, but I do not believe one could manage with fewer types.</p>
+
+      <p>The point of "overtaking," the first "critical" type, is thereby pushed out once more, and one might conjecture something like the following number.</p>
+
+      <div class="math-block">
+        <p>\( f(0,\alpha) = \omega^{\alpha} \)</p>
+        <p>\( f(\beta+1,\alpha) \) — critical function of \( f(\beta,\xi) \) (i.e., the \( \alpha \)-th critical point of the function \( f(\beta,\xi) \) considered as a function of \( \xi \))</p>
+        <p>\( f(\lim \beta_n,\alpha) = \lim_{n\to\infty} f(\beta_n,\alpha) \)</p>
+      </div>
+
+      <p>Now form \( g(\alpha) = f(\alpha,\alpha) \), and let \( \alpha_0 \) be the first critical point of \( g(\alpha) \). However, the mechanism of "overtaking" is not yet entirely clear to me here. My definition follows on the enclosed sheet; I omit the proof that the first critical \( \varepsilon \)-number is indeed obtained, as it is somewhat lengthy on paper though not difficult in substance. Incidentally, it is not represented here as the limit of the sequence</p>
+
+      <div class="math-block">
+        <p>\( \varepsilon_{0}, \ \varepsilon_{\varepsilon_{0}}, \ \varepsilon_{\varepsilon_{\varepsilon_{0}}}, \ \varepsilon_{\varepsilon_{\varepsilon_{\varepsilon_{0}}}}, \ \ldots \)</p>
+      </div>
+
+      <p>(it is the \( \varepsilon_\alpha \)-th \( \epsilon \)-number), but rather as one of the sequence</p>
+
+      <div class="math-block">
+        <p>\( \omega, \ \varepsilon_{\omega}, \ \varepsilon_{\varepsilon_{\omega}}, \ \varepsilon_{\varepsilon_{\varepsilon_{\omega}}}, \ \ldots \)</p>
+      </div>
+
+      <p>Is there any other news concerning proof theory? Has Mr. Ackermann's consistency proof already been formulated definitively? I would be very interested to learn what progress you have made regarding the second case class.</p>
+
+      <p>I remain respectfully</p>
+
+      <p>Yours most devoted<br>
+      J. v. Neumann</p>
+    </div>
+  </div>
+</body>
+</html>

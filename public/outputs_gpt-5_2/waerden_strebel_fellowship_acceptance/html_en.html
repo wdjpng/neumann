@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Letter Transcription</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      background: #f3ede3;
+      color: #2b2b2b;
+      font-family: "Courier New", Courier, monospace;
+    }
+    .sheet {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fffdf6;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      border: 1px solid rgba(0,0,0,.08);
+      padding: 48px 56px 64px;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+    .stamp {
+      text-align: center;
+      font-weight: 700;
+      text-decoration: underline;
+      letter-spacing: 0.4em;
+      margin-bottom: 10px;
+    }
+    .address {
+      margin-bottom: 28px;
+      white-space: pre-wrap;
+    }
+    .pencil {
+      color: #8a8a8a;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+    .header {
+      text-align: right;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+    .body {
+      white-space: pre-wrap;
+      font-weight: 500;
+    }
+    .closing {
+      padding-left: 70%;
+      margin-top: 28px;
+    }
+    .signature {
+      margin-top: 24px;
+      padding-left: 70%;
+    }
+    .faint { color: #7a7a7a; margin-top: 16px; }
+    .very-faint { color: #9a9a9a; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <!-- Envelope/Front -->
+    <div class="stamp">FLUGPOST</div>
+    <div class="address">
+Prof. Dr. J. Von Neumann
+Institute of Advanced Study
+PRINCETON
+New Jersey
+U.S.A.<br><br>
+——————————————————
+    </div>
+
+    <!-- Letter -->
+    <div class="header">
+      Zürich 38, Rainfussweg 7<br>
+      February 25, 1953
+    </div>
+
+    <div class="body">My dear Von Neumann,
+
+Many thanks for your kind letter. Strebel will be glad to accept the fellowship offered to him. Concerning the duration of his stay in Princeton has still to settle with the authorities of the Institute.</div>
+
+    <div class="closing">
+      Herzliche Grüsse<br>
+      Ihr
+    </div>
+    <div class="signature">(B.L. van der Waerden)</div>
+  </div>
+</body>
+</html>

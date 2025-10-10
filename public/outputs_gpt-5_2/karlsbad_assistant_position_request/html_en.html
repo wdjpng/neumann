@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hôtel Bristol – Letter (unified transcription)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* Unicolor background as requested */
+  body {
+    margin: 0;
+    background: #f6f2e6;
+    color: #2a2a2a;
+    font-family: "Georgia", "Times New Roman", serif;
+  }
+  .page {
+    max-width: 950px;
+    margin: 28px auto 48px;
+    background: #fffdf6;
+    border: 1px solid #e0d6b8;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    padding: 28px 34px 40px;
+  }
+  .margin-notes { position: relative; height: 0; }
+  .note-left, .note-right {
+    position: absolute; top: -18px;
+    font-family: "Courier New", monospace;
+    color: #6e6e6e; font-size: 18px;
+  }
+  .note-left { left: 0; }
+  .note-right { right: 0; }
+
+  /* Letterhead (kept more or less as is) */
+  .letterhead {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.2fr;
+    align-items: end;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .lh-left {
+    font-size: 14px; text-transform: uppercase;
+    line-height: 1.25; color:#3a3a3a; letter-spacing:.04em;
+  }
+  .lh-left .rule { display:block; width: 40px; height: 2px; background:#3a3a3a; margin: 6px 0; }
+  .hotel { text-align:center; font-size: 44px; letter-spacing:.08em; color:#2e2e2e; }
+  .lh-right { text-align:right; font-size: 16px; color:#3a3a3a; letter-spacing:.03em; white-space: nowrap; }
+  .date-line { text-align: right; font-size: 16px; color:#3a3a3a; letter-spacing:.03em; margin-top: 20px; }
+
+  /* Body */
+  .salutation {
+    margin-top: 26px; font-size: 24px; color:#1f3b6d;
+  }
+  .letter-body {
+    margin-top: 16px;
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  .letter-body p { margin: 0 0 1em; }
+  u { text-underline-offset: .18em; }
+
+  .closing { margin-top: 1.2em; }
+  .signature { margin-top: 2.2em; white-space: pre-wrap; }
+  .postscript { margin-top: 1.4em; }
+</style>
+
+<!-- MathJax for mathematical expressions -->
+<script>
+  window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+</script>
+<script defer id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="page">
+    <div class="margin-notes">
+      <div class="note-left">Hs 91: 678</div>
+      
+    </div>
+
+    <div class="letterhead">
+      <div class="lh-left">
+        TELEGRAM ADDRESS:<br>
+        <strong>BRISTOL, KARLSBAD.</strong>
+        <span class="rule"></span>
+        TEL. No. 86.
+      </div>
+      <div class="hotel">HÔTEL&nbsp;BRISTOL</div>
+      <div></div>
+    </div>
+
+    <div class="date-line">KARLSBAD, June&nbsp;27,&nbsp;1927</div>
+
+    <div class="salutation">Dear Professor!</div>
+
+    <div class="letter-body">
+      <p>I am turning to you with a request, hoping not to cause you any significant trouble thereby. It concerns the assistant position at the <u>theoretical physics</u> chair of the University of Berlin, which is awarded every 3 years, and which, as I am informed, will become vacant again in the coming autumn. Since it can be assumed with great probability that Prof. Schrödinger will come to Berlin, it is the assistantship with him, and I believe I am not mistaken in assuming that he will make the appointment in the coming months.</p>
+
+      <p>In recent times in Göttingen I have occupied myself much (almost exclusively) with quantum mechanics (the paper whose draft I sent you will appear—in somewhat expanded form—in about 10 days in the 'Gött. Nachr.'), and I intend to continue working on these questions in the near future. Moreover, I will be staying in Berlin as a result of my forthcoming habilitation. I therefore hope I may assume that I am among those who come into consideration for this position.</p>
+
+      <p>If I am not mistaken, Prof. Schrödinger is presently in Zurich; I would therefore be very grateful to you, Professor, if you would be so kind as to speak with him once about this matter in this sense; all the more so since you are indeed informed about my scientific activity and interests. I hope that I am not causing you any particular trouble through this request, and I thank you in advance.</p>
+
+      <p>Since in your last letter you had the kindness to invite me to inform you on occasion about my work, I took the liberty of writing something more about a question with which I have been occupied in connection with the quantum mechanical operator calculus—and which I believe I have brought to a certain conclusion. It is the question of the formulation and resolution of the eigenvalue problem for general (in particular unbounded!) symmetric operators, in the sense in which Hilbert achieved it for bounded ones. (For quantum mechanics, unbounded operators are precisely of the highest interest!) Thus arbitrary symmetric operators are admitted (the operators are applicable to the points of Hilbert space—that is, they are infinite matrices—or to functions—the function spaces are indeed isomorphic to Hilbert space—whereby differential operators are explicitly permitted).</p>
+
+      <p>One cannot demand that they be "meaningful everywhere" (after a simple consideration, this is the case for bounded operators, and only these); instead of this, however, the following is required: The operator should be maximally symmetric, that is, there should be no symmetric operator that is meaningful everywhere it is, and agrees with it there, but is also meaningful at other places.</p>
+
+      <p>I define an eigenvalue representation as follows: \(E(\lambda)\) \((-\infty < \lambda < \infty)\) is a sequence of projectors, \(E(\lambda)\) grows monotonically with \(l\), it tends to \(0, 1\) for \(\lambda \to \pm\infty\) (i.e., \(E(\lambda)f\) en moyenne to \(0,f\)) and is continuous from the right (i.e., \(E(n)\) en moyenne)—my terminology is the same as in my quantum mechanical manuscript.</p>
+
+      <p>\(Q(f,g)\) is the scalar product of \(f,g\) (i.e., in Hilbert space \(\sum f_n g_n\); in function space \(\int f \cdot g \, dv\)), \(Q(f,f)=Q(f)\).</p>
+
+      <p>If \( \int_{-\infty}^{\infty} \lambda^{2}\, d\varphi\!\big(E(\lambda)\,\xi\big) \) is finite, then there exists a (and only one) \(f^{x}\)—only those with finite \(Q(f^{*})\) are admitted—such that always
+      \(Q(f^{*}, g) = \int_{-\infty}^{\infty} \lambda \, d\varphi\!\left(f,\; E(\lambda)\, g\right)\)
+      holds.<br>
+      The "operator \(T^{*}\) belonging to \(E(\lambda)\)" is now defined for these (and only these) \(f\), namely \(T^{*} f = f^{*}\). (One can then symbolically write \(T^{*} = \int_{-\infty}^{\infty} \lambda \, dE(\lambda)\).)</p>
+
+      <p>Now one can prove the following: If \(E(\lambda)\) is a family of individual operators with the mentioned properties, then the associated operator \(T^*\) is maximally symmetric. And conversely, for every maximally symmetric \(T\) there exists one and only one such family for which \(T\) is the associated operator.</p>
+
+      <p>The theorem is relatively difficult to prove; at least I cannot carry out the proof—even if everything trivial or known is presupposed—in less than 25–30 printed pages. It will appear in Math. Ann.</p>
+
+
+      <div class="signature">
+Apologizing once more for the trouble caused, I remain yours most devotedly
+
+                J. v. Neumann.
+      </div>
+
+      <div class="postscript">
+        <strong>P.S.</strong><br>
+        I am only here in Karlsbad for a short time—to visit my parents.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

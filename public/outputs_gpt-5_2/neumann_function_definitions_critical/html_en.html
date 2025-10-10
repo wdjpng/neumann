@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Excerpt – Transcription</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  body {
+    margin: 0;
+    padding: 2rem;
+    background: #efe7df;
+    font-family: "Times New Roman", Georgia, serif;
+    color: #3b2f27;
+  }
+  .sheet {
+    background: #f7f0e7;
+    padding: 2.5rem 3rem;
+    margin: 0 auto;
+    max-width: 1100px;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    line-height: 1.5;
+    font-size: 1.15rem;
+  }
+  .topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  .smallnote { color: #6b5e56; }
+  .dateline { font-size: 1.15rem; font-style: italic; }
+  .salutation {
+    margin-top: 2rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+    font-style: italic;
+  }
+  .heading {
+    margin-top: 1.6rem;
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 600;
+    border-bottom: 2px solid #3b2f27;
+    display: inline-block;
+    padding-bottom: 0.1rem;
+  }
+  .block {
+    margin-top: 1rem;
+  }
+  .line { margin: 0.35rem 0; }
+  .mathline { margin: 0.35rem 0; font-size: 1.15rem; }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="topline">
+      <div class="smallnote">Hs. 975: 3328</div>
+      <div class="dateline">Berlin, May 10, 1931</div>
+    </div>
+
+    <div class="salutation">Dear Professor Bernays!</div>
+
+    <div class="block">
+      <div class="line">The example of interest to us looks as follows:</div>
+      <div class="heading">Notation:</div>
+      <div class="mathline">$$\mathrm{Or}(x,y,z) \equiv (z=0) \to (x=y),$$</div>
+      <div class="mathline">$$\mathrm{Lo}(x,y) \equiv x=y.$$</div>
+      <div class="mathline">$$k\ \text{an effective number} \equiv 1,2,3,\dots$$</div>
+      <div class="mathline">$$\equiv\ U(y, k, E_{u}\,L(y+1, u)),$$</div>
+      <div class="mathline">$$\equiv\ L(\epsilon_{y}\,L(y),\,v).$$</div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Critical formulas:</div>
+      <div class="mathline">\(1.\quad L(K) \rightarrow L\big(\exists y\, L(y)\big),\)</div>
+      <div class="mathline">\(2.\quad \mathcal{D}L\big(\exists y\, L(y)\big) \rightarrow \mathcal{D}\big(\exists x\, \mathcal{D}(x x)\big)\)</div>
+      <div class="line">2. has rank 1, 1. or rank 2</div>
+    </div>
+
+    <div class="block">
+      <div class="line">2. At the beginning of the entire procedure [...] (...) is equal to \(0\) for all <span style="font-family:'Courier New',monospace">x</span>, i.e. the limit \(i \to k\), i.e. \(l = k\).</div>
+    </div>
+
+    <div class="block">
+      <div class="line"><span style="font-weight:600">4.</span> Let us assume that in some phase of the procedure the function defining \( \delta(x,u) \) is defined in the domain of \( x = a_{1,\dots,k} \) as follows: equal to 0 in the set M, otherwise \( \ne 0 \).</div>
+    </div>
+
+    <div class="block">
+      <div class="line">B. \(G(y+1,u)\)) is certainly true for \(z = k\), but for \(y=0,\ldots,k-1\) it is only true when \(g+1\) does not lie in \(M\). Thus if \(M\) is a set \(0,\ldots,l\) \((l\le k)\), then \(y=l\) is the first \(y\) for which it becomes true, i.e. for which \(L(y)\) becomes true. Since \(S(k)\) is true, by 1. \(E\,g\,L(y)\) must be chosen equal to \(l\).</div>
+    </div>
+
+    <div class="block">
+      <div class="line">In <span style="text-decoration: underline">2.</span> we then have \(\,I(0) \equiv K(l, v) \equiv (l = v)\,\) before us, thus the <span style="font-weight:600">critical formula</span></div>
+      <div class="mathline">\((\,l = l\,) \rightarrow (\,l = \exists\,l(w)\,)\).</div>
+      <div class="line">therefore \(E_v(F(v)) = l\) must be made. If \(l = 0\), then \(y = k\) is thereby removed from \(M\), it passes into \(0,\ldots,1\).</div>
+    </div>
+
+    <div class="block">
+      <div class="line">With each further step-pair \(l\) is diminished by \(1\) until it becomes \(0\); when \(l=0\) the second step is already moot. Therefore a total of \(2k+1\) steps will be necessary.</div>
+    </div>
+
+    <div class="block">
+      <div class="line"><span style="text-decoration: underline">E.</span> Thus the number of occurrences depends not only on the form of the critical formulas, but also on the numerical value of the number substituent \(k = 12,\ldots\)</div>
+    </div>
+
+    <div class="block">
+      <div class="line">I believe this answers in the negative the question which we did not discuss when working through the modified Ackermann proof, namely whether a length estimate for the correction procedure uniformly possible independent of the size of the number substituents.</div>
+    </div>
+
+    <div class="block">
+      <div class="line">At this point, then, the proof of the finite termination of this procedure (for the next degree, i.e. 3) is in any case incomplete.</div>
+    </div>
+
+    <div class="block" style="margin-top:1.4rem">
+      <div class="line">With best regards</div>
+      <div class="line" style="margin-top:.4rem">Yours</div>
+    </div>
+
+    <div class="block" style="text-align:right; margin-top:1.2rem; font-size:2rem; font-family: 'Brush Script MT','Lucida Handwriting','Segoe Script',cursive; color:#5a4e42;">
+      J. v. Neumann.
+    </div>
+  </div>
+</body>
+</html>

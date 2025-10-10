@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Letter – Transcription (unified)</title>
+
+<!-- MathJax -->
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]'], ['$$','$$']] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+  /* Page look inspired by the first scanned page */
+  body {
+    margin: 0;
+    background: #faf9f7;
+    color: #2b2b2b;
+    font-family: "Georgia", "Times New Roman", serif;
+  }
+  .page {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #ffffff;
+    border: 1px solid #e5e2dc;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    padding: 2.5rem 3rem;
+    line-height: 1.75;
+    font-size: 1.1rem;
+  }
+  header {
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom: 1.8rem;
+  }
+  .inv-no { color:#667; font-style:italic; }
+  .np { color:#a45100; font-weight:600; }
+  .place-date { text-align:right; font-style:italic; white-space:pre; }
+  .body { white-space: pre-wrap; }
+  .equation { margin: .8rem 0 .4rem; text-align: center; }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+    margin: .5rem 0 1rem;
+  }
+  .rule {
+    height: 1px;
+    background: #e8e4dd;
+    margin: 1.5rem 0;
+  }
+  .signature {
+    font-family: "Brush Script MT", "Lucida Handwriting", cursive;
+    font-size: 2.2rem;
+    color: #444;
+    margin-top: .2rem;
+  }
+  .ps-label {
+    font-size: 1.35rem;
+    letter-spacing: .04em;
+    margin: .2rem 0 0.6rem;
+  }
+</style>
+</head>
+<body>
+
+  <div class="page">
+    <header>
+      <div>
+        <div class="inv-no">Hs. 91: 676</div>
+        <div class="np">N. P.</div>
+      </div>
+      <div class="place-date">Budapest, March 1, 1925.</div>
+    </header>
+
+    <div class="body">
+Dear Professor!
+
+During my journey and after my arrival in Budapest I have succeeded in resolving the question touched upon in Lenzerheide concerning the effect of a mass point on de Sitter's hyperbolic world.
+
+The result is as follows:
+To be represented is the space of r, θ, φ, t with the line element
+    </div>
+
+    <div class="equation">
+      \[
+        ds^{2}
+        = -\left(1-\frac{2m}{r}-r^{2}\right)^{-1} \, dr^{2}
+          - r^{2}\, d\theta^{2}
+          - r^{2}\sin^{2}(\theta)\, d\varphi^{2}
+          + \left(1-\frac{2m}{r}-r^{2}\right)\, dt^{2}.
+      \]
+    </div>
+
+    <div class="body">
+When \(0 < m < \frac{1}{3\sqrt{3}}\) then \(\,1-\frac{2m}{r}-r^{2}\,\) has 1 negative and 2 positive roots \(r_{-1}, r_{0}, r_{1}\). For \(r_{0} < r < r_{1}\) this solution is then usable.
+
+With the transformation
+    </div>
+
+    <div class="grid-2">
+      <div>
+        \( x_{1} = \dfrac{r}{r_{1}} \cos(\theta) \)<br>
+        \( x_{2} = \dfrac{r}{r_{1}} \sin(\theta)\cos(\varphi) \)<br>
+        \( x_{3} = \dfrac{r}{r_{1}} \sin(\theta)\sin(\varphi) \)
+      </div>
+      <div>
+        \( x_{4} = \sqrt{\,1-\dfrac{r^{2}}{r_{1}^{2}}\,}\;\mathrm{Ch}\!\big((r_{1}-\dfrac{m}{r_{1}^{2}})\,t\big) \)<br>
+        \( x_{5} = \sqrt{\,1-\dfrac{r^{2}}{r_{1}^{2}}\,}\;\mathrm{Sh}\!\big((r_{1}-\dfrac{m}{r_{1}^{2}})\,t\big) \)
+      </div>
+    </div>
+
+    <div class="body">
+this space \(r, \theta, \varphi, t\) is mapped onto the space of \(x_1, x_2, x_3, x_4, x_5\) with
+    </div>
+    <div class="equation">\(x_1^{2}+x_2^{2}+x_3^{2}+x_4^{2}-x_5^{2}=1\)</div>
+
+    <div class="body">
+(the de Sitter hyperboloid), that is, onto a portion with \(x_1^{2} + x_2^{2} + x_3^{2} < 1\), and the line element becomes
+    </div>
+
+    <div class="equation">
+      $$\begin{aligned}
+      ds^2 \;=\;& -\,f\!\left(\sqrt{x_1^{2}+x_2^{2}+x_3^{2}}\right)\,\left(dx_1^{2}+dx_2^{2}+dx_3^{2}\right)\;-\;\\[2pt]
+      & g\!\left(\sqrt{x_1^{2}+x_2^{2}+x_3^{2}}\right)\,\bigl(x_1\,dx_1+x_2\,dx_2+x_3\,dx_3\bigr)^{2}\;-\;\\[2pt]
+      & h\!\left(\sqrt{x_1^{2}+x_2^{2}+x_3^{2}}\right)\,\left(dx_4^{2}-dx_5^{2}\right)
+      \end{aligned}$$
+    </div>
+
+    <div class="body">
+where f, g, h are defined as follows:
+    </div>
+
+    <div class="equation">\(f(x)=r_1^{2}\)</div>
+    <div class="equation">
+      \[
+      \left\{
+      \begin{aligned}
+      Q(x) &= \left(x-\dfrac{\gamma_0}{\gamma_1}\right)\\[4pt]
+      &\cdot\left(x-\dfrac{r_0}{r_1}\right) = \\[4pt]
+      &= x^{2}+x-\dfrac{2m}{r_1^{3}}
+      \end{aligned}
+      \right.
+      \]
+    </div>
+    <div class="equation">
+      \(g(x)=\dfrac{1}{\,Q(x)\, x\, (1-x)} -\dfrac{4\,Q(x)}{Q(1)^{2}\, x\, (x+1)^{2}\, (1-x)} - \dfrac{r_1^{2}}{x^{2}}\)
+    </div>
+    <div class="equation">
+      \(h(x)=\dfrac{4\,Q(x)}{Q(1)^{2}\, x\, (x+1)} \)
+    </div>
+
+    <div class="body">
+That these are finite and positive for \(x > \frac{r_0}{r_1}\) is immediately clear; for \(g(x)\) this follows from the representation
+    </div>
+
+    <div class="equation">
+      \[
+        g(x)=\frac{1}{x^{2}}\;\frac{x\,\varphi(x)-\varphi(1)}{x-1},\qquad
+       \varphi(x)=\frac{Q(x)}{(x+1)^{2}}-\frac{1}{Q(x)}-r_{1}^{2}.
+      \]
+    </div>
+
+    <div class="body">
+Thus this hyperbolic world is regular for \(x > \frac{r_0}{r_1}\), that is, outside a neighborhood of the mass point and <u>its antipode</u>.
+
+Since for \(x \to \infty\)  \(f(x) \to r^2,\; g(x) \to 0,\; h(x) \to \dfrac{4}{Q^2(1)} = \dfrac{1}{\left(1-\dfrac{m}{r_1^3}\right)^2}\) the effect of the mass point does not vanish even in infinitely distant world regions lying outside the past or the future; the world is there spatially contracted in the ratio \( r_1 : 1 \), temporally accelerated in the ratio \( \dfrac{1}{\,t - \dfrac{m}{r^{3}_1}\,} : 1 \). The discussion of this solution is otherwise quite simple. — 
+I also have the pleasant duty to express my thanks to you, Professor, and your esteemed family for the pleasant days I spent in your circle in Lenzerheide. Asking you, Professor, to convey my respectful hand-kiss to your wife,
+I remain most respectfully
+
+Yours most devotedly
+    </div>
+
+    <div class="signature">Hans v. Neumann.</div>
+
+    <div class="rule"></div>
+
+    <div class="ps-label">P. S.</div>
+    <div class="body">
+I do not know how to interpret the symmetry of the antipodes. The most radical solution would be always to identify two antipodes \(x_1, x_2, x_3, x_4, x_5\) and \(-x_1, -x_2, -x_3, -x_4, -x_5\). This operation (whose partial analogue is indeed also considered in Einstein's cylindrical world) would however have the effect that one could not establish an unambiguous time direction Past → Future (for all world lines).
+
+Rather, this direction would have to be uniquely defined for the world line of each atom. To remain in accord with causality we must declare: Signals \(A \to B\) (sub-light velocity) are only possible when A lies in B's past and B in A's future. Between world lines with opposite time directions there are thus no signals.
+For each world line both past and future encompass the entire hyperbolic world, such that of every other world line one part has the same time direction, the other part the opposite time direction. Thus distant celestial objects will here too be initially visible, recede ever faster and show ever stronger time dilation, and never be traceable beyond a certain point in time. On the star of course nothing happens; the observer will see that first a standstill, then a reversal of time occurs.
+
+Most respectfully   H.v. Neumann.
+    </div>
+
+  </div>
+</body>
+</html>

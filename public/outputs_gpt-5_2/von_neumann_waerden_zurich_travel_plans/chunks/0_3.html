@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Transcription</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --paper:#f3eadb;
+    --ink:#2b2b2b;
+  }
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);}
+  .page{
+    max-width: 980px;
+    margin: 3rem auto;
+    padding: 3rem 3.2rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.4)), var(--paper);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border-radius: 8px;
+  }
+  .letter{
+    font-family: "Brush Script MT","Lucida Handwriting","Segoe Script","Apple Chancery",cursive;
+    font-size: 28px;
+    line-height: 1.6;
+  }
+  .salutation{
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 1.2rem;
+  }
+  .body{
+    white-space: pre-line;
+  }
+</style>
+<!-- MathJax (in case any math appears) -->
+<script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="page">
+    <div class="letter">
+      <div class="salutation">Dear von Neumann</div>
+      <div class="body">
+You are right that August-September is a
+vacation period here. The vacations begin about
+July 18. I am very sorry that a talk at our
+Colloquium is out of the question. However, I'll
+be delighted to see you personally. I'll be in town
+from Aug. 20 until the beginning of the Amsterdam
+congress. Yours most cordially.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

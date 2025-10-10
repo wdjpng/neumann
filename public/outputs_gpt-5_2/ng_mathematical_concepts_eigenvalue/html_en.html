@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Letter Transcription – 19.8.1928</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f6f3ec;
+      color: #2b2b2b;
+      font-family: "Times New Roman", Georgia, serif;
+    }
+    .page {
+      max-width: 980px;
+      margin: 3rem auto;
+      background: #fffdf8;
+      box-shadow: 0 8px 28px rgba(0,0,0,.08);
+      border: 1px solid #e6e0cf;
+      border-radius: 6px;
+      padding: 2.6rem 3rem;
+      line-height: 1.85;
+      font-size: 1.15rem;
+    }
+    .header-row {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .header-row .left   { flex: 1; text-align: left; }
+    .header-row .center { flex: 1; text-align: center; color: #7a7a7a; }
+    .header-row .right  { flex: 1; text-align: right; }
+    .date { font-size: 1.1rem; }
+    .salute {
+      font-style: italic;
+      font-size: 1.35rem;
+      margin: 1.4rem 0 1.8rem 0;
+    }
+    .body p {
+      margin: 0 0 1rem 0;
+      white-space: pre-wrap;
+    }
+    .mathblock {
+      margin: .25rem 0 1rem 0;
+      text-align: center;
+    }
+    .closing {
+      margin-top: 2rem;
+    }
+   .signature {
+  margin-top: 1.1rem;
+  margin-left: 65%; /* Increased from 55% to move further right */
+  font-family: "Segoe Script", "Lucida Handwriting", "Brush Script MT", cursive;
+  font-size: 1.4rem;
+}
+    .address {
+      margin-top: .4rem;
+      font-size: 1rem;
+      letter-spacing: .02em;
+      color: #444;
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']], displayMath: [['$$','$$']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <main class="page">
+    <div class="header-row">
+      <div class="left">N. G</div>
+      <div class="center">Hs 91: 681</div>
+      <div class="right date">Budapest, 19.8.1928.</div>
+    </div>
+
+    <div class="salute">Dear Professor!</div>
+
+    <section class="body">
+      <p>Together with this letter I take the liberty of sending you the preliminary clean copy of my work on Hermitian operators (which in this form is <u>not</u> intended for publication) — perhaps you will find some points of interest.</p>
+
+      <p>I believe I have quite thoroughly resolved the question of eigenvalue representation here with a simple and constructive method (insofar as that is at all possible) (Chapters III–VI). I would also like to mention that there exists a single operator (essentially) that admits no eigenvalue representation (Chapter VII, Appendix III), as well as the curious "pathology" of unbounded matrices (Chapter I, end of Appendix II).</p>
+
+      <p>Furthermore, I have the impression that the "eigenvalue-less" operator I found may play a role in the spinning electron — but at present I know little that is definite about this.</p>
+
+      <p>In the course of my deliberations I made an observation that seems to be unknown; perhaps you know something about it. Namely, the 2+1-dimensional Lorentz group is represented (albeit fractionally) one-to-one by the conformal mappings of the unit circle onto itself</p>
+
+      <div class="mathblock">
+        \( y = \varepsilon \dfrac{x - a}{1 - \bar{a}\,x} \),&nbsp;&nbsp; \( |\varepsilon| = 1,\quad |a| < 1 \)
+      </div>
+
+      <p>This group now possesses an infinite-dimensional and irreducible representation. Namely:</p>
+
+      <p>To the point \(x_0, x_1, x_2, \ldots\) of the infinite-dimensional unitary (Hilbert) space \(\bigl(\sum x_n^{2}\ \text{finite!}\bigr)\) I assign the function</p>
+
+      <div class="mathblock">
+        \( f(\xi) = \sum_{0}^{\infty} x_n\, \xi^{\,n} \)
+      </div>
+
+      <p>The transformation</p>
+
+      <div class="mathblock">
+        \( f(z) \longrightarrow \dfrac{\sqrt{e}\,\sqrt{\,1-a\bar{a}\,}}{1-a\bar{z}}\,f\!\left(\dfrac{z-a}{1-\bar{a}z}\right) \)
+      </div>
+
+      <p>now carries these \( f(z) \) into the same kind, and is therefore a linear mapping of Hilbert space onto itself — specifically a unitary one. One easily shows the presence of the representation property, as well as the irreducibility.</p>
+
+      <p>Are there methods for controlling the infinite-dimensional irreducible representations of such a group?</p>
+
+      <div class="closing">
+        <p>Thanking you, also on behalf of my parents, for your kind wishes, I remain yours very respectfully</p>
+
+        <div class="signature">J. v. Neumann.</div>
+        <div class="address">Budapest – Svábhegy, I/b. Eötvös út 15.</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

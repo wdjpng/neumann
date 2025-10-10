@@ -1,0 +1,26 @@
+**Processing image coordinates**
+
+I need to create chunk coordinates for this image containing a letter-style address. The instruction is to split them into rectangular bounding boxes that include the entire width of each letter page, likely resulting in 2 or 3 chunks. There are about 7-8 lines of text to account for, including "FLUGPOST" and other sections. Some lines are faint or not straight, so I need to ensure everything is fully contained while being careful with overlaps.
+**Evaluating faint lines**
+
+I notice faint reversed lines near the top center of the image. Though they're not strong, they still count as text lines. There are several faint lines in the top half, possibly from the reverse side of the letter. The instructions state that every line of text must be fully contained in one chunk, which likely refers to visible text. While there could be many lines, I can create chunks capturing groups and include up to 8 lines per chunk, which allows me flexibility.
+**Counting lines for chunks**
+
+At the top left, I see the header "Zürich 56, ???" followed by another faint line and the body text starting with "My dear von Neumann." This may give me about 6 lines total. I think I could use 2-3 chunks: one for the reversed letter text lines and possibly include FLUGPOST since it's significant. However, counting carefully, I find that adding FLUGPOST might push me over the 8-line limit, which needs to be considered.
+**Defining chunk requirements**
+
+The requirement states "no more than around eight lines of text in each chunk," so I think I can split the top chunk to just include the faint text lines up to near FLUGPOST. The second chunk could contain address lines starting with FLUGPOST down to New Jersey and the U.S.A., probably around 5-6 lines. It seems fine! I also need to consider including the whole width of the letter page, setting the left margin to x1=0, and capturing the full width of 1078 pixels. For y coordinates, I estimate the header lines are positioned around y  40-120.
+**Setting chunk boundaries**
+
+It looks like I'm estimating the positions of the text lines in the image and figuring out how to split them into chunks. The top faint header is around y=38 with maybe 3 lines, and body lines appear slightly lower at y=190-290. The FLUGPOST line is at about y=305. Based on this, I can create two chunks: one for the faint lines up to just before FLUGPOST and another for the address lines starting with FLUGPOST. 
+
+I'll set total width to 1078 pixels and ensure the top chunk captures everything up to y=300 while allowing a small overlap for clarity. This gives me two appropriate chunks, ensuring all text lines are fully contained within at least one of the chunks.
+**Finalizing chunk coordinates**
+
+The instruction says to "include the whole width of each letter page in each chunk," and I've made sure to do that by using 2 chunks. I need to check for any lines near the right side, specifically for "U.S.A." around y=560, which is indeed within chunk 2. Now, I'll provide the final output with the coordinates and resolution:
+
+Chunk 1: (0, 0, 1078, 300)  
+Chunk 2: (0, 280, 1078, 768)  
+Resolution at last line: (1078, 768)
+
+I’m ensuring the numbers are all integers, so this looks good!

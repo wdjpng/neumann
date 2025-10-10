@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Transcription</title>
+<style>
+  body{
+    background:#f3efe6;
+    margin:0;
+    font-family: "Times New Roman", Georgia, serif;
+    color:#333;
+  }
+  .page{
+    max-width: 800px;
+    margin:2.5rem auto;
+    background:#fffdf5;
+    padding:44px 56px;
+    border:1px solid #e6dcc6;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    line-height:1.85;
+    font-size:1.08rem;
+  }
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    color:#555;
+    font-style:italic;
+    margin-bottom:1.6rem;
+  }
+  .leftnote{white-space:nowrap;}
+  .date{white-space:nowrap;}
+  .letter p { margin: 0 0 1.1rem 0; }
+  .footnotes{
+    border-top:1px solid #e6dcc6;
+    margin-top:2rem;
+    padding-top:1rem;
+    font-size:.98rem;
+    color:#444;
+  }
+  .footnotes p{ margin:.5rem 0; }
+  sup a{ color:inherit; text-decoration:none; }
+</style>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="page">
+    <div class="topline">
+      <div class="leftnote">Hs.91: 679</div>
+      <div class="date">Berlin, June 30, 1928.</div>
+    </div>
+
+    <div class="letter">
+      <p>Dear Professor!</p>
+
+      <p>I have just received from Hirzel's publishing house proofs of about 50 pages of your booklet on group theory. It interests me very much, and I am quite eager for the continuation. However, the publisher only sent me the galleys starting from Chapter III, so that it has not become clear to me whether your book actually deals with group theory, or whether this is merely needed as an auxiliary tool for quantum mechanical purposes. I would be very interested to learn what the title of the book is. Do you also bring in it a broader presentation of the content of your work on quantum mechanics? —</p>
+
+      <p>About 5 months ago Van der Waerden made a remark<sup><a href="#fn-star">*</a></sup>) from which it follows, regarding the ordering of quantities (that is, functions of p and q) into operators, that for the quantity \(p^2 q^2\) there belongs an operator that also has negative eigenvalues<sup><a href="#fn-dbl">**</a></sup>). (Incidentally, one can transform the operator \(pq\) into \(p\) through the unitary transformation \(f(q) \to e^{\frac{i}{\hbar}q}\,f(e^q)\) — since then \(p^2\) is naturally definite, thus \(p^2\) does not go over into \(p^2\)) Is this objection known to you, and what is your opinion about it? In the sense of the statistical theory, a negative value-interval for \(p^2 q^2\) would have to have a probability \(>0\), which is implausible; and the probability would not be an invariant under unitary (contact) transformations, which is inconvenient.</p>
+
+      <p>Incidentally, one can show following Van der Waerden that a general assignment of quantities \( f = f(pq) \) to operators \( T' \), \( f \mapsto T_f \), is not at all possible if</p>
+
+      <p>\(T_{\,f+g} \;=\; T_f \;+\; T_g\)</p>
+      <p>\(T_{\,\varphi(f)} \;=\; \varphi\!\big(T_f\big)\qquad (\varphi\ \text{a single-variable function})\)</p>
+
+      <p>is required<sup><a href="#fn-star1">1)</a></sup>. — I thank you again very much for sending me the group theory manuscript. Will you still visit the Bologna or Hamburg congress before your trip to America?</p>
+
+      <p>In the hope of seeing you again I remain your very devoted<br>
+      J. v. Neumann.</p>
+    </div>
+
+    <div class="footnotes">
+      <p id="fn-star">*) He noted that when the quantity \( f(p,q) \) belongs to the operator \( T \), the \( \varphi(f(p,q)) \) does <em>not</em> in general belong to \( \varphi(T) \).</p>
+      <p id="fn-dbl">**) Namely a continuous spectrum from \( -\dfrac{\hbar^{2}}{16\pi^{2}} \) to \( +\infty \); to the eigenvalue \( E = -\dfrac{h^{2}}{16\pi^{2}} + \alpha^{2} \) belong the two eigenfunctions \(q^{-\tfrac{1}{2} \pm \frac{2\pi i}{h}\, a}\), \((-\infty < q < +\infty)\).</p>
+      <p id="fn-star1">1) I believe that one should conclude from this that the physical quantities are not to be described as functions of \(p\) and \(q\).</p>
+    </div>
+  </div>
+</body>
+</html>

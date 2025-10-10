@@ -1,0 +1,22 @@
+**Structuring letter chunks**
+
+I’m thinking about how to divide the letter into chunks. It looks like I can break it down into five main sections, all within the right height limits. The first chunk would include the date and address, taking up the top portion. After that, I'll have the salutation plus the start of the body, followed by the rest of the body lines. Then, I’ll have closing lines and the signature. I need to make sure everything stays fully contained within the edges.
+**Defining letter chunk dimensions**
+
+I’m mapping out the dimensions for the letter page. The left and right margins seem to be about 50 pixels, but I can use the full image width to be safer. I’ll set my chunk width from x=0 to x=767. For the first chunk, I’m thinking the y-range should be y=40 to y=300, which includes the date line around y=86. I want to cover the necessary lines without adding unnecessary chunks, and it’s crucial to keep coordinates as integers.
+**Structuring the second chunk**
+
+For chunk 2, I'm focusing on the salutation and the start of the first paragraph. It seems reasonable to set the y-range from about 320 to 510. The first paragraph starts with "Mein lieber Prinz," followed by a blank line and then continues with more lines. I’m considering including the salutation and maybe the first 7 lines, ensuring I don’t cut lines mid-sentence since that’s crucial. To avoid estimation errors, I’ll specify exact y coordinates and create some overlap between the chunks, around 20-40 pixels, to make sure all lines are fully contained.
+**Planning chunk y positions**
+
+I’m working on determining the y positions for several lines in my letter chunks. Starting from the top, I’m setting chunk 2 to y1=300 and y2=520, with the salutation around y=320-340. For the body, I think it should go from y=360 to y=620. Then for chunk 3, I'll set y1=490 and y2=710, adding a 30 px overlap to ensure lines are fully contained. The closing lines will be between 620 and 680, and it seems acceptable to include those with chunk 3 for simplicity.
+**Finalizing chunk coordinates**
+
+The plan is to use four chunks: one for the top header and address, along with the body sections and the signature. I’ve thought through their y-positions, deciding on coordinates that include all necessary lines without cutting off text. I’m adjusting the first chunk to start from y=0 to ensure I capture a faint scribble. After some calculations, my final coordinates will maintain the full width of the letter page and provide the necessary overlaps for the text. 
+
+Here’s the final output:
+
+(0, 0, 767, 300)  
+(0, 300, 767, 540)  
+(0, 520, 767, 740)  
+(0, 730, 767, 950)

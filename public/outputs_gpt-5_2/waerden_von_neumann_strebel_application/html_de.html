@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Transcription</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --paper-bg: #ffffff;
+      --desk-bg: #f5f2ee;
+      --ink: #333333;
+      --muted: #777777;
+      --rule: #e1e1e1;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--desk-bg);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.6;
+    }
+    .page {
+      width: 720px;
+      max-width: calc(100% - 40px);
+      margin: 40px auto;
+      background: var(--paper-bg);
+      padding: 44px 52px 56px;
+      border: 1px solid var(--rule);
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      position: relative;
+    }
+    .annotation {
+      position: absolute;
+      top: 14px;
+      left: 18px;
+      color: var(--muted);
+      font-size: 20px;
+      letter-spacing: 0.5px;
+      opacity: 0.9;
+      user-select: none;
+    }
+    .date {
+      text-align: right;
+      margin-bottom: 28px;
+    }
+    .address {
+      margin-top: 10px;
+      line-height: 1.7;
+    }
+    .spaced-underline {
+      display: inline-block;
+      letter-spacing: 0.55em;
+      border-bottom: 2px solid #000;
+      padding-bottom: 2px;
+    }
+    .salutation {
+      margin-top: 48px;
+    }
+    .body {
+      margin-top: 12px;
+    }
+    .body p {
+      margin: 0 0 16px 0;
+    }
+    .closing {
+      margin-top: 28px;
+    }
+    .signature {
+      text-align: center;
+      margin-top: 36px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="annotation">Hz 652 . 6527</div>
+
+    <div class="date">31.Jan. 1953</div>
+
+    <div class="address">
+      <div>Prof. Dr. John von Neumann</div>
+      <div>Institute for advanced study</div>
+      <div><span class="spaced-underline">P r i n c e t o n</span></div>
+      <div>New Jersey</div>
+    </div>
+
+    <div class="salutation">Dear von Neumann,</div>
+
+    <div class="body">
+      <p>Many thanks for your letter of Jan. 23. Dr. S t r e b e l has applied for a Swiss stipendium, which will enable him to go to America. We have the impression that this will be granted. If not, he could perhaps apply for 1954/55. In any case I keep the application forms you sent me.</p>
+    </div>
+
+    <div class="closing">Yours most cordially</div>
+
+    <div class="signature">(B.L.van der Waerden)</div>
+  </div>
+</body>
+</html>

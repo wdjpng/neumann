@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Transcription</title>
+<style>
+  body {
+    background: #f6f4f1;
+    margin: 0;
+    padding: 40px;
+  }
+  .letter {
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: "Courier New", Courier, monospace;
+    color: #222;
+    line-height: 1.6;
+  }
+  .top-date {
+    text-align: right;
+    margin-bottom: 18px;
+  }
+  .address, .body {
+    white-space: pre-wrap;
+  }
+  .address {
+    margin-top: 8px;
+  }
+  .address .under {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .closing, .signature {
+    text-align: center;
+  }
+  .closing { margin-top: 22px; }
+  .signature { margin-top: 28px; }
+</style>
+<script>
+  window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="letter">
+
+    <div class="top-date">31.Jan. 1953</div>
+
+    <div class="address">
+Prof. Dr. John von Neumann
+Institute for advanced study
+<span class="under">P r i n c e t o n</span>
+New Jersey
+    </div>
+
+    <div class="body">
+Dear von Neumann,
+
+        Many thanks for your letter of
+Jan. 23. Dr. S t r e b e l  has applied for
+a Swiss stipendium, which will enable him to
+go to America.  We have the impression that
+this will be granted.  If not, he could per-
+haps apply for 1954/55.  In any case I keep
+the application forms you sent me.
+    </div>
+
+    <div class="closing">Yours most cordially</div>
+
+    <div class="signature">(B.L.van der Waerden)</div>
+
+  </div>
+</body>
+</html>

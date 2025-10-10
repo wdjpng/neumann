@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Letter – Transcription (unified)</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f1e4;
+    --ink:#2b2b2b;
+  }
+  body{
+    margin:0;
+    background:#ece8de;
+    color:var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .paper{
+    width:min(980px, 92vw);
+    margin:5vh auto;
+    background:var(--paper);
+    box-shadow:0 8px 28px rgba(0,0,0,.18), inset 0 0 1px rgba(0,0,0,.15);
+    border-radius:6px;
+    padding:42px 56px;
+  }
+  .hdr{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:2rem;
+    margin-bottom:1.25rem;
+  }
+  .mark { color:#555; font-size:.95rem; letter-spacing:.4px; }
+  .letterhead{
+    line-height:1.45;
+  }
+  .letterhead .name{ font-weight:600; }
+  .date{
+    text-align:right;
+    font-style:italic;
+    white-space:pre-wrap;
+  }
+  .hand{
+    font-family:"Dancing Script","Lucida Handwriting","Segoe Script",cursive;
+    font-size:28px;
+    line-height:1.45;
+    letter-spacing:.2px;
+    white-space:pre-wrap;
+    color:#2b2b2b;
+  }
+  .body{ margin-top:1.25rem; }
+  .gap { color:#666; font-style:italic; }
+  .insert { font-size:.85em; vertical-align:super; text-decoration:underline; margin:0 .2em; }
+  .math-note { text-align:right; font-style:italic; font-size:.9em; margin-top:-6px; }
+  .sig { margin-top:22px; font-size:34px; }
+</style>
+<script>
+  window.MathJax = { tex: {inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']]}, svg: {fontCache: 'global'} };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <main class="paper">
+    <div class="hdr">
+      <div>
+        <div class="mark">Ms. 91: 686</div>
+        <div class="letterhead">
+          <div class="name">John von Neumann.</div>
+          <div>Princeton N.J., U.S.A.,</div>
+          <div>Princeton - Kingston Highway,</div>
+        </div>
+      </div>
+      <div class="date">Princeton, December 11, 1931</div>
+    </div>
+
+    <div class="hand body">
+Dear Professor!
+
+Before the Christmas holidays begin I wanted to give you a sign of life from me. It is very lovely here, especially since October–November is the ideal season here. Dirac is here, which benefits the physics here greatly, although it does not remedy the depression of theoretical physics. —
+
+I have become more mathematical again. Pursuing an approach of B.O. Koopman (New York) and A. Weil further, I was able to prove the quasi-ergodic theorem, that is: If a mechanical system has the phase space \( \Phi \), and \(N\) is a measurable set of finite volume in \( \phi \), and if for a point \(P\) of \( \phi \) the time it spends in \(N\) during the time interval \(s \le \tau \le t\) is \(Z(P,N,s,t)\); then \(\lim_{t-s \to +\infty} \dfrac{Z(P,N,s,t)}{t-s}\) exists in the sense of mean convergence (over the points of φ; that is, there exists numerically e.g. for every measurable set Λ of finite volume \( \lim_{t-s \to +\infty} \dfrac{\int_{\Lambda} 2(P,N,s,t)\, dv_{p}}{\,t-s\,} \)).
+
+With the help of the integrals of the system a simple expression for \(Z(P,N) = \lim_{\substack{t-s\to+\infty}} \dfrac{Z(P,N,s,t)}{t-s}\) can be given. \(Z(P,N)=\dfrac{\text{measure }\underline{N}}{\text{measure }\Phi}\), i.e. the quasi-ergodic hypothesis holds if and only if the mechanical motion leaves no measurable set of finite volume invariant (except sets of measure 0 or \( \varphi \) minus such sets).
+
+And indeed, the consideration of all measurable sets is both necessary and sufficient even when the above equation is required only for open sets \(N\) (or perhaps only for sums of finitely many cubes).
+
+The proof relies on the consideration of unitary and unbounded hermitian operators. —
+
+The general depression that prevails here and is certainly sufficiently well known to you, nonetheless, measured by European standards, it is still "God's own country". Somewhat frightening, though, is that it looks roughly like Germany in 1927, so that one does not quite clearly see whether the amplitude of the depression is different, or only the phase. Perhaps it is the amplitude after all.
+
+In February I will be back in Europe, and at the end of April in Berlin. With best greetings and wishes for Christmas and the New Year, and kisses of the hand to your wife, I remain
+Your devoted
+
+<span class="sig">John von Neumann.</span>
+    </div>
+Princeton, N.J., U.S.A <br>
+Princeton-Kingston Highway
+  </main>
+</body>
+
+
+</html>
