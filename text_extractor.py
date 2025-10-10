@@ -71,14 +71,13 @@ def log_chunks(to_log : List[Tuple], output_path: Path) -> None:
 async def unite_html(html_chunks: List[str], image: Image.Image, feedback: str = "") -> Tuple[str, str]:
     base_prompt = (
         "You will be given multiple html files all attempting to transcribe different parts of scans of a letter with one or more pages. "
-        "Your task is to unite them into one html file. They already contain a lot of formatting, which you should synthesize to one single consistent formatting. But do not alter the content of the letter."
-        "You are given a scan of the first page of the letter as context. Please try to match the style of the first page as closely as possible (e.g. if it has a nice header, replicate that header in html. try to replicate the background color, etc.) "
+        "Your task is to unite them into one html file. They already contain a lot of formatting that may not be consistent. Synthesize one single consistent formatting of the main body of the letter. If there are obivous duplicates, remove them. Header of the letter should be more or less left as is. But do not alter the content of the letter."
         "Output in the usual format of ```html (actual code)```\n\nHTML files of the letter:\n"
     )
     prompt = base_prompt + "\n\n".join(html_chunks)
     if feedback:
         prompt += "\n\nReviewer feedback/instructions to incorporate:\n" + feedback
-    response, reasoning = await gpt.get_text_response(prompt, image, return_reasoning=True, effort="medium")
+    response, reasoning = await gpt.get_text_response(prompt, return_reasoning=True, effort="high")
 
     text = response.strip()
     if text.startswith("```"):
@@ -95,30 +94,52 @@ async def unite_html(html_chunks: List[str], image: Image.Image, feedback: str =
 
 
 async def save_and_translate_html(original_html: str, output_folder: Path, feedback: str = "") -> str:
-    base_prompt = (
-        "You will be given an html file. Your task is to translate it to english. Preserve the original's linguistic style as well as formatting. "
-        "But do remove needless linebreaks. Also there might be page numbers somewhere - remove those (but if present keep the document number on the top left). "
-        "Output in the usual format of ```html (actual code)``` (attached to this prompt is the original html file)\n\n"
-    )
-    prompt = base_prompt + original_html
-    if feedback:
-        prompt += "\n\nReviewer feedback/instructions to incorporate:\n" + feedback
-    response = await gpt.get_text_response(prompt, effort="medium")
+    try:
+        print(f"Starting translation for: {output_folder}")
+        base_prompt = (
+            "Translate the given html file to English. Try to preserve the style / feel of the language of the original, and do not change the content. Some sentences in the original are disjoin even though they should not be, so please unify paragraphs where linebreaks are seem unintentional with > 35% probability. I also want the text to fit nicely on the screen of the user, so please also remove newlines whenever they seem unnecessary. Also join hyphenated words which would not normally be hyphenated. Make sure that your edits results in a consistently formatted html file, ensuring that e.g. paragraphs are separated by same number of linebreaks. Other than those exceptions now described for which you should edit, you are asked to keep closely preserve the original formatting. \n\nWhen in doubt, translate the preserve meaning and the \"vibe\" rather than the exact phrasing. You may first think, but then please finish your output with the translated html file in the format ```html (your code)```\n\nHere the html file to translate:\n"
+        )
+        prompt = base_prompt + original_html
+        if feedback:
+            prompt += "\n\nReviewer feedback/instructions to incorporate:\n" + feedback
+        
+        print("Calling Claude API for translation...")
+        response = await gpt.get_text_response(prompt, model="claude")
+        print(f"Received response from Claude (length: {len(response)} chars)")
 
-    text = response.strip()
-    if text.startswith("```"):
+        text = response.strip()
+        # Look for code fences anywhere in the response (not just at the start)
         try:
-            fence_line_end = text.find("\n")
-            end = text.rfind("```")
-            if fence_line_end != -1 and end != -1 and end > fence_line_end:
-                text = text[fence_line_end+1:end].strip()
-        except Exception:
+            # Find the first ``` and last ```
+            start_fence = text.find("```")
+            # Skip past the fence and language identifier (e.g., ```html)
+            fence_line_end = text.find("\n", start_fence)
+            end_fence = text.rfind("```")
+            
+            if fence_line_end != -1 and end_fence != -1 and end_fence > fence_line_end:
+                text = text[fence_line_end+1:end_fence].strip()
+                print("Extracted HTML from code fence")
+            else:
+                print("No code fence found, using raw response")
+        except Exception as e:
+            print(f"Error in parsing html after translation: {e}")
             pass
-    with open(output_folder / "html_en.html", "w") as f:
-        f.write(text)
-    with open(output_folder / "html_de.html", "w") as f:
-        f.write(original_html)
-
-    return text
+        
+        print(f"Writing translated HTML (length: {len(text)} chars)")
+        with open(output_folder / "html_en.html", "w") as f:
+            f.write(text)
+        with open(output_folder / "html_de.html", "w") as f:
+            f.write(original_html)
+        
+        print(f"Translation completed successfully for: {output_folder}")
+        return text
+    
+    except Exception as e:
+        print(f"ERROR in save_and_translate_html:")
+        print(f"  Exception type: {type(e).__name__}")
+        print(f"  Exception message: {e}")
+        import traceback
+        traceback.print_exc()
+        raise
 
 
