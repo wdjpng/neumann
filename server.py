@@ -19,6 +19,9 @@ import extraction_pipeline
 
 app = Flask(__name__, static_folder='public')
 
+# Track debug mode
+DEBUG_MODE = False
+
 
 @app.route('/')
 def index():
@@ -37,8 +40,17 @@ def serve_public(path):
 
 @app.route('/api/letters')
 def get_letters():
-    letters_dir = os.path.join('public', 'samples')
-    letters = [f for f in os.listdir(letters_dir) if f.endswith('.pdf')]
+    # Get all letters from outputs_gpt-5_2 directory
+    outputs_dir = os.path.join('public', 'outputs_gpt-5_2')
+    letters = []
+    if os.path.exists(outputs_dir):
+        for entry in os.listdir(outputs_dir):
+            entry_path = os.path.join(outputs_dir, entry)
+            if os.path.isdir(entry_path):
+                # Check if letter.pdf exists in this directory
+                if os.path.exists(os.path.join(entry_path, 'letter.pdf')):
+                    letters.append(entry)
+    letters.sort()
     return jsonify(letters)
 
 
@@ -50,6 +62,11 @@ def get_metadata():
             metadata = json.load(f)
         return jsonify(metadata)
     return jsonify({})
+
+
+@app.route('/api/debug-mode')
+def get_debug_mode():
+    return jsonify({'debug': DEBUG_MODE})
 
 
 @app.route('/api/html-parts/<letter_id>')
@@ -66,12 +83,14 @@ def get_html_parts(letter_id):
 @app.route('/api/html-files/<letter_id>')
 def get_html_files(letter_id):
     result = {}
-    html_de_path = os.path.join('public', 'html_de', f'{letter_id}_.html')
+    # Check in outputs_gpt-5_2 directory
+    outputs_dir = os.path.join('public', 'outputs_gpt-5_2', letter_id)
+    html_de_path = os.path.join(outputs_dir, 'html_de.html')
     if os.path.exists(html_de_path):
-        result['html_de'] = f'{letter_id}_.html'
-    html_en_path = os.path.join('public', 'html_en', f'{letter_id}_.html')
+        result['html_de'] = 'html_de.html'
+    html_en_path = os.path.join(outputs_dir, 'html_en.html')
     if os.path.exists(html_en_path):
-        result['html_en'] = f'{letter_id}_.html'
+        result['html_en'] = 'html_en.html'
     return jsonify(result)
 
 
@@ -578,6 +597,16 @@ def _approve_chunk(letter_dir: Path, page_index: int, chunk_index: int) -> float
     return mtime
 
 
+def _unapprove_chunk(letter_dir: Path, page_index: int, chunk_index: int) -> None:
+    state = _load_review_state(letter_dir)
+    chunks_map = state.get('chunks') or {}
+    key = f'{page_index}_{chunk_index}'
+    if key in chunks_map:
+        del chunks_map[key]
+        state['chunks'] = chunks_map
+        _save_review_state(letter_dir, state)
+
+
 def _enqueue_retry_chunk(letter_dir: Path, base_name: str, letter: str,
                          page_index: int, chunk_index: int, feedback: str) -> str:
     chunks_dir = letter_dir / 'chunks'
@@ -842,6 +871,16 @@ def qc_chunk_approve(letter, page_index, chunk_index):
     return jsonify({'status': 'ok', 'approved_mtime': mtime})
 
 
+@app.post('/api/qc/letter/<letter>/chunk/<int:page_index>/<int:chunk_index>/unapprove')
+def qc_chunk_unapprove(letter, page_index, chunk_index):
+    base_path, _base_name = _resolve_base()
+    letter_dir = base_path / letter
+    if not letter_dir.exists():
+        abort(404, 'Letter not found')
+    _unapprove_chunk(letter_dir, page_index, chunk_index)
+    return jsonify({'status': 'ok'})
+
+
 @app.post('/api/qc/letter/<letter>/chunk/<int:page_index>/<int:chunk_index>/retry')
 def qc_chunk_retry(letter, page_index, chunk_index):
     data = request.get_json(silent=True) or {}
@@ -1060,5 +1099,8 @@ def qc_letter_reasoning(letter):
 
 
 if __name__ == '__main__':
-    print('Starting server...')
-    app.run(debug=True, port=5000)
+    import sys
+    # Check if --debug flag is passed
+    DEBUG_MODE = '--debug' in sys.argv
+    print(f'Starting server... (Debug mode: {DEBUG_MODE})')
+    app.run(debug=DEBUG_MODE, port=5000)

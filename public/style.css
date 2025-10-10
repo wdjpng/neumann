@@ -41,24 +41,20 @@ h1 {
     margin-top: 0.5rem;
 }
 
-.debug-button {
+#qc-link {
+    display: inline-block;
     margin-top: 1rem;
     padding: 8px 16px;
     background: #007acc;
     color: white;
-    border: none;
+    text-decoration: none;
     border-radius: 4px;
-    cursor: pointer;
     font-size: 0.9rem;
     transition: background-color 0.3s;
 }
 
-.debug-button:hover {
+#qc-link:hover {
     background: #005999;
-}
-
-.debug-button.active {
-    background: #d4851a;
 }
 
 main {
@@ -87,18 +83,10 @@ main {
     margin-bottom: 10px;
 }
 
-.letter-date {
-    position: absolute;
-    top: 15px;
-    left: 10px;
-    font-size: 0.8em;
-    color: #666;
-}
-
 .letter-person {
     position: absolute;
     top: 15px;
-    right: 10px;
+    left: 10px;
     font-size: 0.8em;
     color: #666;
 }
@@ -108,58 +96,22 @@ main {
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
+.letter-links {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 .letter-item a {
     text-decoration: none;
     color: #0077cc;
     font-weight: bold;
-    margin: 0 0.5rem;
     transition: color 0.3s;
 }
 
 .letter-item a:hover {
     color: #0055aa;
-}
-
-.debug-info {
-    display: none;
-    margin-top: 15px;
-    padding: 10px;
-    background: #e8f4f8;
-    border-radius: 4px;
-    text-align: left;
-}
-
-.debug-info.visible {
-    display: block;
-}
-
-.debug-section {
-    margin-bottom: 10px;
-}
-
-.debug-section h4 {
-    margin: 0 0 5px 0;
-    font-size: 0.9rem;
-    color: #333;
-}
-
-.debug-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.debug-links a {
-    font-size: 0.8rem;
-    padding: 2px 6px;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin: 0;
-}
-
-.debug-links a:hover {
-    background: #f0f0f0;
 }
 
 footer {
