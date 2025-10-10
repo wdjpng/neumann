@@ -1,0 +1,7 @@
+{
+  "author": "John von Neumann",
+  "recipient": "Hermann Weyl",
+  "date": "August 5th, 1930",
+  "summary": "Von Neumann presents his proof of the uniqueness of solutions to the commutation relations in quantum mechanics using a novel approach involving unitary operators. He develops a calculus with integral kernels and demonstrates that the uniqueness can be proven through simple methods related to Weyl's treatment of continuous closed groups.",
+  "title": "Uniqueness of Commutation Relations"
+}

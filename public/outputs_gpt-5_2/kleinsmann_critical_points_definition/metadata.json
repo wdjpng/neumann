@@ -1,0 +1,7 @@
+{
+  "author": "John von Neumann",
+  "recipient": "Paul Bernays",
+  "date": "June 4th, 1926",
+  "summary": "Von Neumann discusses his progress on defining large ordinal numbers of the second number class, particularly critical epsilon-numbers, using a method that requires types up to the omega-squared-th level. He presents a recursive function definition and asks Bernays about recent developments in proof theory, including Ackermann's consistency proof.",
+  "title": "Critical Epsilon-Numbers & Ordinals"
+}

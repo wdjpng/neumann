@@ -1,0 +1,7 @@
+{
+  "author": "John von Neumann",
+  "recipient": "Hermann Weyl",
+  "date": "July 16th, 1928",
+  "summary": "Von Neumann suggests an alternative, simpler mathematical approach to Weyl's treatment of the symmetric group in his recent book. He proposes a series of lemmas that would reduce computational complexity while achieving the same results regarding group numbers and irreducible representations.",
+  "title": "Alternative Proof for Symmetric Groups"
+}
