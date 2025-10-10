@@ -1,20 +1,58 @@
 from openai import AsyncOpenAI
+from anthropic import AsyncAnthropic
 import os
 import base64
 import io
 from PIL import Image
 from typing import List
 
-client = AsyncOpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-async def get_text_response(prompt, image=None, image_list: List[Image.Image] = None, model="gpt-5", return_reasoning=False, effort="low"):
+async def get_text_response(prompt, image=None, image_list: List[Image.Image] = None, model="gpt-5", return_reasoning=False, effort="medium"):
     response = None
-
+    
     if image_list is not None and image is not None:
         raise ValueError("Only one of image or image_list can be provided")
     
     if image is not None: image_list = [image]
     
+    # Handle Claude model
+    if model == "claude":
+        # Check if images are provided - Claude doesn't support images yet
+        if image_list is not None:
+            raise ValueError("Image attachments are not currently supported with Claude model")
+        
+        api_key = os.getenv('ANTHROPIC_API_KEY')
+        if not api_key:
+            print("ERROR: ANTHROPIC_API_KEY environment variable is not set!")
+            raise ValueError("ANTHROPIC_API_KEY environment variable is not set")
+        
+        try:
+            client = AsyncAnthropic(api_key=api_key, timeout=600)
+            
+            print(f"Calling Claude API with model: claude-sonnet-4-5")
+            response = await client.messages.create(
+                model="claude-sonnet-4-5",
+                max_tokens=10000,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            )
+            
+            print(f"Claude API call successful, response length: {len(response.content[0].text)}")
+            return response.content[0].text
+        except Exception as e:
+            print(f"ERROR calling Claude API:")
+            print(f"  Exception type: {type(e).__name__}")
+            print(f"  Exception message: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
+    
+    
+    client = AsyncOpenAI(api_key=os.getenv('OPENAI_API_KEY'), timeout=600)
     if image_list is not None:
         image_base64_list = []
         for image in image_list:
