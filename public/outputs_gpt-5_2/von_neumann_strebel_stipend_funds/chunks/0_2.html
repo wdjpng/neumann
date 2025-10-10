@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Letter Transcription</title>
+<style>
+  body{
+    background:#f7f3eb;
+    margin:0;
+    padding:36px;
+    color:#333;
+    font-family:"Courier New", Courier, monospace;
+  }
+  .sheet{
+    max-width:900px;
+    margin:0 auto;
+    background:#fffdf7;
+    border:1px solid #e5ded2;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    padding:36px 42px;
+  }
+  .right{ text-align:right; }
+  .signature{
+    font-family:"Brush Script MT","Snell Roundhand","Segoe Script",cursive;
+    font-size:30px;
+    line-height:1.1;
+    margin:6px 0 2px 0;
+    display:inline-block;
+  }
+  .block, .addr{
+    white-space:pre;
+    line-height:1.4;
+    margin-top:18px;
+  }
+  u{ text-underline-offset:2px; text-decoration-thickness:2px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+  <div class="sheet">
+    <div class="right">
+      <div>Yours cordially,</div>
+      <div class="signature">John von Neumann</div>
+      <div>John von Neumann</div>
+    </div>
+
+    <div class="block">JvN:eg
+Encl.</div>
+
+    <div class="addr">Prof. Dr. B.L. van der Waerden
+Mathematisches Institut der
+Universität Zürich
+Zürich, <u>GERMANY</u></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Brieftranskription</title>
+<style>
+  body{
+    background:#f3efe6;
+    margin:0;
+    font-family: "Times New Roman", Georgia, serif;
+    color:#333;
+  }
+  .page{
+    max-width: 800px;
+    margin:2.5rem auto;
+    background:#fffdf5;
+    padding:44px 56px;
+    border:1px solid #e6dcc6;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    line-height:1.85;
+    font-size:1.08rem;
+  }
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    color:#555;
+    font-style:italic;
+    margin-bottom:1.6rem;
+  }
+  .leftnote{white-space:nowrap;}
+  .date{white-space:nowrap;}
+  .letter p { margin: 0 0 1.1rem 0; }
+  .footnotes{
+    border-top:1px solid #e6dcc6;
+    margin-top:2rem;
+    padding-top:1rem;
+    font-size:.98rem;
+    color:#444;
+  }
+  .footnotes p{ margin:.5rem 0; }
+  sup a{ color:inherit; text-decoration:none; }
+</style>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="page">
+    <div class="topline">
+      <div class="leftnote">Hs.91: 679</div>
+      <div class="date">Berlin, den 30. 6. 1928.</div>
+    </div>
+
+    <div class="letter">
+      <p>Sehr geehrter Herr Professor!</p>
+
+      <p>Soeben habe ich vom Hirzel'schen Verlag Korrekturen von ca. 50 Seiten Ihres Büchleins über Gruppentheorie erhalten. Es interessiert mich sehr, und ich bin auf die Fortsetzung recht gespannt. Der Verlag hat mir aber die Fahnen bloss vom III Kapitel an geschickt, so dass es mir nicht klar geworden ist, ob Ihr Buch tatsächlich über Gruppentheorie handelt, oder ob diese bloss als Hilfsmittel für quantenmechanische Zwecke benötigt wird. Es würde mich sehr interes- sieren zu erfahren, was der Titel des Buches ist. Bringen Sie darin auch ein breitere Darstellung des Inhalts Ihrer Quantenmechanik - Arbeit? —</p>
+
+      <p>Vor ca. 5 Monaten machte Van der Waerden, der eine Bemerkung<sup><a href="#fn-star">*</a></sup>) aus der bezüglich ihrer Anordnung von Grössen (also Funktionen von p und q) in Operatoren folgt, dass für Grösse \(p^2 q^2\) ein Operator gehört, der auch negative Eigenwerte hat<sup><a href="#fn-dbl">**</a></sup>). (Übrigens kann man durch die unitäre Transformation \(f(q) \to e^{\frac{i}{\hbar}q}\,f(e^q)\), den Operator \(pq\) in \(p\) transfor- mieren — denn dann ist \(p^2\) natürlich definit, also geht \(p^2\) nicht in \(p^2\) über) Ist Ihnen dieser Einwand bekannt, und was ist Ihre Meinung darüber? Im Sinne der statistischen Theorie müsste ein negatives Wert‑Intervall für \(p^2 q^2\) eine Wahrscheinlichkeit \(>0\) haben, was implausibel ist; und die Wahrscheinlichkeit wäre keine Invariante bei unitären (Berührungs-) Transformationen , was unbequem ist.</p>
+
+      <p>Man kann übrigens nach Van der Waerden zeigen, dass eine allgemeine Zuordnung von Grössen \( f = f(pq) \) zu Operatoren \( T' \), \( f \mapsto T_f \), garnicht möglich ist, wenn</p>
+
+      <p>\(T_{\,f+g} \;=\; T_f \;+\; T_g\)</p>
+      <p>\(T_{\,\varphi(f)} \;=\; \varphi\!\big(T_f\big)\qquad (\varphi\ \text{eine einvariablen-Funktion})\)</p>
+
+      <p>verlangt wird<sup><a href="#fn-star">1)</a></sup>. — Ich danke Ihnen nochmals vielmals für die Übersendung des Gruppentheorie-Manuskriptes. Werden Sie noch vor Ihrer Amerika-Reise den Bolognaer oder Hamburger Kongress besuchen?</p>
+
+      <p>In der Hoffnung des Wiedersehens verbleibe ich Ihr sehr ergebener<br>
+      J. v. Neumann.</p>
+    </div>
+
+    <div class="footnotes">
+      <p id="fn-star">*) Er konstatierte, dass, wenn die Größe \( f(p,q) \) dem Operator \( T \) gehört, die \( \varphi(f(p,q)) \) im allgemeinen <em>nicht</em> zu \( \varphi(T) \) gehört.</p>
+      <p id="fn-dbl">**) Nämlich ein kontinuierliches Spektrum von \( -\dfrac{\hbar^{2}}{16\pi^{2}} \) bis \( +\infty \); zum Eigenwert \( E = -\dfrac{h^{2}}{16\pi^{2}} + \alpha^{2} \) gehören die zwei Eigenfunktionen  \(q^{-\tfrac{1}{2} \pm \frac{2\pi i}{h}\, a}\), \((-\infty < q < +\infty)\).</p>
+      <p id="fn-star1">1) Ich glaube, dass man hieraus schliessen sollte, dass die physikalischen Grössen nicht als Funktionen von \(p\) und \(q\) zu beschreiben sind.</p>
+    </div>
+  </div>
+</body>
+</html>

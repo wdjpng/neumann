@@ -2,33 +2,143 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<title>Brieftranskription</title>
+<title>Brieftranskription – J. v. Neumann an P. Bernays (12.6.1933)</title>
 <style>
-  body { margin: 0; padding: 30px; font-family: "Times New Roman", Times, serif; color: #222; background:#f7f4ef; }
-  .page { max-width: 1100px; margin: 0 auto; background: #fbfaf7; padding: 10px 20px 40px; }
+  body{
+    margin:0;
+    padding:40px 30px 20px 30px;
+    font-family: "Times New Roman", Georgia, serif;
+    color:#222;
+    background:#f7f4ee;
+    line-height: 1.6;
+  }
+  .page{
+    max-width:1100px;
+    margin:0 auto;
+    background:#f3efe7;
+    padding:25px 30px 60px;
+    border:1px solid #ddd;
+    box-shadow:0 1px 2px rgba(0,0,0,.06) inset;
+  }
+  .pencil{
+    color:#6d6d6d;
+    font-style:italic;
+    font-size:14px;
+    opacity:.8;
+    margin-bottom:10px;
+  }
+  .header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:30px;
+  }
+  .left, .right{
+    width:48%;
+  }
+  .left{
+    text-align:left;
+  }
+  .right{
+    text-align:left;
+  }
+  .block-title{
+    font-weight:800;
+    letter-spacing:2px;
+    font-size:24px;
+    line-height:1.15;
+  }
+  .block-title .small{
+    display:block;
+    font-size:22px;
+    letter-spacing:2.5px;
+  }
+  .nr{
+    margin-top:4px;
+    font-weight:800;
+    letter-spacing:2px;
+  }
+  .tiny-rule{
+    width:60px;
+    height:1px;
+    background:#333;
+    margin:10px 0 12px 0;
+  }
+  .smallcaps{
+    font-variant:small-caps;
+    letter-spacing:.8px;
+  }
+  .meta{
+    line-height:1.35;
+    font-size:14.5px;
+  }
+  .right .cityline{
+    font-weight:800;
+    letter-spacing:1.7px;
+    font-size:18px;
+    margin-bottom:6px;
+  }
+  .hand{
+    font-family: "Brush Script MT", "Lucida Handwriting", cursive;
+    font-size:15px;
+    font-weight:500;
+    margin-left:8px;
+  }
+  .underline{
+    border-bottom:2px solid #444;
+    display:inline-block;
+    padding-bottom:2px;
+    margin:8px 0 4px 0;
+    font-weight:700;
+    letter-spacing:1px;
+    font-size:13px;
+  }
+  .right .meta{
+    font-size:13.5px;
+  }
 
-  /* Header (left as in original) */
-  .header { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
-  .left h1, .left h2 { margin: 0; text-transform: uppercase; letter-spacing: 2px; }
-  .left h1 { font-size: 28px; font-weight: 800; }
-  .left h2 { font-size: 26px; font-weight: 800; }
-  .left h3 { margin: 6px 0 10px; font-size: 22px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
-  .divider { width: 60px; height: 2px; background: #222; margin: 8px 0 10px; }
-  .smallcaps { font-variant: small-caps; letter-spacing: 1px; }
-  .left .block { line-height: 1.35; font-size: 14px; }
-  .right { text-align: right; }
-  .right h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
-  .right .date { margin-left: 8px; font-style: italic; font-weight: 600; }
-  .right .info { margin-top: 6px; font-size: 13px; line-height: 1.35; }
-
-  /* Unified body formatting */
-  .letter-body { margin-top: 50px; font-size: 1.15rem; line-height: 1.7; }
-  .greeting { font-size: 1.6rem; font-weight: 600; font-style: italic; margin-bottom: 14px; }
-  .letter-body p { margin: 0 0 1rem; }
-  .math { margin: 10px 0 12px 0; }
-  .signature { font-size: 1.35rem; font-style: italic; margin-top: 0.5rem; }
-  .address-block { display: flex; align-items: baseline; gap: 10px; margin-top: 6px; }
-  .address-block .label { font-style: italic; }
+  /* Body */
+  .letter-body{
+    margin-top:26px;
+    font-size: 19px;
+    color:#2a2622;
+  }
+  .salutation{
+    font-size:1.4rem;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .para{
+    margin:14px 0;
+  }
+  .math-block{
+    margin:10px 0 10px 0;
+    font-size: 1.02em;
+  }
+  .signature{
+    font-family: "Lucida Handwriting", "Brush Script MT", cursive;
+    font-size: 2rem;
+    margin: 6px 0 0;
+    text-align: left;
+  }
+  .address-block{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-top:6px;
+    font-size: 1rem;
+  }
+  .label{
+    font-style: italic;
+    border-bottom:1px solid #6a5b4f;
+    padding-bottom:1px;
+    white-space: nowrap;
+  }
+  .address{
+    white-space: nowrap;
+    font-family: "Lucida Handwriting", "Brush Script MT", cursive;
+    font-size: 1.2rem;
+  }
   u { text-underline-offset: .15em; }
 </style>
 <script>
@@ -42,75 +152,93 @@
 <body>
 <div class="page">
 
+  <div class="pencil">Ho. 9275: 3329</div>
+
   <div class="header">
     <div class="left">
-      <h1>Hausverwaltung</h1>
-      <h2>Hohenzollernstrasse</h2>
-      <h3>Nr. 23/24</h3>
-
-      <div class="divider"></div>
-
-      <div class="block">
-        <div class="smallcaps">Bank-Konto:</div>
-        Deutsche Bank u. Disconto-Ges.<br>
-        Depositen-Kasse K2<br>
-        Berlin W 35, Lützowstrasse 33–36<br>
-        Konto Nr. 231
+      <div class="block-title">
+        HAUSVERWALTUNG
+        <span class="small">HOHENZOLLERNSTRASSE</span>
+      </div>
+      <div class="nr">NR. 23/24</div>
+      <div class="tiny-rule"></div>
+      <div class="meta">
+        <span class="smallcaps">Bank-Konto:</span><br>
+        DEUTSCHE BANK U. DISCONTO-GES.<br>
+        DEPOSITEN-KASSE 2<br>
+        BERLIN W 35, LÜTZOWSTRASSE 33–36<br>
+        KONTO NR. 231
       </div>
     </div>
 
     <div class="right">
-      <h1>Berlin W 10, den <span class="date">12.6.1933, Montag.</span></h1>
-      <div class="info">
-        Tel.: B 2 Lützow 3116, 3186, 3137, B 1 Kurfürst 2368<br>
-        Nach Eröffnung des Selbstanschlussbetriebes Lützow:<br>
-        Sammel-Nr. B 2 Lützow 9141<br>
-        und B 2 Lützow 5039, 8137, 3116, 9145
+      <div class="cityline">
+        BERLIN W 10, DEN <span class="hand">12.6.1933, Montag.</span>
+      </div>
+      <div class="meta">
+        TEL.: B 2 LÜTZOW 3116, 3186, 3137, B 1 KURFÜRST 2368<br>
+        <span class="underline">NACH ERÖFFNUNG DES SELBSTANSCHLUSSBETRIEBES LÜTZOW:</span><br>
+        SAMMEL-NR. B 2 LÜTZOW 9141<br>
+        UND B 2 LÜTZOW 5039, 8137, 8116, 9145
       </div>
     </div>
   </div>
 
   <div class="letter-body">
-    <div class="greeting">Lieber Herr Professor Bernays!</div>
+    <div class="salutation">Lieber Herr Professor Bernays!</div>
 
-    <p>
+    <p class="para">
       Dabei schicke ich Ihnen den Beweis der Wohlord-<br>
       nung Ihrer Ordnung \( \underset{\small\vee}{<} \), d. h. von
     </p>
 
-    <p class="math">\( (x)(E y)\big[\, U(x)\rightarrow \big((y \underset{\small\vee}{<} x)\land U(y)\big)\,\big]\;\rightarrow\; (x)\,\overline{U(x)}\,, \)</p>
+    <div class="math-block">
+      \( (x)(E y)\big[\, U(x)\rightarrow \big((y \underset{\small\vee}{<} x)\land U(y)\big)\,\big]\;\rightarrow\; (x)\,\overline{U(x)}\,, \)
+    </div>
 
-    <p>
-      für jede Aussage \(U\), und mit freier Variable \(v\), m. w.<br>
-      ohne Verwendung von Aussagen‑Variablen. Ich habe der Einfachheit halber den Beweis in Worten aufge-<br>
+    <p class="para">
+      für jede Aussage \(U\), und mit freier Variable \(v\), m. w. ohne Verwendung von Aussagen‑Variablen. Ich habe
+      der Einfachheit halber den Beweis in Worten aufge-<br>
       schrieben, und bloss die wichtigsten zwischen-For-<br>
       mlen (Definitionen und bewiesene Aussagen) formal<br>
       angegeben. (Der Beweis steht auf den Blättern 1.-3.,<br>
       die Formeln als Anhang auf jedem Blatte; Formeln,<br>
-      die Verweisungen auf dieselben haben Nummern <u>I. - XI.</u>) die Idee ist diese: \(U(x)\) hat für \(\le\) ein<br>
+      die Verweisungen auf dieselben haben Nummern
+    </p>
+
+    <p class="para">
+      <u>I. - XI.</u>) die Idee ist diese: \(U(x)\) hat für \(\le\) ein<br>
       erstes Element, falls dies für eine Folge anderer For-<br>
       mlen bei \(\underset{\small v-1}{<}\) gilt, diese haben es wiederum, falls<br>
       es für eine weitere Folge anderer Formeln bei \(\underset{\small v-2}{<}\) gilt,<br>
       ...<br>
-      Alle diese Formeln bilden eine Folge, die ich ausrechne, und in <u>VII.</u> angebe, die Aussage,<br>
+      Alle diese Formeln bilden eine Folge, die<br>
+      sind in <u>VII.</u> angegeben. Die Aussage,
+    </p>
+
+    <p class="para">
+      ich ausrechne, und in <u>VII.</u> angebe, die Aussage,<br>
       dass alle diese Formeln bei \( \underset{\small\vee}{<} \)  erste Elemente<br>
       haben; kann daher für sich allein induktiv<br>
       bewiesen werden, und enthält nur Grundvariablen.<br>
-      Wo in <u>IV. – XI.</u> scheinbar Aussagen‑Variablen auftreten,<br>
-      ten, sind es Mitteilungs‑Variablen, die bloss zur<br>
+      Wo in IV. – <u>XI</u>. scheinbar Aussagen‑Variablen auftreten,<br>
+      ten, sind es Mitteilungs‑Variablen, die bloss zur
+    </p>
+
+    <p class="para">
       Abkürzung dienen und vermieden werden könnten.<br>
       (Es wäre hier möglich, das Definierte stets durch<br>
       das Definierende zu ersetzen.) —
     </p>
 
-    <p>
+    <p class="para">
       Entschuldigen Sie bitte, dass ich mich am Sonnabend nicht mehr gemeldet habe;<br>
       ich musste aber noch 4 weitere Besuche machen.<br>
       Ich wäre Ihnen sehr dankbar, wenn Sie meine Noten gelegentlich zurückschicken<br>
-      würden, da ich keine Kopie besitze.
+      würden, da ich keine Kopie besitze.<br>
+<br>
+      Mit den besten Grüßen Ihr
     </p>
-
-    <p>Mit den besten Grüßen Ihr</p>
 
     <div class="signature">J. v. Neumann.</div>
 
@@ -119,7 +247,6 @@
       <div class="address">Budapest, V., Arany János ucca 16.</div>
     </div>
   </div>
-
 </div>
 </body>
 </html>

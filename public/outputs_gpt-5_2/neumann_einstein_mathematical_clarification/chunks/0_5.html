@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brief-Transkription</title>
+<style>
+  body {
+    margin: 0;
+    background: #efeadf;
+    font-family: "Georgia", "Times New Roman", serif;
+    color: #2f3437;
+  }
+  .sheet {
+    width: 92%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #f7f1e3;
+    border: 1px solid #e0d8c6;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    padding: 2.2rem 2.6rem;
+    line-height: 1.55;
+    font-size: 1.2rem;
+  }
+  .line { margin: .35rem 0; }
+  .underline { text-decoration: underline; text-underline-offset: 4px; }
+  .math { font-family: Cambria, Georgia, "Times New Roman", serif; }
+</style>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+  <div class="sheet" aria-label="Transkription eines Briefausschnitts">
+    <div class="line">Wäre es nicht durchsichtiger und einfa-</div>
+    <div class="line">cher so vorzugehen:</div>
+    <div class="line"><span class="underline">Hilfssatz 1.</span> Wie bei Ihnen auf S. 130</div>
+    <div class="line"><span class="underline">Hilfssatz 2.</span> Den Bedingungen</div>
+    <div class="line math">\(x(sp)=x(s), \quad x(qs)=\delta_q x(s)\)</div>
+  </div>
+</body>
+</html>

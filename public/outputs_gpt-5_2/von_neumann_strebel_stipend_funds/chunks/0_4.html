@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Letter Excerpt Transcription</title>
+<style>
+  body {
+    background: #e8e2d6;
+    margin: 0;
+    padding: 2rem;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .paper {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.2rem 2.8rem 2.6rem 4.8rem;
+    color: #5b5852;
+    background: #f5efe4;
+    border: 1px solid #d8cfbf;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  }
+  .ink {
+    font-family: "Segoe Script", "Bradley Hand", "Patrick Hand", "Comic Sans MS", cursive;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+  }
+  .margin-note {
+    position: absolute;
+    left: 0.6rem;
+    top: 5.2rem;
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    font-size: 1.4rem;
+    letter-spacing: 0.03em;
+    color: #7a7770;
+    opacity: 0.9;
+    white-space: nowrap;
+  }
+  .struck {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: #7a7770;
+  }
+  .line {
+    margin: 0 0 0.6rem 0;
+    white-space: pre-wrap;
+  }
+</style>
+<!-- MathJax (in case any math appears) -->
+<script>
+  window.MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+  <div class="paper ink">
+    <div class="margin-note">any case</div>
+
+    <div class="line">Dr. Strebel has applied for a Swiss stipendium,</div>
+    <div class="line"><span class="struck">and it seems that it will be granted.</span></div>
+    <div class="line">(which) will enable him to go to America. We</div>
+
+  </div>
+</body>
+</html>

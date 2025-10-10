@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Kritische Formeln</title>
+<script>
+window.MathJax = { tex: {inlineMath: [['\\(','\\)']]} };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+  body{
+    font-family: "Georgia", "Times New Roman", serif;
+    color:#3b342f;
+    background:#f6f0e9;
+    padding:24px;
+  }
+  .header{
+    font-size: 2rem;
+    font-style: italic;
+    display:inline-block;
+    border-bottom:4px solid #6f665f;
+    padding-bottom:6px;
+    margin-bottom:18px;
+  }
+  .list{
+    margin-top:6px;
+  }
+  .item{
+    display:flex;
+    align-items:flex-start;
+    margin:8px 0;
+  }
+  .no{
+    width:32px;
+    text-align:right;
+    margin-right:12px;
+    font-style: italic;
+    border-bottom:2px solid #7a7067;
+    line-height:1;
+  }
+  .formula{
+    font-size:1.35rem;
+  }
+</style>
+</head>
+<body>
+  <div class="header">Kritische Formeln:</div>
+
+  <div class="list">
+    <div class="item">
+      <span class="no">1.</span>
+      <span class="formula">\(L(K) \rightarrow L\big(\exists y\, L(y)\big),\)</span>
+    </div>
+    <div class="item">
+      <span class="no">2.</span>
+      <span class="formula">\(\mathcal{D}L\big(\exists y\, L(y)\big) \rightarrow \mathcal{D}\big(\exists x\, \mathcal{D}(x x)\big)\)</span>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brieftranskription – 16.7.1928</title>
+<style>
+  body {
+    margin: 0;
+    background: #f2f0e6;
+    color: #2b2b2b;
+    font-family: "Times New Roman", Georgia, serif;
+  }
+  .page {
+    max-width: 980px;
+    margin: 40px auto;
+    background: #fbf7ea;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+    border: 1px solid #e6dcc5;
+    padding: 36px 46px 56px;
+  }
+  .topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    line-height: 1;
+    margin-bottom: 26px;
+  }
+  .left-note {
+    color: #6b6b6b;
+    font-size: 20px;
+    white-space: pre;
+  }
+  .right-date {
+    color: #6b6b6b;
+    font-size: 22px;
+    font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;
+  }
+  .letter {
+    font-size: 1.18rem;
+    line-height: 1.8;
+  }
+  .line { margin: 0.35rem 0; white-space: pre-wrap; }
+  .underline { text-decoration: underline; font-weight: 600; }
+  .eq { text-align: center; margin: 0.6rem 0; }
+  .sig { margin-top: 1.1rem; font-size: 1.35rem; }
+</style>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="page">
+    <div class="topline">
+      <div class="left-note">Hs. 91; 680</div>
+      <div class="right-date">Berlin, den 16.7.1928.</div>
+    </div>
+
+    <div class="letter">
+      <p class="line">Sehr geehrter Herr Professor!</p>
+      <p class="line">Vielen Dank für Ihre Karte, und die Korrekturfahnen Ihres schönen Büchleins.</p>
+      <p class="line">Ohne mich erschöpfend mit denselben vertraut gemacht zu haben, möchte ich eine kurze Bemerkung zu Ihrer Behandlung der symmetrischen Gruppe machen,</p>
+
+      <p class="line">Auf S.&nbsp;130, §&nbsp;52, weisen Sie den Frobenius- schen Hilfssatz über die Elemente von \( \mathcal{QB} \), und dann auf S.&nbsp;131 den weiteren Hilfssatz</p>
+      <div class="eq">\[ \sum_{p} c(cspt) = c(cs)\, \sum_{p} c(pt) \]</div>
+      <p class="line">von dem alles weitere abhängt, und der (sowie seine spätere "Ausnützung") ziemliche Rechnungen in die Überlegungen bringt.</p>
+
+      <p class="line">Wäre es nicht durchsichtiger und einfa- cher so vorzugehen:</p>
+      <p class="line"><span class="underline">Hilfssatz 1.</span> Wie bei Ihnen auf S.&nbsp;130</p>
+      <p class="line"><span class="underline">Hilfssatz 2.</span> Den Bedingungen</p>
+      <div class="eq">\(x(sp)=x(s), \quad x(qs)=\delta_q x(s)\)</div>
+      <p class="line">(p, ganz aus \( \mathcal{B} \) bzw. \(\mathcal{Q}\)) genügen nur die Gruppen-</p>
+      <p class="line">zahlen</p>
+      <div class="eq">\(x(s)=\text{Konstans} \cdot \;c(s)\)</div>
+
+      <p class="line"><span class="underline">Beweis:</span> Die Notwendigkeit ist klar. Die Hinreichendheit zeigt man so: genügt \(x(s)\) der Bedingung, dann sieht man für die \(s\)von \(\mathcal{B}\;\mathcal{Q}\) sofort</p>
+      <div class="eq">\(x(s)=x(0)\cdot c(s)=\text{Konstans} \cdot \;c(s)\)</div>
+      <p class="line">ein. Wenn s nicht in \(\mathcal{BQ}\) liegt, so seien p, q</p>
+      <p class="line">mit</p>
+      <div class="eq">\(sps^{-1}=q\), d. h. \(qsp=s\)</div>
+      <p class="line">gewählt (Hilfssatz 1.), dann ist</p>
+      <div class="eq">\(x(s)=x(qsp)=-x(s),\ x(s)=0.\)</div>
+      <p class="line">w. z. b. w.</p>
+
+      <p class="line"><span class="underline">Hilfssatz 3.</span> Für jede Gruppenzahl x ist</p>
+      <div class="eq">\(c \times c = \text{Konstans }\cdot c\)</div>
+      <p class="line"><span class="underline">Beweis:</span> Denn mit c genügt offenbar auch \(c \times c\) der Bedingung in Hilfssatz 2.</p>
+
+      <p class="line">Hieraus folgt nun</p>
+      <p class="line">I. \(c^2 : \gamma c\), dann \( \gamma > 0 \) wie bei Ihnen, also ist \(\frac{1}{\gamma} c\) charakteristische Einheit.</p>
+
+      <p class="line">II. Aus</p>
+      <div class="eq">\(\frac{1}{\gamma}c = a + b,\quad a^2 = a,\quad b^2 = b,\quad ab = ba = 0\)</div>
+      <p class="line">folgt</p>
+      <div class="eq">\(a = (a+b)\,a\,(a+b) = \frac{1}{\gamma^2}cac = \text{Konstans }\frac{1}{\gamma}c\)</div>
+      <p class="line">also wegen \(a^{2}=a\) Konstans = 0, 1, d. h.,</p>
+      <p class="line">entweder \(a = \frac{1}{\gamma}c, \; b = 0\), oder \(a = 0, \; b = \frac{1}{\gamma}c\),</p>
+      <p class="line">Daher ist \(\frac{1}{\gamma}c\) primitiv, und die Darstel-</p>
+      <p class="line">lung irreduzibel.</p>
+
+      <p class="line">Ich glaube dass diese Methode der</p>
+      <p class="line">viel mehr rechnerischen Problemen vor-</p>
+      <p class="line">züglich ist. Freilich erhalten sie gleichzeitig</p>
+      <p class="line">die affine Gruppe, aber soweit ich sehe bedeu-</p>
+      <p class="line">tet diese Anordnung noch eine Abkürzung.</p>
+      <p class="line">Was halten Sie davon?</p>
+
+      <p class="line">Ich verbleibe mit den besten Grüssen</p>
+      <p class="line">Ihr ergebener</p>
+      <p class="line sig">J. v. Neumann.</p>
+    </div>
+  </div>
+</body>
+</html>

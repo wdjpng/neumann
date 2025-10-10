@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transcription</title>
+<style>
+  :root {
+    --paper: #f5efe3;
+    --ink: #333;
+    --edge: #d8cbb6;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(90deg, #eef1f5 0%, #eef1f5 40%, #ffffff 100%);
+    font-family: "Georgia", "Times New Roman", serif;
+    color: var(--ink);
+  }
+  .page {
+    width: 220px;
+    height: 100%;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.06) inset, 0 10px 25px rgba(0,0,0,0.15);
+    position: relative;
+  }
+  .page::before {
+    /* subtle edge strip like the photographed margin */
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 26px;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.02));
+    border-right: 1px solid rgba(0,0,0,0.05);
+  }
+  .transcription {
+    white-space: pre-wrap;
+    padding: 24px 18px 24px 40px;
+    line-height: 1.6;
+    font-size: 16px;
+    min-height: 100%;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="transcription"></div>
+  </div>
+</body>
+</html>
