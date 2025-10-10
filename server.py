@@ -477,23 +477,31 @@ def _enqueue_update_chunks(letter_dir: Path, base_path: Path, base_name: str,
     chunks_dir.mkdir(parents=True, exist_ok=True)
 
     def task():
-        ordered_coords = sorted(coords, key=lambda tup: (tup[1], tup[0]))
-        with coords_path.open('w') as fh:
-            for x1, y1, x2, y2 in ordered_coords:
-                fh.write(f'{x1},{y1},{x2},{y2}\n')
-        _clear_page_artifacts(chunks_dir, page_index)
-        with Image.open(page_img_path) as page_img:
-            pil_chunks = chunk_extractor.save_chunks(page_img, ordered_coords, letter_dir, page_index)
+        try:
+            ordered_coords = sorted(coords, key=lambda tup: (tup[1], tup[0]))
+            with coords_path.open('w') as fh:
+                for x1, y1, x2, y2 in ordered_coords:
+                    fh.write(f'{x1},{y1},{x2},{y2}\n')
+            _clear_page_artifacts(chunks_dir, page_index)
+            with Image.open(page_img_path) as page_img:
+                pil_chunks = chunk_extractor.save_chunks(page_img, ordered_coords, letter_dir, page_index)
 
-        async def run():
-            results = await asyncio.gather(*[text_extractor.transcribe_chunk(img) for img in pil_chunks])
-            for idx, (html, reasoning) in enumerate(results):
-                (chunks_dir / f'{page_index}_{idx}.html').write_text(html)
-                (chunks_dir / f'{page_index}_{idx}_reasoning.txt').write_text(reasoning)
-            if rebuild:
-                await _async_rebuild_unified(letter_dir, feedback)
+            async def run():
+                results = await asyncio.gather(*[text_extractor.transcribe_chunk(img) for img in pil_chunks])
+                for idx, (html, reasoning) in enumerate(results):
+                    (chunks_dir / f'{page_index}_{idx}.html').write_text(html)
+                    (chunks_dir / f'{page_index}_{idx}_reasoning.txt').write_text(reasoning)
+                if rebuild:
+                    await _async_rebuild_unified(letter_dir, feedback)
 
-        asyncio.run(run())
+            asyncio.run(run())
+        except Exception as e:
+            print(f"ERROR in update chunks task for {letter} p{page_index+1}:")
+            print(f"  Exception type: {type(e).__name__}")
+            print(f"  Exception message: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
 
     name = f'Update chunks — {letter} p{page_index+1}'
     if rebuild:
@@ -519,27 +527,35 @@ def _enqueue_regenerate(letter_dir: Path, base_path: Path, base_name: str,
     reasoning_path = chunks_dir / f'page_{page_index+1}.txt'
 
     def task():
-        with Image.open(page_img_path) as page_image:
-            async def run_generation():
-                return await chunk_extractor.get_chunks_coords_from_image(page_image, reasoning_path)
+        try:
+            with Image.open(page_img_path) as page_image:
+                async def run_generation():
+                    return await chunk_extractor.get_chunks_coords_from_image(page_image, reasoning_path)
 
-            coords = asyncio.run(run_generation())
-        ordered_coords = sorted(coords, key=lambda tup: (tup[1], tup[0]))
-        coords_path = chunks_dir / f'{page_index}_chunk_coords.txt'
-        with coords_path.open('w') as fh:
-            for x1, y1, x2, y2 in ordered_coords:
-                fh.write(f'{x1},{y1},{x2},{y2}\n')
-        _clear_page_artifacts(chunks_dir, page_index)
-        with Image.open(page_img_path) as page_image_for_crop:
-            pil_chunks = chunk_extractor.save_chunks(page_image_for_crop, ordered_coords, letter_dir, page_index)
+                coords = asyncio.run(run_generation())
+            ordered_coords = sorted(coords, key=lambda tup: (tup[1], tup[0]))
+            coords_path = chunks_dir / f'{page_index}_chunk_coords.txt'
+            with coords_path.open('w') as fh:
+                for x1, y1, x2, y2 in ordered_coords:
+                    fh.write(f'{x1},{y1},{x2},{y2}\n')
+            _clear_page_artifacts(chunks_dir, page_index)
+            with Image.open(page_img_path) as page_image_for_crop:
+                pil_chunks = chunk_extractor.save_chunks(page_image_for_crop, ordered_coords, letter_dir, page_index)
 
-        async def run():
-            results = await asyncio.gather(*[text_extractor.transcribe_chunk(img) for img in pil_chunks])
-            for idx, (html, reasoning) in enumerate(results):
-                (chunks_dir / f'{page_index}_{idx}.html').write_text(html)
-                (chunks_dir / f'{page_index}_{idx}_reasoning.txt').write_text(reasoning)
+            async def run():
+                results = await asyncio.gather(*[text_extractor.transcribe_chunk(img) for img in pil_chunks])
+                for idx, (html, reasoning) in enumerate(results):
+                    (chunks_dir / f'{page_index}_{idx}.html').write_text(html)
+                    (chunks_dir / f'{page_index}_{idx}_reasoning.txt').write_text(reasoning)
 
-        asyncio.run(run())
+            asyncio.run(run())
+        except Exception as e:
+            print(f"ERROR in regenerate chunks task for {letter} p{page_index+1}:")
+            print(f"  Exception type: {type(e).__name__}")
+            print(f"  Exception message: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
 
     return _run_in_background(
         name=f'Regenerate chunks — {letter} p{page_index+1}',
@@ -615,13 +631,21 @@ def _enqueue_retry_chunk(letter_dir: Path, base_name: str, letter: str,
         abort(404, 'Chunk image not found')
 
     def task():
-        with Image.open(img_path) as img:
-            async def run():
-                html, reasoning = await text_extractor.transcribe_chunk(img, feedback=feedback)
-                (chunks_dir / f'{page_index}_{chunk_index}.html').write_text(html)
-                (chunks_dir / f'{page_index}_{chunk_index}_reasoning.txt').write_text(reasoning)
+        try:
+            with Image.open(img_path) as img:
+                async def run():
+                    html, reasoning = await text_extractor.transcribe_chunk(img, feedback=feedback)
+                    (chunks_dir / f'{page_index}_{chunk_index}.html').write_text(html)
+                    (chunks_dir / f'{page_index}_{chunk_index}_reasoning.txt').write_text(reasoning)
 
-            asyncio.run(run())
+                asyncio.run(run())
+        except Exception as e:
+            print(f"ERROR in retry chunk task for {letter} p{page_index+1} c{chunk_index+1}:")
+            print(f"  Exception type: {type(e).__name__}")
+            print(f"  Exception message: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
 
     return _run_in_background(
         name=f'Retry chunk — {letter} p{page_index+1} c{chunk_index+1}',
@@ -941,10 +965,18 @@ def qc_rebuild_letter(letter):
         abort(404, 'Letter not found')
 
     def task():
-        async def run():
-            await _async_rebuild_unified(letter_dir, feedback)
+        try:
+            async def run():
+                await _async_rebuild_unified(letter_dir, feedback)
 
-        asyncio.run(run())
+            asyncio.run(run())
+        except Exception as e:
+            print(f"ERROR in rebuild HTML task for {letter}:")
+            print(f"  Exception type: {type(e).__name__}")
+            print(f"  Exception message: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
 
     task_id = _run_in_background(
         name=f'Rebuild HTML — {letter}',
@@ -995,7 +1027,15 @@ def qc_translate_letter(letter):
 
     def task():
         async def run():
-            await text_extractor.save_and_translate_html(original_html, letter_dir, feedback=feedback)
+            try:
+                await text_extractor.save_and_translate_html(original_html, letter_dir, feedback=feedback)
+            except Exception as e:
+                print(f"ERROR in translate task for {letter}:")
+                print(f"  Exception type: {type(e).__name__}")
+                print(f"  Exception message: {e}")
+                import traceback
+                traceback.print_exc()
+                raise
 
         asyncio.run(run())
 
@@ -1047,14 +1087,22 @@ def qc_deep_reload(letter):
     letter_dir.mkdir(parents=True, exist_ok=True)
 
     def task():
-        async def run():
-            with pymupdf.open(pdf_path) as pdf:
-                await extraction_pipeline.process_pdf(pdf, output_path=letter_dir)
-            de_path = letter_dir / 'html_de.html'
-            if de_path.exists():
-                await text_extractor.save_and_translate_html(de_path.read_text(), letter_dir)
+        try:
+            async def run():
+                with pymupdf.open(pdf_path) as pdf:
+                    await extraction_pipeline.process_pdf(pdf, output_path=letter_dir)
+                de_path = letter_dir / 'html_de.html'
+                if de_path.exists():
+                    await text_extractor.save_and_translate_html(de_path.read_text(), letter_dir)
 
-        asyncio.run(run())
+            asyncio.run(run())
+        except Exception as e:
+            print(f"ERROR in deep reload task for {letter}:")
+            print(f"  Exception type: {type(e).__name__}")
+            print(f"  Exception message: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
 
     task_id = _run_in_background(
         name=f'Deep reload — {letter}',
