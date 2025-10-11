@@ -94,6 +94,16 @@ def get_html_files(letter_id):
     return jsonify(result)
 
 
+@app.route('/api/letter-metadata/<letter_id>')
+def get_letter_metadata(letter_id):
+    metadata_path = os.path.join('public', 'outputs_gpt-5_2', letter_id, 'metadata.json')
+    if os.path.exists(metadata_path):
+        with open(metadata_path, 'r', encoding='utf-8') as f:
+            metadata = json.load(f)
+        return jsonify(metadata)
+    return jsonify({})
+
+
 @app.route('/api/chunks/<letter_id>')
 def get_chunks(letter_id):
     chunks_dir = os.path.join('public', 'chunks')

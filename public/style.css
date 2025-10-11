@@ -75,20 +75,29 @@ main {
     width: 300px;
     text-align: center;
     background-color: #f9f9f9;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .letter-item h3 {
     font-size: 1.1em;
-    margin-top: 35px;
+    margin-top: 8px;
     margin-bottom: 10px;
 }
 
-.letter-person {
-    position: absolute;
-    top: 15px;
-    left: 10px;
+.letter-meta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     font-size: 0.8em;
     color: #666;
+    min-height: 20px;
+    margin-bottom: 12px;
+}
+
+.letter-person {
+    color: #888;
+    font-size: 1em;
 }
 
 .letter-item:hover {
@@ -98,7 +107,7 @@ main {
 
 .letter-links {
     display: flex;
-    gap: 10px;
+    gap: 16px;
     justify-content: center;
     margin-top: 10px;
 }
@@ -122,4 +131,27 @@ footer {
     color: #888;
     background-color: #fff;
     border-top: 1px solid #ddd;
-} 
+}
+
+.github-link {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    color: #333;
+    transition: color 0.3s;
+}
+
+footer p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.github-link:hover {
+    color: #0077cc;
+}
+
+.github-link svg {
+    margin-left: 4px;
+}
