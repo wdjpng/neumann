@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Matrikel – Abteilung IV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+  :root{--rule:#1c1c1c;--ink:#222;--light:#f7f2e8;}
+  html,body{margin:0;padding:0;background:var(--light);color:var(--ink);font-family:"Times New Roman",Georgia,serif;}
+  .page{max-width:860px;margin:24px auto 46px;padding:24px 26px 30px;background:#fff;border:1px solid #c6b9a2;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+  header{text-align:center;margin:8px 0 18px;}
+  .crest{font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:.18em;color:#6b5c48;font-size:22.5px;margin-bottom:4px;text-transform:uppercase;}
+  .mat{font-family:'Barlow',sans-serif;font-weight:600;font-size:40px;letter-spacing:.02em;color:#3a342e;margin:4px 0 2px;}
+  .for{font-size:15px;color:#6b5c48;margin-top:-2px;}
+  .hand{font-style:italic;}
+  .row{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;}
+  .field{flex:1;}
+  .label{font-size:13px;color:#5f5344;margin-bottom:2px;}
+  .write{border-bottom:1px solid #cfc4b0;padding:3px 4px 6px;white-space:pre-wrap;}
+
+  /* handwriting used for annotations */
+  .handwrite{
+    font-family:'Dancing Script', cursive;
+    font-weight:600;
+    font-size:1.05em;
+    letter-spacing:.01em;
+    color:#2a2928;
+    position:relative; top:1px;
+  }
+
+  .section-title{
+    margin:16px 0 8px;text-align:center;
+    font-family:'Barlow',sans-serif;font-weight:600;color:#3a342e;letter-spacing:.02em;
+  }
+  .sheet{
+    position:relative;margin-top:8px;border:1.3pt solid var(--rule);
+    box-shadow:
+      inset 1.6pt 0 0 0 #fff, inset 1.95pt 0 0 0 var(--rule),
+      inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 var(--rule),
+      inset 0 1.6pt 0 0 #fff, inset 0 1.95pt 0 0 var(--rule);
+    padding:2px;
+  }
+  .sheet-inner{padding:14px 16px 10px;}
+
+  .courses{display:grid;grid-template-columns:1fr 240px;gap:14px;}
+  .urlaub{border-left:1px solid #cfc4b0;padding-left:16px;}
+  .urlaub h4{margin:0 0 6px 0;font-family:'Barlow',sans-serif;font-weight:600;color:#3a342e;font-size:14px;}
+  .urlaub .blank{height:20px;border-bottom:1px dotted #cdbfa7;margin:3px 0;}
+  .list{margin:0;padding:0;list-style:none;}
+  .leaders{display:flex;align-items:flex-end;gap:8px;margin:2px 0;}
+  .leaders .t{white-space:pre-wrap;}
+  .leaders .dots{flex:1;border-bottom:1px dotted #cdbfa7;min-width:40px;height:1.1em;margin-bottom:.2em;}
+  .leaders .val{min-width:84px;text-align:left;font-style:italic;}
+  .tick{font-size:16px;line-height:1;color:#3a342e;}
+
+  .docs{margin:14px 0 6px;}
+  .docs h4{margin:0 0 6px 0;font-family:'Barlow',sans-serif;font-weight:600;color:#3a342e;font-size:14px;}
+  .docline{border-bottom:1px dotted #cdbfa7;padding:3px 0 5px;margin:2px 0;font-style:italic;}
+
+  /* --- EXAM BOX USING REAL TABLES --- */
+  .exam{
+    margin-top:16px;border:1px solid var(--rule);
+    box-shadow:
+      inset 1.6pt 0 0 0 #fff, inset 1.95pt 0 0 0 var(--rule),
+      inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 var(--rule),
+      inset 0 1.6pt 0 0 #fff, inset 0 1.95pt 0 0 var(--rule);
+  }
+  .exam h3{margin:8px 0 8px;text-align:center;font-family:'Barlow',sans-serif;font-weight:600;color:#3a342e;font-size:16px;}
+
+  /* container table: 2 columns with a real central divider */
+  .exam-two{
+    width:100%;
+    border-top:1px solid var(--rule);
+    border-collapse:collapse;
+    table-layout:fixed;
+  }
+  .exam-two td.half{
+    width:50%;
+    vertical-align:top;
+    padding:0;
+  }
+  .exam-two td.half + td.half{ /* central divider */
+    border-left:1px solid var(--rule);
+  }
+
+  /* inner tables: real vertical divider between name and grade + horizontal row lines */
+  .exam-table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+  }
+  .exam-table tr{
+    border-bottom:1px solid var(--rule); /* horizontal dividers */
+  }
+  .exam-table tr:last-child{border-bottom:none;}
+  .exam-table td.name{
+    padding:6px 10px 6px 12px;
+  }
+  .exam-table td.g{
+    width:40px;
+    text-align:center;
+    border-left:1px solid var(--rule); /* name/grade divider */
+    padding:6px 0;
+    font-weight:bold;
+  }
+
+  .strike{
+    text-decoration:line-through;
+    text-decoration-thickness:1.5px;
+    text-decoration-color:#2a2928;
+  }
+
+  .footgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:12px 0 2px;}
+  .small-leader{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;}
+  .small-leader .dots{border-bottom:1px dotted #cdbfa7;height:1em;}
+  .note{font-size:12.5px;color:#5f5344;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="crest">Eidgenössische Technische Hochschule</div>
+    <div class="mat">Matrikel</div>
+    <div class="for">für</div>
+    <div class="write hand" style="font-size:18px;text-align:center;margin-top:4px;">
+      von Neumann, Johann Ludwig, v. Budapest (Ung.), geb. 28. Dez. 1903.
+    </div>
+  </header>
+
+  <div class="row" style="margin-bottom:8px;">
+    <div class="field">
+      <div class="label">Adresse der Eltern / des Vormundes:</div>
+      <div class="write hand">Dr. Max v. Neumann, Kaiser Wilhelmstr. 62, Budapest.</div>
+    </div>
+  </div>
+<br>
+
+  <div class="sheet">
+    <div class="sheet-inner">
+
+      <h2 class="section-title">Abteilung IV.</h2>
+
+      <div class="courses">
+        <div>
+          <ul class="list">
+            <li class="leaders"><span class="t">1. Kurs,  I. Semester, Winter</span><span class="dots"></span><span class="val tick">/</span></li>
+            <li class="leaders"><span class="t">         II. Semester, Sommer</span><span class="dots"></span><span class="val">/</span></li>
+
+            <li class="leaders"><span class="t">2.       III. Semester, Winter</span><span class="dots"></span><span class="val hand">1923/24</span></li>
+            <li class="leaders"><span class="t">         IV. Semester, Sommer</span><span class="dots"></span><span class="val hand">1924</span></li>
+
+            <li class="leaders"><span class="t">3.       V. Semester, Winter</span><span class="dots"></span><span class="val hand">1924/25</span></li>
+            <li class="leaders"><span class="t">         VI. Semester, Sommer</span><span class="dots"></span><span class="val hand">1925</span></li>
+
+            <li class="leaders"><span class="t">4.       VII. Semester, Winter</span><span class="dots"></span><span class="val hand">1925/26</span></li>
+            <li class="leaders"><span class="t">         höh. Semester</span><span class="dots"></span><span class="val hand">1926</span></li>
+          </ul>
+        </div>
+
+        <div class="urlaub">
+          <h4>Urlaub:</h4>
+          <div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div>
+        </div>
+      </div>
+
+<br>
+      <div class="docs">
+        <h4>Deponierte Ausweise:</h4>
+        <div class="docline hand">Geburtsschein.</div>
+        <div class="docline hand">Maturitätszeugnis des Gymnasiums Budapest.</div>
+        <div class="docline hand">Matrikelauszug von der Universität Berlin.</div>
+      </div>
+<br>
+
+      <!-- EXAM TABLE (real borders) -->
+      <div class="exam">
+        <h3>Aufnahmeprüfung für das 3. Semester</h3>
+
+        <table class="exam-two">
+          <tr>
+            <!-- LEFT COLUMN -->
+            <td class="half">
+              <table class="exam-table">
+                <tr><td class="name">Aufsatz</td><td class="g"></td></tr>
+                <tr><td class="name">Deutsche Sprache</td><td class="g"></td></tr>
+                <tr><td class="name">Französische Sprache</td><td class="g">6</td></tr>
+                <tr><td class="name">Literaturgeschichte</td><td class="g"></td></tr>
+                <tr><td class="name">Politische Geschichte</td><td class="g"></td></tr>
+                <tr><td class="name">Naturwissenschaften</td><td class="g"></td></tr>
+              </table>
+            </td>
+
+            <!-- RIGHT COLUMN -->
+            <td class="half">
+              <table class="exam-table">
+                <tr>
+                  <td class="name">Mathematik, schriftlich <span class="handwrite">höhere</span></td>
+                  <td class="g">6</td>
+                </tr>
+                <tr>
+                  <td class="name">Mathematik, mündlich</td>
+                  <td class="g">6</td>
+                </tr>
+                <tr>
+                  <td class="name"><span class="strike">Darstellende Geometrie</span> <span class="handwrite">Organische&nbsp;Chemie</span></td>
+                  <td class="g">6</td>
+                </tr>
+                <tr>
+                  <td class="name">Physik (<span class="handwrite">Experimentalphysik.</span>)</td>
+                  <td class="g">6</td>
+                </tr>
+                <tr>
+                  <td class="name">Chemie, anorganische</td>
+                  <td class="g">6</td>
+                </tr>
+                <tr>
+                  <td class="name">Zeichnen <span class="handwrite">Maschinenzeichnen&nbsp;I&nbsp;u.&nbsp;II</span></td>
+                  <td class="g">6</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="footgrid">
+        <div class="small-leader">
+          <div>Eintritt:</div><div class="dots"></div><div class="hand">Okt. 1923</div>
+        </div>
+        <div class="small-leader">
+          <div>Austritt:</div><div class="dots"></div><div class="hand">Juli 1926</div>
+        </div>
+      </div>
+<br>
+      <div class="note"><b>Anmerkung:</b> 6 ist die beste, 1 die geringste Leistung.</div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -2,6 +2,6 @@
   "author": "John von Neumann",
   "recipient": "Hermann Weyl",
   "date": "August 19th, 1928",
-  "summary": "Von Neumann sends Weyl a preliminary manuscript on Hermitian operators, describing his resolution of eigenvalue representation questions and discovery of an operator without eigenvalue representation. He also discusses an observation about the 2+1-dimensional Lorentz group being represented by conformal mappings of the unit circle, which admits an infinite-dimensional irreducible representation in Hilbert space.",
-  "title": "Hermitian Operators & Lorentz Group"
+  "summary": "Von Neumann sends Weyl a preliminary manuscript on Hermitian operators, describing his work on eigenvalue representation and the discovery of an operator that admits no such representation. He also presents an observation about the 2+1-dimensional Lorentz group and its infinite-dimensional irreducible representation, asking whether methods exist to control such representations.",
+  "title": "On Eigenvalue Representation and the Lorentz Group"
 }

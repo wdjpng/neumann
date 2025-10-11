@@ -2,6 +2,6 @@
   "author": "John von Neumann",
   "recipient": "Paul Bernays",
   "date": "May 10th, 1931",
-  "summary": "Von Neumann presents a mathematical example involving critical formulas and a correction procedure, demonstrating that the number of steps required depends on the numerical value of the substituent. He concludes that this negatively answers whether a uniform length estimate for the correction procedure is possible independent of the size of number substituents, leaving the proof of finite termination incomplete for degree 3.",
-  "title": "Limits of Ackermann Proof Procedure"
+  "summary": "Von Neumann presents a mathematical example demonstrating that the length of a correction procedure in a modified Ackermann proof depends on the numerical value of substituents, not just the form of critical formulas. He concludes that this reveals an incompleteness in the proof of finite termination for the procedure at degree 3.",
+  "title": "The Incompleteness of Ackermann's Correction Procedure"
 }

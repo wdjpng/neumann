@@ -1,0 +1,36 @@
+**Organizing rectangular chunks**
+
+The page almost covers the entire width, with a left margin background. Since it specifies including the full width of each letter page, we can choose rectangles starting from the left margin. However, it might be easier to use the full image width to cover all text lines. I'm considering about five rectangular chunks: the header, table header, the first part of the course list, the second part, and the bottom region labels. I just need to ensure that every single line fits properly in a chunk.
+**Defining row positions and boundaries**
+
+I’m looking at the row y positions, and it seems I’ll need to approximate them through visual segmentation. I should determine the boundaries for the entire image that's 768 pixels wide. Initially, I think of using x1 at 40 or maybe 20, but using x1=0 and x2=767 for full width feels better. Although this includes the outer background, it meets the requirement to include the whole width of each letter page. Now, for the y chunks: the top header will include "Abteilung IV." and "1. Kurs 19—19," and I'll set y1 around 60 to exclude the outer margin.
+**Setting chunk boundaries**
+
+The paper has a small border at the top, but to be on the safe side, I'll start y1 at 0. Now, y2 needs a clear endpoint. The header lines sit around y  90 to 160, while the table top border might start around y  200. It seems reasonable to set chunk1’s y2 at about 230. I’m contemplating including the table header lines; they don’t exceed eight lines of text. Since the labels "Fachgegenstände, Lehrer, W.-Semester, S.-Semester, Bemerkungen" count as one line, I think we can include them in the same chunk without any issues.
+**Defining chunk boundaries and extents**
+
+For chunk1, I'll set the boundaries from 0 to just below the top of the table header row, maybe around y=310, to capture the entire header. Chunk2 will then start right below the header to avoid splitting it. I’ll aim to minimize overlaps while still following the instruction. I'll finish chunk1 just below the header's bottom border. The table header area should be from y 230 to 320. 
+
+Next, for the course lines, the left column lists "Höhere Mathematik, mit Übungen" and about 10 rows. I’ll split this into two chunks: lines 1-6 and lines 7-12, estimating y boundaries to cover the full height without exact coordinates, as they’ll accept reasonable approximations.
+**Defining final chunk coordinates**
+
+To avoid splitting lines, I'll create overlap between chunks. For chunk2, the boundaries will be set to y1=300 and y2=650 to capture about 6 lines. Then chunk3 will start at y1=620 and go to y2=900. The bottom region includes "W.-S. Freifächer S.-S." around y  900, so chunk4 will cover from y1=880 to y2=1105.
+
+To summarize, my final chunk coordinates are:
+
+- chunk1: (0, 0, 767, 330)  
+- chunk2: (0, 320, 767, 610)  
+- chunk3: (0, 600, 767, 870)  
+- chunk4: (0, 860, 767, 1105)  
+
+The image's resolution is (768, 1106), confirming we meet the requirements for including the entire width of each letter page.
+**Providing final coordinates**
+
+I'm about to produce the final chunk coordinates. I’m wondering if the bounding boxes should include the entire table width and not the background, but it seems okay as it is. Here are the final coordinates:
+
+1) (0, 0, 767, 330)  
+2) (0, 320, 767, 610)  
+3) (0, 600, 767, 870)  
+4) (0, 860, 767, 1105)  
+
+I’ll deliver those now!

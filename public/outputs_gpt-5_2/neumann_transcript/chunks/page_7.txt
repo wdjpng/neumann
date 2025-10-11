@@ -1,0 +1,28 @@
+**Determining text chunks**
+
+I need to output bounding boxes for sections of an image that contain text or math lines. This document has a small area of text near the top center. I’m considering splitting it into chunks to capture all the text lines, probably in two parts: one for the header table row with numbers, and another for the text blocks below. There are about 8-10 text lines with no math expressions, and I need to make sure there are no more than eight lines of text in each chunk.
+**Deciding chunk dimensions**
+
+I’m looking at the lines of text and see that there’s more than 8, so splitting into 2 or 3 chunks seems necessary. The layout spans vertically from about y 130 to 450. The image dimensions are 768 in width and 1078 in height. The content is centered but doesn’t take the full width of the page. I’ll follow the instruction to include the width of each letter page when appropriate. For the first chunk, I’m estimating the top header with the number boxes would be around y 115-175, specifically near y 139.
+**Defining text chunks**
+
+I'm defining a chunk from y 100 to 220, but I need to make sure to include the entire row plus some margin. So, I’ll choose coordinates (0, 90, 767, 220). I want to avoid cropping anything inadvertently, ensuring all lines are fully contained. The topmost grid starts around y 140, which is fine. 
+
+For the second chunk, I'll cover the lines from the Name line to the Matr-Mappe, which gives me about 3-4 lines. The third chunk will include the Austritt line, plus the other faint and small print lines to ensure we keep it under 8 lines.
+**Setting chunk boundaries**
+
+I think the third chunk might include around 4 lines from y 340 to 480, possibly capturing the small line at y 430. I really want to avoid splitting lines, so I need to set boundaries with enough overlapping margins to be safe. 
+
+For Chunk 1, I’m adjusting to (0, 100, 767, 230) to be less tight. Chunk 2 will be (0, 230, 767, 350) to cover the Name, Geb/Bürgerort, and Matr-Mappe lines. That gives us about 4 lines, which is okay for keeping under 8 total. I’ll also set the bottom of the second chunk around 370 to include the entry line without touching the Austritt line.
+**Finalizing chunk coordinates**
+
+For Chunk 3, I'm capturing the "Austritt..." line, along with the additional small print lines, which should fit well. I checked the line counts and ensured that Chunk 1 includes only one line and Chunk 2 includes four lines. Chunk 3 might include 5-6 lines total, which keeps us under 8.
+
+I'm setting coordinates carefully to include the full width of the page. I’ve determined (0, 90, 767, 235) for Chunk 1, (0, 235, 767, 370) for Chunk 2, and (0, 360, 767, 540) for Chunk 3, all while maintaining overlaps and ensuring no more than two to four lines of math expressions.
+
+Finally, I’m delivering this in the specified format. Here's the output:
+
+(0, 90, 767, 235)  
+(0, 235, 767, 370)  
+(0, 360, 767, 540)  
+(768, 1078)

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Abteilung IV – 2. Kurs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root { --rule:#1c1c1c; --ink:#222; --light:#f7f2e8; }
+  html,body{margin:0;padding:0;background:var(--light);color:var(--ink);font-family: "Times New Roman", Georgia, serif;}
+  .page{max-width:820px;margin:22px auto 40px;padding:18px 22px 28px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08);border:1px solid #c6b9a2;}
+  header{text-align:center;margin-top:8px;margin-bottom:10px;}
+  header h1{font-size:28px;margin:0 0 4px 0;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.01em;word-spacing:0.25em;color:#3a342e;}
+  header .course{font-size:18px;letter-spacing:.2px;border-bottom:1px solid #c6b9a2;display:inline-block;padding:2px 10px 3px;}
+  .hand{font-family: "Times New Roman", serif;font-style:italic;position:relative;}
+  .sheet{
+    position:relative;margin-top:14px;
+    border:1.3pt solid #1c1c1c;
+    border-bottom:none;
+    box-shadow:inset 1.6pt 0 0 0 #fff, inset 1.95pt 0 0 0 #1c1c1c, inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c, inset 0 1.6pt 0 0 #fff, inset 0 1.95pt 0 0 #1c1c1c;
+    padding:1.95pt 1.95pt 0 1.95pt;
+  }
+  table{width:100%;border-collapse:collapse;border-spacing:0;}
+  thead th{
+    text-transform:none;font-size:14px;padding:8px 10px;
+    font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.01em;word-spacing:0.25em;color:#3a342e;
+    border:none;position:relative;
+    border-bottom:0.75pt solid #1c1c1c;
+  }
+  thead th.left{
+    border-right:0.35pt solid #1c1c1c;
+    box-shadow:inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c;
+  }
+  thead th.teacher,thead th.sem{
+    border-right:0.35pt solid #1c1c1c;
+    box-shadow:inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c;
+  }
+  thead th.remark{border-right:none;}
+  tbody td{vertical-align:top;padding:5px 10px;border:none;position:relative;}
+  tbody td.left{
+    border-right:0.35pt solid #1c1c1c;
+    box-shadow:inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c;
+  }
+  tbody td.teacher,tbody td.sem{
+    border-right:0.35pt solid #1c1c1c;
+    box-shadow:inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c;
+  }
+  tbody td.remark{
+    border-right:none;
+    background-image:repeating-linear-gradient(transparent,transparent 22px,#d2c7b2 22px,#d2c7b2 22.5px);
+    background-position:0 8px;
+  }
+  .left{width:47%;}
+  .teacher{width:18%;}
+  .sem{width:10%;text-align:center;}
+  .remark{width:25%;}
+  .leaders{position:relative;}
+  .leaders .t{background:#fff;position:relative;z-index:2;padding-right:6px;}
+  .leaders:after{
+     content:"................................................................................................................................................................................................................";
+     position:absolute;left:10px;right:10px;top:50%;transform:translateY(-50%);
+     color:#9f9380;white-space:nowrap;overflow:hidden;pointer-events:none;
+  }
+  tfoot td{padding:0;border:none;}
+  .free{
+    margin:0 -1.95pt 0 -1.95pt;border-top:none;padding:10px calc(20px + 1.95pt) 6px;
+  }
+  .free-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin:0 0 10px 0;}
+  .free h3{margin:0;font-size:16px;text-align:center;padding:0 30px;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:0.01em;word-spacing:0.25em;color:#3a342e;}
+  .colhd{font-size:14px;margin:0;text-align:center;font-weight:400;}
+  .free-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 30px;column-gap:30px;position:relative;}
+  .free-cell{display:flex;justify-content:space-between;font-style:italic;white-space:pre-wrap;border-bottom:1px dotted #ccbfa8;padding:3px 0 4px 0;margin:2px 0;font-size:12.5px;}
+</style>
+<script>
+  window.MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Abteilung IV.</h1>
+    <div class="course">2. Kurs 19<span class="hand">23</span> — 19<span class="hand">24</span></div>
+  </header>
+
+  <div class="sheet">
+    <table>
+      <thead>
+        <tr>
+          <th class="left">Fachgegenstände</th>
+          <th class="teacher">Lehrer</th>
+          <th class="sem">W.-<br>Semester</th>
+          <th class="sem">S.-<br>Semester</th>
+          <th class="remark">Bemerkungen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="left leaders"><span class="t">Organische Chemie, Spezieller Teil, mit Repetitorium</span></td>
+          <td class="teacher">Staudinger</td>
+          <td class="sem">I_</td>
+          <td class="sem">II_</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Anorganische chem. Technologie, mit Repetitorium</span></td>
+          <td class="teacher">Bosshard</td>
+          <td class="sem">I_</td>
+          <td class="sem">II_</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Chemische Technologie der Wärme und der Brennstoffe, mit Repetitorium</span></td>
+          <td class="teacher">"</td>
+          <td class="sem">—</td>
+          <td class="sem"></td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Technisch-chemisches Praktikum</span></td>
+          <td class="teacher">Bosshard u. Fierz</td>
+          <td class="sem">—</td>
+          <td class="sem">—</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Experimentalphysik II, mit Repetitorium</span></td>
+          <td class="teacher">Scherrer</td>
+          <td class="sem">—</td>
+          <td class="sem"></td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Physikalisches Praktikum für Anfänger</span></td>
+          <td class="teacher">Boly, Scherrer und Tank</td>
+          <td class="sem"></td>
+          <td class="sem"></td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Maschinenlehre</span></td>
+          <td class="teacher">Kummer</td>
+          <td class="sem">I_</td>
+          <td class="sem">II_</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Übungen</span></td>
+          <td class="teacher">"</td>
+          <td class="sem">—</td>
+          <td class="sem">—</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Elektrotechnik</span></td>
+          <td class="teacher">"</td>
+          <td class="sem"></td>
+          <td class="sem">—</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Vorrichtungen zum Zerkleinern, Mischen, Trennen und Trocknen</span></td>
+          <td class="teacher">"</td>
+          <td class="sem"></td>
+          <td class="sem">—</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Physikalische Chemie I, mit Repetitorium</span></td>
+          <td class="teacher">Baur</td>
+          <td class="sem"></td>
+          <td class="sem">—</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Allgemeine Geologie</span></td>
+          <td class="teacher">Schardt</td>
+          <td class="sem"></td>
+          <td class="sem"></td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Übungen am Polarisations-Mikroskop</span></td>
+          <td class="teacher">Niggli</td>
+          <td class="sem"></td>
+          <td class="sem"></td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Kristallographisches Praktikum</span></td>
+          <td class="teacher">"</td>
+          <td class="sem"></td>
+          <td class="sem"></td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Systematische Botanik</span></td>
+          <td class="teacher">Rikli</td>
+          <td class="sem">I</td>
+          <td class="sem">II</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Bakteriologie (inkl. Infektionskrankheiten und Desinfektion)</span></td>
+          <td class="teacher">von Gonzenbach</td>
+          <td class="sem"></td>
+          <td class="sem">—</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Anatomie und Physiologie des Menschen</span></td>
+          <td class="teacher">Keller</td>
+          <td class="sem"></td>
+          <td class="sem">—</td>
+          <td class="remark"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Technische Mikroskopierübungen</span></td>
+          <td class="teacher">Eder</td>
+          <td class="sem">—</td>
+          <td class="sem">—</td>
+          <td class="remark"></td>
+        </tr>
+
+        <tr>
+          <td class="left leaders"><span class="t hand">Allgemeine Mineralogie</span></td>
+          <td class="teacher hand">Niggli</td>
+          <td class="sem hand">—</td>
+          <td class="sem hand"></td>
+          <td class="remark hand"></td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t hand">Spezielle Mineralogie, m. Ueb.: Mineralbestimmen</span></td>
+          <td class="teacher hand">"</td>
+          <td class="sem hand"></td>
+          <td class="sem hand">—</td>
+          <td class="remark hand"></td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr><td colspan="5">
+<br>
+          <div class="free">
+            <div class="free-header">
+              <div class="colhd">W.-S.</div>
+              <h3>Freifächer</h3>
+              <div class="colhd">S.-S.</div>
+            </div>
+
+            <div class="free-grid">
+              <div class="free-cell"><span>O. Manzoni e G. Leopardi</span><span>Borsa</span></div>
+              <div class="free-cell"><span>Der Holzschnitt, s. Technik u. Aesthetik + Geschichte</span><span>Bernoulli</span></div>
+
+              <div class="free-cell"><span>Mathematisches Seminar</span><span>Pólya</span></div>
+              <div class="free-cell"><span>Mathematisches Seminar</span><span>Weyl</span></div>
+
+              <div class="free-cell"><span>Aufbau der Materie</span><span>Scherrer</span></div>
+              <div class="free-cell"><span></span><span></span></div>
+
+              <div class="free-cell"><span>Seminar über die Struktur der Materie</span><span>"</span></div>
+              <div class="free-cell"><span></span><span></span></div>
+
+              <div class="free-cell"><span>Physikalisches Kolloquium</span><span>"</span></div>
+              <div class="free-cell"><span></span><span></span></div>
+            </div>
+          </div>
+        </td></tr>
+      </tfoot>
+
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

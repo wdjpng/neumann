@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Diplomprüfungen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root { --rule:#1c1c1c; --ink:#222; --light:#f7f2e8; }
+  html,body{margin:0;padding:0;background:var(--light);color:var(--ink);font-family:"Times New Roman", Georgia, serif;}
+  .page{max-width:820px;margin:22px auto 40px;padding:18px 22px 28px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08);border:1px solid #c6b9a2;}
+  header{text-align:center;margin-top:8px;margin-bottom:12px;}
+  header h1{font-size:30px;margin:0 0 2px 0;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:.02em;color:#3a342e;}
+  .sheet{
+    position:relative;margin-top:8px;
+    border:1.3pt solid #1c1c1c;border-bottom:none;
+    box-shadow:inset 1.6pt 0 0 0 #fff, inset 1.95pt 0 0 0 #1c1c1c, inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c, inset 0 1.6pt 0 0 #fff, inset 0 1.95pt 0 0 #1c1c1c;
+    padding:1.95pt 1.95pt 0 1.95pt;
+  }
+  table{width:100%;border-collapse:collapse;border-spacing:0;}
+  thead th{
+    font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:.02em;color:#3a342e;
+    padding:8px 10px;border:none;border-bottom:0.8pt solid var(--rule);font-size:14.5px;text-align:left;
+  }
+  thead th.left{width:52%;border-right:0.35pt solid var(--rule);box-shadow:inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c;}
+  thead th.res{width:18%;border-right:0.35pt solid var(--rule);box-shadow:inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c;}
+  thead th.mon{width:18%;border-right:0.35pt solid var(--rule);box-shadow:inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c;}
+  thead th.jahr{width:12%;}
+  tbody td{vertical-align:top;padding:8px 10px;border:none;font-size:15px;}
+  tbody td.left{border-right:0.35pt solid var(--rule);box-shadow:inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c;}
+  tbody td.res, tbody td.mon{border-right:0.35pt solid var(--rule);box-shadow:inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c;}
+  .leaders{position:relative;white-space:nowrap;}
+  .leaders .t{background:#fff;position:relative;z-index:2;padding-right:6px;}
+  .leaders:after{
+     content:"..................................................................................................................................................................";
+     position:absolute;left:10px;right:10px;top:50%;transform:translateY(-50%);
+     color:#9f9380;white-space:nowrap;overflow:hidden;pointer-events:none;
+  }
+  .hand{font-style:italic;}
+  /* Diploma line layout */
+  .diploma{padding:18px 10px 8px 10px;border-top:0.95pt solid var(--rule);margin-top:14px;}
+  .diploma h2{margin:0 0 10px 0;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:.04em;color:#3a342e;font-size:22px;}
+  .fill{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:17px;}
+  .lbl{letter-spacing:.02em;}
+  .line{flex:1 1 140px;border-bottom:1px dotted #b9ad96;min-width:140px;margin:0 6px;}
+  .inline{display:inline-flex;align-items:flex-end;gap:6px;flex-wrap:wrap;}
+  .num{min-width:64px;text-align:center;border-bottom:1px dotted #b9ad96;padding:0 4px;}
+  .handw{font-style:italic;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Diplomprüfungen.</h1>
+  </header>
+
+  <div class="sheet">
+    <table>
+      <thead>
+        <tr>
+          <th class="left"> </th>
+          <th class="res">Ergebnis</th>
+          <th class="mon">Monat</th>
+          <th class="jahr">Jahr</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="left leaders"><span class="t">1. Vordiplomprüfung</span></td>
+          <td class="res hand">Bestanden</td>
+          <td class="mon hand">25. April</td>
+          <td class="jahr hand">1924</td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">2. Vordiplomprüfung</span></td>
+          <td class="res hand">Bestanden</td>
+          <td class="mon hand">Oktober</td>
+          <td class="jahr hand">1924</td>
+        </tr>
+        <tr>
+          <td class="left leaders"><span class="t">Schlußdiplomprüfung</span></td>
+          <td class="res hand">Bestanden</td>
+          <td class="mon hand">25. Okt.</td>
+          <td class="jahr hand">1926</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="diploma">
+      <h2>DIPLOM</h2>
+      <div class="fill">
+        <span class="lbl">als:</span>
+        <span class="line handw">Ingenieur‑Chemiker</span>
+        <span class="lbl">Note:</span>
+        <span class="num handw">5,55</span>
+      </div>
+      <div style="margin-top:10px;font-size:16px;">
+        gemäß Verfügung des Präsidenten des Schweizerischen Schulrates vom
+        <span class="line handw" style="min-width:180px;">25. Okt. 1926</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -2,6 +2,6 @@
   "author": "John von Neumann",
   "recipient": "Paul Bernays",
   "date": "June 12th, 1933",
-  "summary": "Von Neumann sends Bernays a proof of the well-ordering of Bernays' order relation without using propositional variables. He explains that the proof uses induction on a sequence of formulas and apologizes for not meeting on Saturday while requesting the return of his notes.",
-  "title": "Proof of Well-Ordering Without Variables"
+  "summary": "Von Neumann sends Bernays a proof of the well-ordering of a specific order relation without using propositional variables, explaining the inductive structure of the formulas involved. He apologizes for not meeting on Saturday and requests the return of his notes as he has no copy.",
+  "title": "Well-Ordering Proof and Formalization Details"
 }

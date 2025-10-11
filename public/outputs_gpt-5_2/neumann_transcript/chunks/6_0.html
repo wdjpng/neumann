@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Matrikel-Karte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root { --rule:#1c1c1c; --ink:#222; --light:#f7f2e8; }
+  html,body{margin:0;padding:0;background:var(--light);color:var(--ink);font-family:"Times New Roman", Georgia, serif;}
+  .page{max-width:920px;margin:24px auto 44px;padding:22px 26px 30px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08);border:1px solid #c6b9a2;}
+  header{text-align:center;margin-top:4px;margin-bottom:8px;}
+  header h1{font-size:26px;margin:0 0 2px 0;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:.02em;color:#3a342e;}
+  .sheet{
+    position:relative;margin-top:12px;
+    border:1.3pt solid #1c1c1c;border-bottom:none;
+    box-shadow:inset 1.6pt 0 0 0 #fff, inset 1.95pt 0 0 0 #1c1c1c, inset -1.6pt 0 0 0 #fff, inset -1.95pt 0 0 0 #1c1c1c, inset 0 1.6pt 0 0 #fff, inset 0 1.95pt 0 0 #1c1c1c;
+    padding:12px 14px 0 14px;
+  }
+  .ticks{border:1px solid #1c1c1c;margin:0 auto 18px auto;display:grid;grid-template-columns:repeat(20,1fr);}
+  .ticks div{position:relative;border-right:1px solid #1c1c1c;min-height:38px;}
+  .ticks div:last-child{border-right:none;}
+  .ticks .num{position:absolute;bottom:2px;left:0;right:0;text-align:center;font-size:12px;color:#3a342e;}
+  .ticks .mark{position:absolute;top:6px;left:0;right:0;text-align:center;font-style:italic;font-size:16px;color:#202020;}
+  .form{margin:0 2px 10px;}
+  .line{display:grid;grid-template-columns:200px 1fr 140px 1fr;align-items:end;margin:6px 0;}
+  .line .lbl{font-size:15px;color:#3a342e;}
+  .line .fill{border-bottom:1px dotted #7f786c;min-height:22px;padding:2px 6px 1px 6px;white-space:pre-wrap;}
+  .line.small{grid-template-columns:220px 1fr;}
+  .hand{font-style:italic;}
+  .note{font-size:12.5px;color:#645d52;margin-top:2px;}
+  .indent{padding-left:22px;}
+  .quotes::before{content:"„ ";color:#3a342e;}
+  .quotes::after{content:"";}
+
+  footer{margin-top:22px;color:#6f6659;font-size:12px;display:flex;justify-content:space-between;}
+  .right{text-align:right;}
+</style>
+<!-- MathJax (in case mathematical expressions appear) -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="sheet">
+
+    <div class="ticks">
+      <div><span class="mark"></span><span class="num">1</span></div>
+      <div><span class="mark"></span><span class="num">2</span></div>
+      <div><span class="mark"></span><span class="num">3</span></div>
+      <div><span class="mark"></span><span class="num">4</span></div>
+      <div><span class="mark"></span><span class="num">5</span></div>
+      <div><span class="mark"></span><span class="num">6</span></div>
+      <div><span class="mark"></span><span class="num">7</span></div>
+      <div><span class="mark"></span><span class="num">8</span></div>
+      <div><span class="mark"></span><span class="num">9</span></div>
+      <div><span class="mark"></span><span class="num">10</span></div>
+      <div><span class="mark hand">11</span><span class="num">11</span></div>
+      <div><span class="mark"></span><span class="num">12</span></div>
+      <div><span class="mark"></span><span class="num">13</span></div>
+      <div><span class="mark"></span><span class="num">14</span></div>
+      <div><span class="mark"></span><span class="num">15</span></div>
+      <div><span class="mark"></span><span class="num">16</span></div>
+      <div><span class="mark"></span><span class="num">17</span></div>
+      <div><span class="mark"></span><span class="num">18</span></div>
+      <div><span class="mark"></span><span class="num">19</span></div>
+      <div><span class="mark"></span><span class="num">20</span></div>
+    </div>
+
+    <div class="form">
+
+      <div class="line">
+        <div class="lbl">Name:</div>
+        <div class="fill hand">v. Neumann, Joh. Ludo.</div>
+        <div class="lbl">Abteilung:</div>
+        <div class="fill hand">IV</div>
+      </div>
+
+      <div class="line">
+        <div class="lbl">Geb.:</div>
+        <div class="fill hand">28. Dez. 1903</div>
+        <div class="lbl">Bürgerort:</div>
+        <div class="fill hand">Budapest (Ungarn)</div>
+      </div>
+
+      <div class="line small">
+        <div class="lbl">Matr.-Mappe No.</div>
+        <div class="fill hand">183</div>
+      </div>
+
+      <div class="line small">
+        <div class="lbl">Eintritt in die E. T. H.:</div>
+        <div class="fill">
+          <span class="hand">Oktober 1923</span>
+          <div class="note hand">(3. Semester)</div>
+        </div>
+      </div>
+
+      <div class="line">
+        <div class="lbl">Austritt:</div>
+        <div class="fill hand">Juli 1926</div>
+        <div class="lbl"></div>
+        <div class="fill">mit Entlassungszeugnis.</div>
+      </div>
+
+      <div class="line small">
+        <div class="lbl"></div>
+        <div class="fill quotes">Abgangszeugnis. x)</div>
+      </div>
+
+      <div class="line small">
+        <div class="lbl"></div>
+        <div class="fill quotes"><span class="hand">Diplom als Ing.-Chem.</span></div>
+      </div>
+
+      <div class="line small">
+        <div class="lbl"></div>
+        <div class="fill indent hand">resp. Abschlüsse im E. T. H.     v. 25. Okt. 1926</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    <span></span>
+    <span>R-N &amp; Cie A-G Z&nbsp;&nbsp; 5,000 II 23</span>
+  </footer>
+
+</div>
+</body>
+</html>
