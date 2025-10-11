@@ -8,7 +8,9 @@ import gpt
 async def extract_metadata_from_letter(html_content: str) -> dict:
     """Extract metadata from a letter's HTML content using AI."""
     
-    prompt = """Please extract the author, recipient, and date of the letter. Also, provide a two-sentence summary and a suggested, succinct (~40 characters) and interesting title. Since all letters are either from or two von Neumann, do not mention von Neumann in the title. Please return the information in a json format, with the keys 'author', 'recipient', 'date', 'summary', and 'title'. If any of the information is not available, please use the value 'unknown'. Date should be in the format Month xth, yyyy. For additional context, here some of the reference numnber (the number at the top left), author, recipient, date pairs: Hs 91:676 - John von Neumann an Hermann Weyl  - 01.03.1925
+    prompt = """Please extract the author, recipient, and date of the letter. Also, provide a two-sentence summary and a suggested, succinct title. Choose a title length such that the text will take up either one or two  more or less full lines of text  when displayed as follows: Width: 260px (full content width, text is centered). Font: At ~1.1em (17.6px) font size in Georgia serif
+
+Since all letters are either from or two von Neumann, do not mention von Neumann in the title. Please return the information in a json format, with the keys 'author', 'recipient', 'date', 'summary', and 'title'. If any of the information is not available, please use the value 'unknown'. Date should be in the format Month xth, yyyy. For additional context, here some of the reference numnber (the number at the top left), author, recipient, date pairs: Hs 91:676 - John von Neumann an Hermann Weyl  - 01.03.1925
 
 Hs 91:677 - John von Neumann an Hermann Weyl  - 25.07.1925
 
@@ -42,21 +44,42 @@ Here is the letter content:
 
 """ + html_content + """
 
-Please output ONLY the JSON object, without any additional text or markdown formatting."""
+First output five suggestions for a title, then analyze whether they fulfull the length constraint. Then output the JSON object, without any additional text or markdown formatting."""
 
     response = await gpt.get_text_response(prompt, model="claude")
     
-    # Clean up response if it contains markdown code fences
+    # Clean up response - handle random text before JSON object
     text = response.strip()
-    if text.startswith("```"):
+    
+    # First, try to remove markdown code fences if present
+    if "```" in text:
         try:
             # Extract between first and last triple backticks
-            fence_line_end = text.find("\n")
+            start = text.find("```")
+            fence_line_end = text.find("\n", start)
             end = text.rfind("```")
             if fence_line_end != -1 and end != -1 and end > fence_line_end:
                 text = text[fence_line_end+1:end].strip()
         except Exception:
             pass
+    
+    # Find the JSON object - look for first { and extract to matching }
+    json_start = text.find("{")
+    if json_start != -1:
+        # Find the matching closing brace
+        brace_count = 0
+        json_end = -1
+        for i in range(json_start, len(text)):
+            if text[i] == "{":
+                brace_count += 1
+            elif text[i] == "}":
+                brace_count -= 1
+                if brace_count == 0:
+                    json_end = i + 1
+                    break
+        
+        if json_end != -1:
+            text = text[json_start:json_end]
     
     # Parse the JSON response
     try:
